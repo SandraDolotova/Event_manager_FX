@@ -1,0 +1,22 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.DatePicker?>
+
+<GridPane fx:controller="sample.Controller"
+          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
+    <Text text = "Welcome to login page" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+    <Label text="Enter your username" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+    <TextField GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+    <Label text="Enter your password" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+    <PasswordField GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+    <Button text="Enter" GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+
+    <DatePicker GridPane.columnIndex="4"/>
+
+</GridPane>
