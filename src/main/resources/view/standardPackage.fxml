@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="490.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StandardPackage">
+   <children>
+      <Label layoutX="73.0" layoutY="28.0" text="Creating Event design concept 250-500 EUR">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Text layoutX="97.0" layoutY="93.0" lineSpacing="10.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- MoodBoard design&#10;- Creating event design elements&#10;- Color palette&#10;- Sketch of the event&#10;- Sketch of the Presidium&#10;- Sketch of guest tables&#10;- Specification and color matching&#10;- Table setting plan, ceremony outline, show plan" wrappingWidth="407.13671875">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Label layoutX="25.0" layoutY="367.0" text="You are welcome to order a call back for more information">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="29.0" layoutY="403.0" text="Enter your full name:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="fullNameCallBackField" layoutX="226.0" layoutY="401.0" />
+      <Label layoutX="25.0" layoutY="441.0" text="Insert your phone number:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="callBackPhone" layoutX="226.0" layoutY="438.0" />
+      <Button fx:id="enterCallBackPhone" layoutX="402.0" layoutY="438.0" mnemonicParsing="false" onAction="#handleCallBackPhone" prefHeight="25.0" prefWidth="52.0" text="Enter" />
+      <Button layoutX="478.0" layoutY="438.0" mnemonicParsing="false" onAction="#handleBackButton" prefHeight="25.0" prefWidth="52.0" text="Back" />
+   </children>
+</AnchorPane>
