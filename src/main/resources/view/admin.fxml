@@ -64,7 +64,7 @@
                               <Label text="Status:" GridPane.rowIndex="4" />
                               <ComboBox fx:id="decorStatusComboBox" onAction="#handleStatusComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                               <Label text="Decor ID: " />
-                              <TextField onAction="#decorIdField" GridPane.columnIndex="1" />
+                              <TextField fx:id="decorIdField" GridPane.columnIndex="1" />
                            </children>
                         </GridPane>
                         <ComboBox fx:id="decorComboBox" layoutX="282.0" layoutY="14.0" onAction="#handleDecorComboBox" prefWidth="150.0" />
