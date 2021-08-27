@@ -61,6 +61,9 @@ public class AdminController extends ViewController implements Initializable {
     private TableView<Decor> decorTable;
     @FXML
     private TextField searchTextField;
+    @FXML
+    private TextField decorIdField;
+
 
 
     ObservableList<String> decorStatusList = FXCollections.observableArrayList("AVAILABLE", "Not Available");

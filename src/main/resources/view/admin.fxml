@@ -48,20 +48,23 @@
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="388.0" minWidth="10.0" prefWidth="385.0" />
                           </columnConstraints>
                           <rowConstraints>
+                              <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
                             <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
                             <RowConstraints maxHeight="148.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
                             <RowConstraints maxHeight="187.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
                               <RowConstraints maxHeight="187.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label text="Decor title:" />
-                              <TextField fx:id="decorNameField" GridPane.columnIndex="1" />
-                              <Label text="Quantity:" GridPane.rowIndex="1" />
-                              <TextField fx:id="decorQwtField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Label text="Price:" GridPane.rowIndex="2" />
-                              <TextField fx:id="decorPriceField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Label text="Status:" GridPane.rowIndex="3" />
-                              <ComboBox fx:id="decorStatusComboBox" onAction="#handleStatusComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label text="Decor title:" GridPane.rowIndex="1" />
+                              <TextField fx:id="decorNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label text="Quantity:" GridPane.rowIndex="2" />
+                              <TextField fx:id="decorQwtField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label text="Price:" GridPane.rowIndex="3" />
+                              <TextField fx:id="decorPriceField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label text="Status:" GridPane.rowIndex="4" />
+                              <ComboBox fx:id="decorStatusComboBox" onAction="#handleStatusComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label text="Decor ID: " />
+                              <TextField onAction="#decorIdField" GridPane.columnIndex="1" />
                            </children>
                         </GridPane>
                         <ComboBox fx:id="decorComboBox" layoutX="282.0" layoutY="14.0" onAction="#handleDecorComboBox" prefWidth="150.0" />
