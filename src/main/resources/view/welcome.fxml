@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.web.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
@@ -19,7 +20,7 @@
    <children>
       <ImageView fx:id="logo" fitHeight="150.0" fitWidth="233.0" layoutX="47.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" style="-fx-blend-mode: #B0C4DE;">
          <image>
-            <Image url="@../../java/images/logo.PNG" />
+            <Image url="@../images/logo.PNG" />
          </image>
       </ImageView>
       <Label fx:id="userNameLabel" layoutX="257.0" layoutY="21.0" prefHeight="32.0" prefWidth="62.0" text="Username:" textFill="#431189" />
@@ -28,22 +29,32 @@
       <Label fx:id="passwordLabel" layoutX="262.0" layoutY="66.0" text="Password:" textFill="#431189" />
       <Button fx:id="loginButton" layoutX="400.0" layoutY="103.0" mnemonicParsing="false" onAction="#handleLoginButton" text="Login" textFill="#431189" />
       <Button fx:id="registerButton" layoutX="466.0" layoutY="103.0" mnemonicParsing="false" onAction="#handleRegisterButton" text="Registration" textFill="#431189" />
-      <Label fx:id="infoLabel" layoutX="20.0" layoutY="201.0" prefHeight="32.0" prefWidth="186.0" text="Event package Prices" textFill="#431189">
+      <Label fx:id="infoLabel" layoutX="195.0" layoutY="211.0" prefHeight="32.0" prefWidth="186.0" text="Event package Prices" textFill="#431189">
          <font>
             <Font name="Microsoft New Tai Lue Bold" size="18.0" />
          </font>
       </Label>
-      <RadioButton fx:id="standartRadioButton" layoutX="20.0" layoutY="243.0" mnemonicParsing="false" onAction="#handleStandartRadioButton" text="Standart (1200 - 2500 EUR)" textFill="#431189" />
-      <RadioButton fx:id="premiumRadioButton" layoutX="20.0" layoutY="279.0" mnemonicParsing="false" onAction="#handlePremiumRadioButton" text="Premium (3000 - 4000 EUR)" textFill="#431189" />
-      <RadioButton fx:id="premSRadioButton" layoutX="20.0" layoutY="317.0" mnemonicParsing="false" onAction="#handlePremSRadioButton" text="Premium S starting 5000 EUR" textFill="#431189" />
-      <RadioButton fx:id="conceptRadioButton" layoutX="20.0" layoutY="353.0" mnemonicParsing="false" onAction="#handleConceptRadioButton" text="Event degign concept (250 - 500 EUR)" textFill="#431189" />
-      <Label layoutX="33.0" layoutY="440.0" prefHeight="32.0" prefWidth="197.0" text="Leave a request for a call back" textFill="#431189">
+      <RadioButton fx:id="standartRadioButton" layoutX="195.0" layoutY="256.0" mnemonicParsing="false" onAction="#handleStandardRadioButton" text="Standart (1200 - 2500 EUR)" textFill="#431189">
+         <toggleGroup>
+            <ToggleGroup fx:id="pricePackage" />
+         </toggleGroup></RadioButton>
+      <RadioButton fx:id="premiumRadioButton" layoutX="194.0" layoutY="288.0" mnemonicParsing="false" onAction="#handlePremiumRadioButton" text="Premium (3000 - 4000 EUR)" textFill="#431189" toggleGroup="$pricePackage" />
+      <RadioButton fx:id="premSRadioButton" layoutX="195.0" layoutY="321.0" mnemonicParsing="false" onAction="#handlePremSRadioButton" prefHeight="17.0" prefWidth="186.0" text="Premium S starting 5000 EUR" textFill="#431189" toggleGroup="$pricePackage" />
+      <RadioButton fx:id="conceptRadioButton" layoutX="195.0" layoutY="354.0" mnemonicParsing="false" onAction="#handleConceptRadioButton" text="Event degign concept (250 - 500 EUR)" textFill="#431189" toggleGroup="$pricePackage" />
+      <Label layoutX="33.0" layoutY="410.0" prefHeight="32.0" prefWidth="197.0" text="Our contacts:" textFill="#431189">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="phoneInput" layoutX="140.0" layoutY="485.0" />
-      <Label fx:id="askPhoneLabel" layoutX="42.0" layoutY="489.0" prefHeight="17.0" prefWidth="112.0" text="Enter your phone" />
-      <Button fx:id="enterPhoneButton" layoutX="300.0" layoutY="485.0" mnemonicParsing="false" onAction="#handlePhoneButton" prefHeight="25.0" prefWidth="62.0" text="Enter" />
+      <Label layoutX="33.0" layoutY="449.0" text="+371 26088902" textFill="#431189">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="33.0" layoutY="476.0" prefHeight="32.0" prefWidth="144.0" text="artevent@inbox.lv" textFill="#431189">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

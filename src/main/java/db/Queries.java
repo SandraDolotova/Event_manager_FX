@@ -5,18 +5,23 @@ public class Queries {
     //USERS
     public static final String userValidation = "SELECT login_name, user_password FROM user_validation";
     public static final String insertNewUser = "INSERT INTO user_validation (user_full_name, email, phone, login_name, user_password) VALUES (?, ?, ?, ?, ?)";
-    public static final String checkLoginNameExists = "SELECT * FROM user_validation WHERE login_name = ?";
+    public static final String insertCallBackPhone = "INSERT  INTO call_back (user_full_name, phone) VALUES (?, ?)";
+    public static String insertPackagePrice = "INSERT INTO call_back (package_price) VALUES (?)";
+    public static final String insertCallStatus = "INSERT INTO call_back (call_status) VALUES (?)";
     public static final String showUserList = "SELECT id, login_name, user_name, phone, email FROM user_validation";
 
     //DECOR
     // INSERT DECORATION INTO TABLE
     public static final String insertNewDecor = "INSERT INTO decor_list (decor_name, decor_qwt, decor_price) VALUES (?, ?, ?)";
     //SET DECOR STATUS - value chosen by ADMIN from ComboBox = like out of stock, broken, not available
-    public static final String setDecorStatus = "INSERT INTO decor_list (decor_status) VALUES (?) WHERE id = ?";
+   // ??????
+    public static final String setDecorStatus = "INSERT INTO decor_list (decor_status) VALUES (?) WHERE decor_id = ?";
     //DELETE DECOR
-    public static final String deleteDecor = "DELETE FROM decor_list WHERE id = ?";
+    public static final String deleteDecor = "DELETE FROM decor_list WHERE decor_id = ?";
     // UPDATE DECOR PRICE IN TABLE
+    //?????????
     public static final String updateDecorPrice = "UPDATE decor_list SET decor_price = ? WHERE decor_id = ?";
+    public static final String updateDecorQuantity = "UPDATE decor_list SET decor_qwt = ? WHERE decor_id = ?";
     // SHOW ALL DECORATIONS FOR CUSTOMER
     public static final String showAllDecorCustomer = "SELECT decor_id, decor_name, decor_price_vat FROM decor_list";
     // SHOW ALL DECORATIONS FOR ADMIN
