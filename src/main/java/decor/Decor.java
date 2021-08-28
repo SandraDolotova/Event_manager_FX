@@ -36,4 +36,8 @@ public class Decor {
         this.decorPriceVAT = decorPriceVAT;
     }
 
+    @Override
+    public String toString() {
+        return  decorId + ") " +  decorName + " - " + decorPriceVAT + "EUR/peace";
+    }
 }

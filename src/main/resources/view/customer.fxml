@@ -47,7 +47,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="customerDecorTable" layoutX="29.0" layoutY="33.0" prefHeight="328.0" prefWidth="518.0">
+                        <TableView fx:id="customerDecorTable" layoutX="29.0" layoutY="33.0" prefHeight="149.0" prefWidth="518.0">
                           <columns>
                             <TableColumn fx:id="decorIdColumn" prefWidth="59.0" text="decor_id" />
                             <TableColumn fx:id="decorNameColumn" prefWidth="313.0" text="decor_name" />
@@ -56,6 +56,10 @@
                         </TableView>
                         <Label layoutX="22.0" layoutY="6.0" prefHeight="17.0" prefWidth="54.0" text="Search: " />
                         <TextField fx:id="searchDecorTextField" layoutX="99.0" layoutY="2.0" prefHeight="25.0" prefWidth="178.0" />
+                        <TextField fx:id="customerDecorField" layoutX="25.0" layoutY="212.0" prefHeight="27.0" prefWidth="281.0" />
+                        <Label layoutX="25.0" layoutY="251.0" text="Insert Quantity:" />
+                        <TextField fx:id="insertedDecorQwnt" layoutX="139.0" layoutY="247.0" />
+                        <Button fx:id="addCustomerDecor" layoutX="306.0" layoutY="247.0" mnemonicParsing="false" onAction="#handleAddCustomerDecor" text="Add" />
                      </children></AnchorPane>
                </content>
             </Tab>
