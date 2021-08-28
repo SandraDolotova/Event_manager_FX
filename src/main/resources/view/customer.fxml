@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.DatePicker?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="451.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerController">
+   <children>
+      <Label layoutX="229.0" layoutY="14.0" text="CUSTOMER WINDOW">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TabPane layoutX="3.0" layoutY="48.0" prefHeight="404.0" prefWidth="594.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Order Event">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <DatePicker fx:id="calendar" layoutX="14.0" layoutY="35.0" promptText="Calendar" />
+                        <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="105.0" text="Select date:" />
+                        <Button fx:id="insertButton" layoutX="217.0" layoutY="313.0" mnemonicParsing="false" onAction="#handleInsertButton" text="Insert" />
+                        <Button fx:id="backButton" layoutX="506.0" layoutY="313.0" mnemonicParsing="false" onAction="#handleBackButton" text="Back" />
+                        <Label layoutX="14.0" layoutY="171.0" text="Enter event name:" />
+                        <TextField fx:id="eventNameField" layoutX="174.0" layoutY="167.0" />
+                        <Label layoutX="14.0" layoutY="221.0" text="Enter location:" />
+                        <TextField fx:id="locationField" layoutX="174.0" layoutY="217.0" />
+                        <Label layoutX="14.0" layoutY="269.0" text="Insert guest number:" />
+                        <TextField fx:id="guestNumberField" layoutX="174.0" layoutY="265.0" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Choose Decor ">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="customerDecorTable" layoutX="29.0" layoutY="33.0" prefHeight="328.0" prefWidth="518.0">
+                          <columns>
+                            <TableColumn fx:id="decorIdColumn" prefWidth="59.0" text="decor_id" />
+                            <TableColumn fx:id="decorNameColumn" prefWidth="313.0" text="decor_name" />
+                              <TableColumn fx:id="decorVatColumn" prefWidth="145.0" text="decor_price_vat" />
+                          </columns>
+                        </TableView>
+                        <Label layoutX="22.0" layoutY="6.0" prefHeight="17.0" prefWidth="54.0" text="Search: " />
+                        <TextField fx:id="searchDecorTextField" layoutX="99.0" layoutY="2.0" prefHeight="25.0" prefWidth="178.0" />
+                     </children></AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Fill in Guest List">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+            <Tab text="Empty">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

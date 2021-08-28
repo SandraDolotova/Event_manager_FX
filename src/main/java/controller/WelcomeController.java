@@ -55,8 +55,12 @@ public class WelcomeController extends ViewController {
                     e.printStackTrace();
                 }
             } else if (userDBService.userCheck().containsKey(userNameInputTextField.getText()) && userDBService.userCheck().containsValue(passwordInputField.getText())) {
-                System.out.println("CUSTOMER WINDOW");
-                // changeScene(actionEvent, "CUSTOMER WINDOW");
+               try {
+                   changeScene(actionEvent, "customer");
+               }catch (Exception e){
+                   showAlert("Problem loading scene", e.getMessage(), Alert.AlertType.ERROR);
+                   e.printStackTrace();
+               }
             } else {
                 System.out.println("Wrong input");
                 showAlert("Warning message", "Incorrect input, try again", Alert.AlertType.ERROR);
