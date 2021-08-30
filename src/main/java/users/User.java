@@ -25,7 +25,15 @@ public class User {
     public User(String userFullName, String phoneNumber) {
         this.userFullName = userFullName;
         this.phoneNumber = phoneNumber;
+    }
 
+    public User(String userFullName) {
+        this.userFullName = userFullName;
+    }
+
+    public User(Integer userId, String userFullName) {
+        this.userId = userId;
+        this.userFullName = userFullName;
     }
 
     public User(int id, String login_name, String user_name, String email, int phone) {
@@ -34,4 +42,9 @@ public class User {
     public User(int guest_id, String guest_name, boolean participation) {
     }
 
+
+    @Override
+    public String toString() {
+        return "id: " + userId + ") " + userFullName;
+    }
 }

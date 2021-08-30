@@ -29,7 +29,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <DatePicker fx:id="calendar" layoutX="14.0" layoutY="35.0" promptText="Calendar" />
+                         <DatePicker fx:id="calendar" editable="false" layoutX="14.0" layoutY="35.0" promptText="Date of event" />
                         <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="105.0" text="Select date:" />
                         <Button fx:id="insertButton" layoutX="217.0" layoutY="313.0" mnemonicParsing="false" onAction="#handleInsertButton" text="Insert" />
                         <Button fx:id="backButton" layoutX="506.0" layoutY="313.0" mnemonicParsing="false" onAction="#handleBackButton" text="Back" />
@@ -39,6 +39,8 @@
                         <TextField fx:id="locationField" layoutX="174.0" layoutY="217.0" />
                         <Label layoutX="14.0" layoutY="269.0" text="Insert guest number:" />
                         <TextField fx:id="guestNumberField" layoutX="174.0" layoutY="265.0" />
+                         <Label layoutX="14.0" layoutY="71.0" prefHeight="17.0" prefWidth="105.0" text="Enter time:" />
+                         <TextField fx:id="timeField" layoutX="14.0" layoutY="96.0" prefHeight="25.0" prefWidth="57.0" promptText="hh:mm" />
                      </children>
                   </AnchorPane>
             </content>
@@ -57,15 +59,22 @@
                         <Label layoutX="22.0" layoutY="6.0" prefHeight="17.0" prefWidth="54.0" text="Search: " />
                         <TextField fx:id="searchDecorTextField" layoutX="99.0" layoutY="2.0" prefHeight="25.0" prefWidth="178.0" />
                         <TextField fx:id="customerDecorField" layoutX="25.0" layoutY="212.0" prefHeight="27.0" prefWidth="281.0" />
-                        <Label layoutX="25.0" layoutY="251.0" text="Insert Quantity:" />
-                        <TextField fx:id="insertedDecorQwnt" layoutX="139.0" layoutY="247.0" />
-                        <Button fx:id="addCustomerDecor" layoutX="306.0" layoutY="247.0" mnemonicParsing="false" onAction="#handleAddCustomerDecor" text="Add" />
+                        <Label layoutX="25.0" layoutY="261.0" prefHeight="7.0" prefWidth="82.0" text="Insert Quantity:" />
+                        <TextField fx:id="insertedDecorQwnt" layoutX="139.0" layoutY="256.0" />
+                        <Button fx:id="addCustomerDecor" layoutX="306.0" layoutY="266.0" mnemonicParsing="false" onAction="#handleAddCustomerDecor" text="Add" />
                      </children></AnchorPane>
                </content>
             </Tab>
             <Tab text="Fill in Guest List">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="227.0" layoutY="21.0" text="Insert guest full name:" />
+                        <TextField fx:id="guestNameField" layoutX="187.0" layoutY="44.0" prefHeight="25.0" prefWidth="198.0" />
+                        <Button fx:id="addGuestButton" layoutX="402.0" layoutY="44.0" mnemonicParsing="false" onAction="#handleGuestAddButton" text="Add" />
+                        <ListView fx:id="guestList" layoutX="39.0" layoutY="80.0" prefHeight="200.0" prefWidth="516.0" />
+                        <Button fx:id="deleteGuestButton" layoutX="450.0" layoutY="44.0" mnemonicParsing="false" onAction="#handleDeleteGuestButton" text="Delete" />
+                     </children></AnchorPane>
                </content>
             </Tab>
             <Tab text="Empty">

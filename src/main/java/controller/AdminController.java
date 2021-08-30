@@ -1,5 +1,4 @@
 package controller;
-
 import decor.Decor;
 import decor.DecorDBService;
 import javafx.collections.FXCollections;
@@ -11,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -65,7 +63,6 @@ public class AdminController extends ViewController implements Initializable {
     private TextField decorIdField;
 
 
-
     ObservableList<String> decorStatusList = FXCollections.observableArrayList("AVAILABLE", "Not Available");
     ObservableList<String> decorOptionsList = FXCollections.observableArrayList("Add", "Delete", "Update");
 
@@ -77,15 +74,12 @@ public class AdminController extends ViewController implements Initializable {
     public AdminController() throws SQLException {
     }
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setUpComboBoxes();
         fillInDecorTable();
         filterTable();
     }
-
-
 
     public void fillInDecorTable() {
         decorIdColumn.setCellValueFactory(new PropertyValueFactory<>("decorId"));
@@ -120,16 +114,13 @@ public class AdminController extends ViewController implements Initializable {
     }
 
 
-
     public void handleOkButton(ActionEvent actionEvent) {
-
     }
 
     public void handleDecorComboBox(ActionEvent actionEvent) {
     }
 
     public void handleStatusComboBox(ActionEvent actionEvent) {
-
     }
 
     public void handleSelectButton(ActionEvent actionEvent) {

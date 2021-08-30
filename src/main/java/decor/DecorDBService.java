@@ -1,8 +1,6 @@
 package decor;
-
 import db.DBHandler;
 import db.Queries;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DecorDBService {
+
     Connection connection = DBHandler.getConnection();
+
 
     // INSERT DECORATION INTO TABLE
     public void insertNewDecor(String decorName, int decorQwt, double decorPrice, String decorStatus) throws SQLException, SQLException {
@@ -22,6 +22,17 @@ public class DecorDBService {
         pr.execute();
         pr.close();
     }
+
+    public void insertCustomerChosenDecor(Decor decor) throws SQLException {
+        PreparedStatement pr = connection.prepareStatement(Queries.insertCustomerChosenDecor);
+        pr.setInt(1, decor.getDecorId());
+        pr.setString(2, decor.getDecorName());
+        pr.setInt(3, decor.getDecorQwt());
+        pr.setDouble(4, decor.getDecorPriceVAT());
+        pr.execute();
+        pr.close();
+    }
+
     //SET DECOR STATUS - value chosen by ADMIN from ComboBox = like out of stock, broken, not available
     public void setDecorStatus (int decorId , String decorStatus) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.setDecorStatus);

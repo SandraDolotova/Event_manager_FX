@@ -12,6 +12,8 @@ public class Queries {
 
     //DECOR
     // INSERT DECORATION INTO TABLE
+
+    public static String insertCustomerChosenDecor = "INSERT INTO customer_decor (customer_decor_id, customer_decor_name, customer_decor_qwn, customer_decor_price_vat) VALUES (?, ?, ?, ?)";
     public static final String insertNewDecor = "INSERT INTO decor_list (decor_name, decor_qwt, decor_price) VALUES (?, ?, ?)";
     //SET DECOR STATUS - value chosen by ADMIN from ComboBox = like out of stock, broken, not available
    // ??????
@@ -41,6 +43,11 @@ public class Queries {
     public static final String showAllEvents = "SELECT * FROM events";
     // SHOW ONE EVENT
     public static final String showSingleEvent = "SELECT event_id, event_name, dueDate, location_name, guests_number FROM events WHERE event_name = ?";
+    public static final String updateEventName = "UPDATE events SET event_name = ? WHERE event_id = ?";
+    public static final String updateEventDate = "UPDATE events SET dueDate = ? WHERE event_id = ?";
+    public static final String updateEventTime = "UPDATE events SET dueTime = ? WHERE event_id = ?";
+    public static final String updateEventLocation = "UPDATE events SET location_name = ? WHERE event_id = ?";
+    public static final String updateEventGuests = "UPDATE events SET guests_number = ? WHERE event_id = ?";
 
 
     //GUESTS

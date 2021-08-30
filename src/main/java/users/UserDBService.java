@@ -75,19 +75,19 @@ public class UserDBService {
     }
     }
     // INSERT INTO GUEST LIST - customer inserts names
-    public void insertGuests (String guestFullName) throws SQLException {
+    public void insertGuests (User user) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.insertGuests);
-        pr.setString(1, guestFullName);
+        pr.setString(1, user.getUserFullName());
         pr.execute();
-        DBHandler.close(pr, connection);
+       pr.close();
     }
 
     // DELETE FROM GUEST LIST
-    public void deleteGuest(int guestId) throws SQLException {
+    public void deleteGuest(User user) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.deleteGuest);
-        pr.setInt(1, guestId);
+        pr.setBoolean(1, user.getUserId());
         pr.executeUpdate();
-        DBHandler.close(pr, connection);
+        pr.close();
     }
     // UPDATE GUEST LIST - customer sets participation status for his guests
     //
@@ -99,7 +99,6 @@ public class UserDBService {
     }
 
     // SHOW ALL GUESTS FROM THE LIST
-    public static final String showAllGuests = "SELECT * FROM event_guest_list";
     public ArrayList<User> showAllGuests() throws SQLException {
         ArrayList<User> users = new ArrayList<>();
         PreparedStatement pr = connection.prepareStatement(Queries.showAllGuests);
@@ -107,10 +106,10 @@ public class UserDBService {
         while (result.next()){
             users.add(new User(
                     result.getInt("guest_id"),
-                    result.getString("guest_name"),
-                    result.getBoolean("participation")));
+                    result.getString("guest_name")));
+                  //  result.getBoolean("participation")));
         }
-        DBHandler.close(pr, connection);
+        pr.close();
         return users;
     }
 

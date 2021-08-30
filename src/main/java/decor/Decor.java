@@ -13,6 +13,10 @@ public class Decor {
 
     public Decor(){}
 
+    public Decor(String decorName, int decorQwt) {
+        this.decorName = decorName;
+        this.decorQwt = decorQwt;
+    }
 
     public Decor(int decorId, String decorName, int decorQwt, double decorPrice, double decorPriceVAT, String decorStatus) {
         this.decorId = decorId;
@@ -36,8 +40,13 @@ public class Decor {
         this.decorPriceVAT = decorPriceVAT;
     }
 
+
+    public Decor(String decorName, String text) {
+    }
+
+
     @Override
     public String toString() {
-        return  decorId + ") " +  decorName + " - " + decorPriceVAT + "EUR/peace";
+        return  decorId + ") " +  decorName + " - " + decorPriceVAT + " EUR/peace";
     }
 }
