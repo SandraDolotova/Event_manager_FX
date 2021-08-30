@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class AdminController extends ViewController implements Initializable {
+public class AdminPanelController extends ViewController implements Initializable {
 
     DecorDBService decorDBService = new DecorDBService();
     Decor decor;
@@ -71,7 +71,7 @@ public class AdminController extends ViewController implements Initializable {
     FilteredList<Decor> filteredDecors = new FilteredList<>(decors, p -> true);
 
 
-    public AdminController() throws SQLException {
+    public AdminPanelController() throws SQLException {
     }
 
     @Override
