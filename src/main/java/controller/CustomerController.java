@@ -1,20 +1,25 @@
 package controller;
 import decor.Decor;
 import decor.DecorDBService;
+import events.EventDBService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
+import users.User;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -22,6 +27,7 @@ import java.util.ResourceBundle;
 public class CustomerController extends ViewController implements Initializable {
 
     DecorDBService decorDBService = new DecorDBService();
+    EventDBService eventDBService = new EventDBService();
     Decor decor;
 
     @FXML
@@ -65,6 +71,9 @@ public class CustomerController extends ViewController implements Initializable 
 
     @FXML
     private Button backButton;
+
+    @FXML
+    private TextField timeField;
 
     List<Decor> decorList = new ArrayList<>(decorDBService.showAllDecorCustomer());
     ObservableList<Decor> decors = FXCollections.observableArrayList(decorList);
@@ -128,7 +137,29 @@ public class CustomerController extends ViewController implements Initializable 
     }
 
     public void handleInsertButton(ActionEvent actionEvent) {
+        try {
+            validateUserInput();
+            Event event = new Event(
+                    eventNameField.getText(),
+                    calendar.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"),
+                    timeField.getValue(),
+                    locationField.getText(),
+                    guestNumberField.getText());
+            eventDBService.insertNewEvent(event);
+            showAlert("Event successfully added", "Now please proceed with decor and guest list  ", Alert.AlertType.CONFIRMATION);
 
+        } catch (Exception e) {
+            showAlert("Event registration failed", e.getMessage(), Alert.AlertType.ERROR);
+            e.printStackTrace();
+        }
+    }
+
+    private void validateUserInput() throws Exception {
+        if(eventNameField.getText().isEmpty())throw new Exception("Event name cannot be blank. Please fill out this field!");
+        if(calendar.getValue().isEmpty())throw new Exception("Event date cannot be blank. Please choose a date!");
+        if(calendar.getValue().isBefore(LocalDate.now()))throw new Exception("Event name cannot be blank. Please choose a date!");
+        if(locationField.getText().isEmpty())throw new Exception("Location cannot be blank. Please fill out this field!");
+        if(guestNumberField.getText().isEmpty())throw new Exception("Guest number cannot be blank. Please fill out this field!");
     }
 
     public void handleBackButton(ActionEvent actionEvent) {
