@@ -38,7 +38,7 @@ public class Queries {
     // DELETE EVENT
     public static final String deleteEvent = "DELETE FROM events WHERE event_name = ?";
     // UPDATE EVENT date
-    public static final String updateEventDate = "UPDATE events SET dueDate = ? WHERE event_name = ?";
+   // public static final String updateEventDate = "UPDATE events SET dueDate = ? WHERE event_name = ?";
     // SHOW EVENT LIST for ADMIN
     public static final String showAllEvents = "SELECT * FROM events";
     // SHOW ONE EVENT
