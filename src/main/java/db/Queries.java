@@ -14,7 +14,7 @@ public class Queries {
     // INSERT DECORATION INTO TABLE
 
     public static String insertCustomerChosenDecor = "INSERT INTO customer_decor (customer_decor_id, customer_decor_name, customer_decor_qwn, customer_decor_price_vat) VALUES (?, ?, ?, ?)";
-    public static final String insertNewDecor = "INSERT INTO decor_list (decor_name, decor_qwt, decor_price) VALUES (?, ?, ?)";
+    public static final String insertNewDecor = "INSERT INTO decor_list (decor_name, decor_qwt, decor_price, decor_status) VALUES (?, ?, ?, ?)";
     //SET DECOR STATUS - value chosen by ADMIN from ComboBox = like out of stock, broken, not available
    // ??????
     public static final String setDecorStatus = "INSERT INTO decor_list (decor_status) VALUES (?) WHERE decor_id = ?";
