@@ -27,12 +27,12 @@ public class Decor {
         this.decorStatus = decorStatus;
     }
 
-    public Decor(int decorId, String decorName, int decorQwt, double decorPriceVAT) {
+    /*public Decor(int decorId, String decorName, int decorQwt, double decorPriceVAT) {
         this.decorId = decorId;
         this.decorName = decorName;
         this.decorQwt = decorQwt;
         this.decorPriceVAT = decorPriceVAT;
-    }
+    }*/
 
     public Decor(int decorId, String decorName, double decorPriceVAT) {
         this.decorId = decorId;
@@ -42,6 +42,13 @@ public class Decor {
 
 
     public Decor(String decorName, String text) {
+    }
+
+    public Decor(int decorId, String decorName, int decorQwt, double decorPrice) {
+        this.decorId = decorId;
+        this.decorName = decorName;
+        this.decorQwt = decorQwt;
+        this.decorPrice = decorPrice;
     }
 
 
