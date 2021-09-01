@@ -1,12 +1,17 @@
 package users;
+
 import Types.PackagePrice;
 import db.DBHandler;
 import db.Queries;
+import javafx.collections.ObservableList;
+import javafx.scene.control.SelectionMode;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +30,7 @@ public class UserDBService {
                     String passValue = resultSet.getString("user_password");
                     mapResult.put(nameKey, passValue);
                 }
-              //  connection.close();
+                //  connection.close();
             } catch (SQLException exc) {
                 exc.printStackTrace();
             }
@@ -45,47 +50,53 @@ public class UserDBService {
         pr.close();
     }
 
-    //to register phone number for call back
-    public void addCallBack(User user) throws SQLException {
+    public void addCallBackConcept(User user) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.insertCallBackPhone);
         pr.setString(1, user.getUserFullName());
         pr.setString(2, user.getPhoneNumber());
-       // pr.setString(3, packagePrice());
+        pr.setString(3, String.valueOf(PackagePrice.CONCEPT));
         pr.execute();
         pr.close();
     }
 
-
+    public void packagePrice(PackagePrice packagePrice) throws SQLException {
+        PreparedStatement pr = connection.prepareStatement(Queries.insertPackagePrice);
+        pr.setString(1, Arrays.toString(PackagePrice.values()));
+        pr.execute();
+        pr.close();
+    }
 
     // to show all existing users to Admin
-    public ArrayList<User> showUsers () throws SQLException { {
-        ArrayList<User> users = new ArrayList<>();
-        PreparedStatement pr = connection.prepareStatement(Queries.showUserList);
-        ResultSet result = pr.executeQuery();
-        while (result.next()){
-            users.add(new User(
-                    result.getInt("id"),
-                    result.getString("login_name"),
-                    result.getString("user_name"),
-                    result.getString("email"),
-                    result.getInt("phone")));
+    public ArrayList<User> showUsers() throws SQLException {
+        {
+            ArrayList<User> users = new ArrayList<>();
+            PreparedStatement pr = connection.prepareStatement(Queries.showUserList);
+            ResultSet result = pr.executeQuery();
+            while (result.next()) {
+                users.add(new User(
+                        result.getInt("id"),
+                        result.getString("login_name"),
+                        result.getString("user_name"),
+                        result.getString("email"),
+                        result.getInt("phone")));
+            }
+            DBHandler.close(pr, connection);
+            return users;
         }
-        DBHandler.close(pr, connection);
-        return users;
     }
-    }
+
     // INSERT INTO GUEST LIST - customer inserts names
-    public void insertGuests (User user) throws SQLException {
+    public void insertGuests(User user) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.insertGuests);
         pr.setString(1, user.getUserFullName());
         pr.execute();
-       pr.close();
+        pr.close();
     }
 
     // DELETE FROM GUEST LIST
     public void deleteGuest(User user) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.deleteGuest);
-        pr.setBoolean(1, user.getUserId());
+        pr.setString(1, user.getUserFullName());
         pr.executeUpdate();
         pr.close();
     }
@@ -103,15 +114,14 @@ public class UserDBService {
         ArrayList<User> users = new ArrayList<>();
         PreparedStatement pr = connection.prepareStatement(Queries.showAllGuests);
         ResultSet result = pr.executeQuery();
-        while (result.next()){
+        while (result.next()) {
             users.add(new User(
                     result.getInt("guest_id"),
                     result.getString("guest_name")));
-                  //  result.getBoolean("participation")));
+            //  result.getBoolean("participation")));
         }
         pr.close();
         return users;
     }
-
 
 }

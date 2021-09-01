@@ -5,21 +5,24 @@ public class Queries {
     //USERS
     public static final String userValidation = "SELECT login_name, user_password FROM user_validation";
     public static final String insertNewUser = "INSERT INTO user_validation (user_full_name, email, phone, login_name, user_password) VALUES (?, ?, ?, ?, ?)";
-    public static final String insertCallBackPhone = "INSERT  INTO call_back (user_full_name, phone) VALUES (?, ?)";
-    public static String insertPackagePrice = "INSERT INTO call_back (package_price) VALUES (?)";
+    public static final String insertCallBackPhone = "INSERT  INTO call_back (user_full_name, phone, package_price) VALUES (?, ?, ?)";
+    public static final String insertPackagePrice = "INSERT INTO call_back (package_price) VALUES (?)";
     public static final String insertCallStatus = "INSERT INTO call_back (call_status) VALUES (?)";
     public static final String showUserList = "SELECT id, login_name, user_name, phone, email FROM user_validation";
 
     //DECOR
     // INSERT DECORATION INTO TABLE
 
-    public static String insertCustomerChosenDecor = "INSERT INTO customer_decor (customer_decor_id, customer_decor_name, customer_decor_qwn, customer_decor_price_vat) VALUES (?, ?, ?, ?)";
+   public static final String updateCustomerDecor = "UPDATE customer_decor SET customer_decor_id = (SELECT (decor_id) FROM decor_list WHERE decor_list.decor_name = customer_decor.customer_decor_name),\n" +
+           "customer_decor_price_vat = (SELECT (decor_price_vat) FROM decor_list WHERE decor_list.decor_name = customer_decor.customer_decor_name);";
+    public static final String insertCustomerChosenDecor = "INSERT INTO customer_decor (customer_decor_name, customer_decor_qwnt) VALUES (?, ?)";
     public static final String insertNewDecor = "INSERT INTO decor_list (decor_name, decor_qwt, decor_price) VALUES (?, ?, ?)";
     //SET DECOR STATUS - value chosen by ADMIN from ComboBox = like out of stock, broken, not available
    // ??????
     public static final String setDecorStatus = "INSERT INTO decor_list (decor_status) VALUES (?) WHERE decor_id = ?";
     //DELETE DECOR
     public static final String deleteDecor = "DELETE FROM decor_list WHERE decor_id = ?";
+    public static String deleteCustomerDecor = "DELETE FROM customer_decor WHERE customer_decor_name = ?";
     // UPDATE DECOR PRICE IN TABLE
     //?????????
     public static final String updateDecorPrice = "UPDATE decor_list SET decor_price = ? WHERE decor_id = ?";
@@ -54,7 +57,7 @@ public class Queries {
     // INSERT INTO GUEST LIST - customer inserts names
     public static final String insertGuests = "INSERT INTO event_guest_list (guest_name) VALUES (?)";
     // DELETE FROM GUEST LIST
-    public static final String deleteGuest = "DELETE FROM event_guest_list WHERE guest_id = ?";
+    public static final String deleteGuest = "DELETE FROM event_guest_list WHERE guest_name= ?";
     // UPDATE GUEST LIST - customer sets participation status for his guests
     public static final String setGuestStatus = "UPDATE event_guest_list SET participation = ? WHERE event_name = ?";
     // SHOW ALL GUESTS FROM THE LIST

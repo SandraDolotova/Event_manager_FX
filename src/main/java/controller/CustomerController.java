@@ -1,4 +1,5 @@
 package controller;
+
 import decor.Decor;
 import decor.DecorDBService;
 import events.Event;
@@ -15,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import users.User;
 import users.UserDBService;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -53,6 +55,8 @@ public class CustomerController extends ViewController implements Initializable 
     @FXML
     private Button insertButton;
     @FXML
+    private Button customerDeleteDecorButton;
+    @FXML
     private TextField searchDecorTextField;
     @FXML
     private TextField eventNameField;
@@ -74,6 +78,7 @@ public class CustomerController extends ViewController implements Initializable 
 
     List<User> fullGuestList = new ArrayList<>(userDBService.showAllGuests());
     ObservableList<User> listOfGuests = FXCollections.observableArrayList(fullGuestList);
+
 
     public CustomerController() throws SQLException {
     }
@@ -132,39 +137,52 @@ public class CustomerController extends ViewController implements Initializable 
         });
     }
 
-    // send chosen decor by customer into customer_decor_table
     public void handleAddCustomerDecor(ActionEvent actionEvent) {
-        // System.out.println(customerDecorTable.getSelectionModel().getSelectedCells());
-        // System.out.println(customerDecorTable.getFocusModel().getFocusedCell());
         TablePosition pos = customerDecorTable.getSelectionModel().getSelectedCells().get(0);
         int row = pos.getRow();
-// Item here is the table view type:
         Decor item = customerDecorTable.getItems().get(row);
         TableColumn col = pos.getTableColumn();
-// this gives the value in the selected cell:
         String decorName = (String) col.getCellObservableValue(item).getValue();
-        System.out.println(decorName);
+        if (insertedDecorQwnt.getText().isEmpty()) {
+            showAlert("Error", "Please set decor quantity", Alert.AlertType.ERROR);
+        } else {
+            try {
+                Decor decor = new Decor(
+                        decorName,
+                        Integer.parseInt(insertedDecorQwnt.getText())
+                );
+                decorDBService.insertCustomerChosenDecor(decor);
+                showAlert("Done", "Decor unit has been added to your choice list", Alert.AlertType.CONFIRMATION);
+                decorDBService.updateCustomerDecor();
+            } catch (Exception e) {
+                showAlert("Decor unit was not added", e.getMessage(), Alert.AlertType.ERROR);
+                e.printStackTrace();
+            }
+            customerDecorField.clear();
+            insertedDecorQwnt.clear();
 
-
-        try {
-            Decor decor = new Decor(
-                    //decorID
-                    decorName, //decor name
-                    Integer.parseInt(insertedDecorQwnt.getText()) //decor qwt
-                    //decorPriceVAT
-            );
-            decorDBService.insertCustomerChosenDecor(decor);
-            showAlert("Done", "Decor unit has been added to your choice list", Alert.AlertType.CONFIRMATION);
-
-        } catch (Exception e) {
-            //  showAlert("Decor unit was not added", e.getMessage(), Alert.AlertType.ERROR);
-            e.printStackTrace();
         }
-
     }
 
-    public void handleInsertButton(ActionEvent actionEvent) {
-        try {
+    public void handleCustomerDeleteDecor(ActionEvent actionEvent) {
+        TablePosition pos = customerDecorTable.getSelectionModel().getSelectedCells().get(0);
+        int row = pos.getRow();
+        Decor item = customerDecorTable.getItems().get(row);
+        TableColumn col = pos.getTableColumn();
+        String decorName = (String) col.getCellObservableValue(item).getValue();
+        if (decorName != null) {
+            try {
+                decorDBService.deleteCustomerDecor(decorName);
+                showAlert("Done", "Chosen decor was removed from your list", Alert.AlertType.CONFIRMATION);
+            } catch (Exception e) {
+                showAlert("Decor eas not removed", e.getMessage(), Alert.AlertType.ERROR);
+                e.printStackTrace();
+            }
+        }
+    }
+
+   public void handleInsertButton(ActionEvent actionEvent) {
+       /* try {
             validateUserInput();
             Event event = new Event(
                     eventNameField.getText(),
@@ -178,10 +196,10 @@ public class CustomerController extends ViewController implements Initializable 
         } catch (Exception e) {
             showAlert("Event registration failed", e.getMessage(), Alert.AlertType.ERROR);
             e.printStackTrace();
-        }
+        }*/
     }
 
-    private void validateUserInput() throws Exception {
+  /*  private void validateUserInput() throws Exception {
         if (eventNameField.getText().isEmpty())
             throw new Exception("Event name cannot be blank. Please fill out this field!");
         if (calendar.getValue().isEmpty) throw new Exception("Event date cannot be blank. Please choose a date!");
@@ -191,7 +209,7 @@ public class CustomerController extends ViewController implements Initializable 
             throw new Exception("Location cannot be blank. Please fill out this field!");
         if (guestNumberField.getText().isEmpty())
             throw new Exception("Guest number cannot be blank. Please fill out this field!");
-    }
+    }*/
 
     public void handleBackButton(ActionEvent actionEvent) {
         try {
@@ -201,8 +219,8 @@ public class CustomerController extends ViewController implements Initializable 
         }
     }
 
-
     public void fillInGuestList() {
+        guestList.setEditable(true);
         guestList.setItems(listOfGuests);
     }
 
@@ -211,16 +229,18 @@ public class CustomerController extends ViewController implements Initializable 
             showAlert("Error", "Please write in guest full name", Alert.AlertType.ERROR);
         } else {
             try {
-                User user = new User(
-                        guestNameField.getText());
+                User user = new User(guestNameField.getText());
                 userDBService.insertGuests(user);
+
                 showAlert("Successfully", guestNameField.getText() + " has been added to your guest list", Alert.AlertType.CONFIRMATION);
+                guestList.getItems().add(user);
 
             } catch (Exception e) {
                 showAlert("Error. Guest was not added", e.getMessage(), Alert.AlertType.ERROR);
                 e.printStackTrace();
             }
         }
+        guestNameField.clear();
         fillInGuestList();
     }
 
@@ -237,6 +257,8 @@ public class CustomerController extends ViewController implements Initializable 
             }
         }
     }
+
+
 
 
 }

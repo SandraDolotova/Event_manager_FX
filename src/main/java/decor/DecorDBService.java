@@ -25,13 +25,18 @@ public class DecorDBService {
 
     public void insertCustomerChosenDecor(Decor decor) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.insertCustomerChosenDecor);
-        pr.setInt(1, decor.getDecorId());
-        pr.setString(2, decor.getDecorName());
-        pr.setInt(3, decor.getDecorQwt());
-        pr.setDouble(4, decor.getDecorPriceVAT());
+        pr.setString(1, decor.getDecorName());
+        pr.setInt(2, decor.getDecorQwt());
         pr.execute();
         pr.close();
     }
+
+    public void updateCustomerDecor() throws SQLException {
+        PreparedStatement pr = connection.prepareStatement(Queries.updateCustomerDecor);
+        pr.execute();
+        pr.close();
+    }
+
 
     //SET DECOR STATUS - value chosen by ADMIN from ComboBox = like out of stock, broken, not available
     public void setDecorStatus (int decorId , String decorStatus) throws SQLException {
@@ -47,6 +52,14 @@ public class DecorDBService {
         pr.execute();
         pr.close();
     }
+    public void deleteCustomerDecor(String decorName) throws SQLException {
+        PreparedStatement pr = connection.prepareStatement(Queries.deleteCustomerDecor);
+        pr.setString(1, decorName);
+        pr.execute();
+        pr.close();
+    }
+
+
     // SHOW ALL DECORATIONS FOR ADMIN
     public ArrayList<Decor> showAllDecorAdmin() throws SQLException {
         ArrayList<Decor> decors = new ArrayList<>();
