@@ -16,91 +16,141 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.DatePicker?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="451.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="663.0" prefWidth="866.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminPanelController">
    <children>
-      <Label layoutX="229.0" layoutY="14.0" text="ADMIN WINDOW">
+      <Label layoutX="371.0" layoutY="14.0" text="ADMIN WINDOW">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TabPane layoutX="3.0" layoutY="48.0" prefHeight="404.0" prefWidth="594.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutX="3.0" layoutY="48.0" prefHeight="616.0" prefWidth="863.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Calendar">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="870.0">
                      <children>
                         <DatePicker fx:id="calendar" layoutX="14.0" layoutY="35.0" promptText="Calendar" />
                         <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="105.0" text="Select date:" />
-                        <Button fx:id="selectButton" layoutX="206.0" layoutY="35.0" mnemonicParsing="false" onAction="#handleSelectButton" text="Select" />
+                        <Button fx:id="selectButton" layoutX="249.0" layoutY="35.0" mnemonicParsing="false" onAction="#handleSelectButton" text="Select" />
                         <TextField fx:id="dateFormat" layoutX="14.0" layoutY="77.0" prefHeight="27.0" prefWidth="198.0" />
                         <Button fx:id="backButton" layoutX="506.0" layoutY="313.0" mnemonicParsing="false" onAction="#handleBackButton" text="Back" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Decor">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <GridPane layoutX="14.0" layoutY="50.0" prefHeight="141.0" prefWidth="500.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.0" minWidth="10.0" prefWidth="115.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="388.0" minWidth="10.0" prefWidth="385.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                              <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="148.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="187.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="187.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <Label text="Decor title:" GridPane.rowIndex="1" />
-                              <TextField fx:id="decorNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Label text="Quantity:" GridPane.rowIndex="2" />
-                              <TextField fx:id="decorQwtField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Label text="Price:" GridPane.rowIndex="3" />
-                              <TextField fx:id="decorPriceField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <Label text="Status:" GridPane.rowIndex="4" />
-                              <ComboBox fx:id="decorStatusComboBox" onAction="#handleStatusComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <Label text="Decor ID: " />
-                              <TextField fx:id="decorIdField" GridPane.columnIndex="1" />
-                           </children>
-                        </GridPane>
-                        <ComboBox fx:id="decorComboBox" layoutX="282.0" layoutY="14.0" onAction="#handleDecorComboBox" prefWidth="150.0" />
-                        <Label layoutX="160.0" layoutY="18.0" text="Select option:" />
-                        <Button fx:id="okButton" layoutX="316.0" layoutY="319.0" mnemonicParsing="false" onAction="#handleOkButton" prefHeight="33.0" prefWidth="58.0" text="OK" />
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-            <Tab text="Decor LIst">
+            <Tab text="Decor List">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="decorTable" layoutX="29.0" layoutY="33.0" prefHeight="328.0" prefWidth="518.0">
+                        <TableView fx:id="decorTable" layoutX="48.0" layoutY="103.0" prefHeight="328.0" prefWidth="617.0">
                           <columns>
-                            <TableColumn fx:id="decorIdColumn" prefWidth="59.0" text="decor_id" />
-                            <TableColumn fx:id="decorNameColumn" prefWidth="130.0" text="decor_name" />
-                              <TableColumn fx:id="decorQwtColumn" prefWidth="74.0" text="decor_qwt" />
-                              <TableColumn fx:id="decorPriceColumn" prefWidth="78.0" text="decor_price" />
-                              <TableColumn fx:id="decorVatColumn" prefWidth="93.0" text="decor_price_vat" />
-                              <TableColumn fx:id="decorStatusColumn" prefWidth="83.0" text="decor_status" />
+                            <TableColumn fx:id="decorIdColumn" prefWidth="72.0" text="decor_id" />
+                            <TableColumn fx:id="decorNameColumn" prefWidth="117.0" text="decor_name" />
+                              <TableColumn fx:id="decorQwtColumn" prefWidth="90.0" text="decor_qwt" />
+                              <TableColumn fx:id="decorPriceColumn" prefWidth="108.0" text="decor_price" />
+                              <TableColumn fx:id="decorVatColumn" prefWidth="118.0" text="decor_price_vat" />
+                              <TableColumn fx:id="decorStatusColumn" prefWidth="113.0" text="decor_status" />
                           </columns>
                         </TableView>
-                        <Label layoutX="22.0" layoutY="6.0" prefHeight="17.0" prefWidth="54.0" text="Search: " />
-                        <TextField fx:id="searchTextField" layoutX="99.0" layoutY="2.0" prefHeight="25.0" prefWidth="178.0" />
+                        <Label layoutX="83.0" layoutY="37.0" prefHeight="17.0" prefWidth="54.0" text="Search: " />
+                        <TextField fx:id="searchTextField" layoutX="178.0" layoutY="32.0" prefHeight="31.0" prefWidth="213.0" />
                      </children></AnchorPane>
                </content>
             </Tab>
-            <Tab text="Empty">
+            <Tab text="Add Decor">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <GridPane layoutX="86.0" layoutY="44.0" prefHeight="174.0" prefWidth="379.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Decor Name:" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity:" GridPane.rowIndex="1" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Price:" GridPane.rowIndex="2" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Status:" GridPane.rowIndex="3" />
+                              <TextField fx:id="decorName" GridPane.columnIndex="1" />
+                              <TextField fx:id="decorQuantity" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="decorPrice" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="decorStatus" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                           </children>
+                        </GridPane>
+                        <Button fx:id="addButton" layoutX="252.0" layoutY="256.0" mnemonicParsing="false" onAction="#handleAddButton" text="Add" />
+                     </children></AnchorPane>
                </content>
             </Tab>
-            <Tab text="Empty">
+            <Tab fx:id="updateDecorPriceTab" text="Update Decor Price">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="834.0">
+                     <children>
+                        <Text layoutX="131.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Decor ID:" />
+                        <TextField fx:id="updatePriceField" layoutX="267.0" layoutY="57.0" prefHeight="31.0" prefWidth="233.0" />
+                        <TableView fx:id="updatePriceTableList" layoutX="48.0" layoutY="180.0" prefHeight="289.0" prefWidth="617.0">
+                          <columns>
+                            <TableColumn fx:id="decorId1" prefWidth="72.0" text="decor_id" />
+                            <TableColumn fx:id="decorName1" prefWidth="149.0" text="decor_name" />
+                              <TableColumn fx:id="decorQwt1" prefWidth="81.0" text="decor_qwt" />
+                              <TableColumn fx:id="decorPrice1" prefWidth="91.0" text="decor_price" />
+                              <TableColumn fx:id="decorPriceVat1" prefWidth="123.0" text="decor_price_vat" />
+                              <TableColumn fx:id="decorStatus1" prefWidth="95.0" text="decor_status" />
+                          </columns>
+                        </TableView>
+                        <Button fx:id="updatePriceButton" layoutX="304.0" layoutY="507.0" mnemonicParsing="false" onAction="#handleUpdatePriceButton" text="Update Price" />
+                        <Text layoutX="131.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Price:" />
+                        <TextField fx:id="newPriceField" layoutX="267.0" layoutY="112.0" prefHeight="31.0" prefWidth="233.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="updateDecorQwtTab" text="Update Decor Quantity">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="62.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Decor ID:" />
+                        <TextField fx:id="updateQuantityField" layoutX="214.0" layoutY="51.0" prefHeight="31.0" prefWidth="241.0" />
+                        <TableView fx:id="updateDecorQtwTable" layoutX="40.0" layoutY="177.0" prefHeight="291.0" prefWidth="618.0">
+                          <columns>
+                            <TableColumn fx:id="decorId2" prefWidth="70.0" text="decor_id" />
+                            <TableColumn fx:id="decorName2" prefWidth="144.0" text="decor_name" />
+                              <TableColumn fx:id="decorQwt2" prefWidth="91.0" text="decor_qwt" />
+                              <TableColumn fx:id="decorPrice2" prefWidth="92.0" text="decor_price" />
+                              <TableColumn fx:id="decorPriceVat2" prefWidth="118.0" text="decor_price_vat" />
+                              <TableColumn fx:id="decorStatus2" prefWidth="103.0" text="decor_status" />
+                          </columns>
+                        </TableView>
+                        <Button fx:id="updateQuantityButton" layoutX="284.0" layoutY="497.0" mnemonicParsing="false" onAction="#handleUpdateQuantityButton" text="Update Quantity" />
+                        <Text layoutX="62.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Quantity:" />
+                        <TextField fx:id="newQuantityField" layoutX="214.0" layoutY="109.0" prefHeight="31.0" prefWidth="241.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="deleteDecorTab" text="Delete Decor">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="decorListTable" layoutX="37.0" layoutY="135.0" prefHeight="319.0" prefWidth="666.0">
+                           <columns>
+                              <TableColumn fx:id="decorIdColumn1" prefWidth="70.0" text="decor_id" />
+                              <TableColumn fx:id="decorNameColumn1" prefWidth="160.0" text="decor_name" />
+                              <TableColumn fx:id="decorQwtColumn1" prefWidth="90.0" text="decor_qwt" />
+                              <TableColumn fx:id="decorPriceColumn1" prefWidth="94.0" text="decor_price" />
+                              <TableColumn fx:id="decorVatColumn1" prefWidth="125.0" text="decor_price_vat" />
+                              <TableColumn fx:id="decorStatusColumn1" prefWidth="126.0" text="decor_status" />
+                           </columns>
+                        </TableView>
+                        <TextField fx:id="deleteDecorIdField" layoutX="196.0" layoutY="53.0" prefHeight="31.0" prefWidth="241.0" />
+                        <Text layoutX="86.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Decor ID:" />
+                        <Button fx:id="deleteButton" layoutX="349.0" layoutY="481.0" mnemonicParsing="false" onAction="#handleDeleteButton" text="Delete" />
+                     </children></AnchorPane>
                </content>
             </Tab>
         </tabs>
