@@ -14,12 +14,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
+import lombok.SneakyThrows;
 import users.User;
 import users.UserDBService;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -79,10 +82,10 @@ public class CustomerController extends ViewController implements Initializable 
     List<User> fullGuestList = new ArrayList<>(userDBService.showAllGuests());
     ObservableList<User> listOfGuests = FXCollections.observableArrayList(fullGuestList);
 
-
     public CustomerController() throws SQLException {
     }
 
+    @SneakyThrows
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         fillInCustomerDecorTable();
@@ -160,7 +163,6 @@ public class CustomerController extends ViewController implements Initializable 
             }
             customerDecorField.clear();
             insertedDecorQwnt.clear();
-
         }
     }
 
@@ -181,35 +183,35 @@ public class CustomerController extends ViewController implements Initializable 
         }
     }
 
-   public void handleInsertButton(ActionEvent actionEvent) {
-       /* try {
+    public void handleInsertButton(ActionEvent actionEvent) {
+        try {
             validateUserInput();
+           // String inputDate = calendar.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
             Event event = new Event(
                     eventNameField.getText(),
-                    calendar.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"),
-                            timeField.getValue(),
-                            locationField.getText(),
-                            guestNumberField.getText()));
+                    Date.valueOf(calendar.getValue()),
+                    timeField.getText(),
+                    locationField.getText(),
+                    Integer.parseInt(guestNumberField.getText()));
             eventDBService.insertNewEvent(event);
             showAlert("Event successfully added", "Now please proceed with decor and guest list  ", Alert.AlertType.CONFIRMATION);
-
         } catch (Exception e) {
             showAlert("Event registration failed", e.getMessage(), Alert.AlertType.ERROR);
             e.printStackTrace();
-        }*/
+        }
     }
 
-  /*  private void validateUserInput() throws Exception {
+    private void validateUserInput() throws Exception {
         if (eventNameField.getText().isEmpty())
             throw new Exception("Event name cannot be blank. Please fill out this field!");
-        if (calendar.getValue().isEmpty) throw new Exception("Event date cannot be blank. Please choose a date!");
+        if (calendar.getValue() == null) throw new Exception("Event date cannot be blank. Please choose a date!");
         if (calendar.getValue().isBefore(LocalDate.now()))
-            throw new Exception("Event name cannot be blank. Please choose a date!");
+            throw new Exception("Incorrect date input. Please choose a date!");
         if (locationField.getText().isEmpty())
             throw new Exception("Location cannot be blank. Please fill out this field!");
         if (guestNumberField.getText().isEmpty())
             throw new Exception("Guest number cannot be blank. Please fill out this field!");
-    }*/
+    }
 
     public void handleBackButton(ActionEvent actionEvent) {
         try {
@@ -219,8 +221,8 @@ public class CustomerController extends ViewController implements Initializable 
         }
     }
 
-    public void fillInGuestList() {
-        guestList.setEditable(true);
+    public void fillInGuestList() throws SQLException {
+        // guestList.setEditable(true);
         guestList.setItems(listOfGuests);
     }
 
@@ -231,17 +233,14 @@ public class CustomerController extends ViewController implements Initializable 
             try {
                 User user = new User(guestNameField.getText());
                 userDBService.insertGuests(user);
-
                 showAlert("Successfully", guestNameField.getText() + " has been added to your guest list", Alert.AlertType.CONFIRMATION);
                 guestList.getItems().add(user);
-
+                guestNameField.clear();
             } catch (Exception e) {
                 showAlert("Error. Guest was not added", e.getMessage(), Alert.AlertType.ERROR);
                 e.printStackTrace();
             }
         }
-        guestNameField.clear();
-        fillInGuestList();
     }
 
     public void handleDeleteGuestButton(ActionEvent actionEvent) {
@@ -257,8 +256,6 @@ public class CustomerController extends ViewController implements Initializable 
             }
         }
     }
-
-
 
 
 }

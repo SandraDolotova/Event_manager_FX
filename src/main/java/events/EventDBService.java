@@ -14,7 +14,7 @@ public class EventDBService {
         PreparedStatement pr = connection.prepareStatement(Queries.insertNewEvent);
         pr.setString(1, event.getEventName());
         pr.setDate(2, event.getDueDate());
-        pr.setTime(3, event.getDueTime());
+        pr.setString(3, event.getDueTime());
         pr.setString(4, event.getLocation());
         pr.setInt(5, event.getGuestNumber());
         pr.execute();
@@ -39,7 +39,7 @@ public class EventDBService {
                     result.getInt("event_id"),
                     result.getString("event_name"),
                     result.getDate("dueDate"),
-                    result.getTime("dueTime"),
+                    result.getString("dueTime"),
                     result.getString("location_name"),
                     result.getInt("guests_number")));
         }
@@ -58,7 +58,7 @@ public class EventDBService {
                     result.getInt("event_id"),
                     result.getString("event_name"),
                     result.getDate("dueDate"),
-                    result.getTime("dueTime"),
+                    result.getString("dueTime"),
                     result.getString("location_name"),
                     result.getInt("guests_number"));
             pr.close();
