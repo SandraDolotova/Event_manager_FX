@@ -16,40 +16,27 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.DatePicker?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="663.0" prefWidth="866.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminPanelController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="674.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminPanelController">
    <children>
       <Label layoutX="371.0" layoutY="14.0" text="ADMIN WINDOW">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TabPane layoutX="3.0" layoutY="48.0" prefHeight="616.0" prefWidth="863.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutX="3.0" layoutY="48.0" prefHeight="616.0" prefWidth="790.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Calendar">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="870.0">
-                     <children>
-                        <DatePicker fx:id="calendar" layoutX="14.0" layoutY="35.0" promptText="Calendar" />
-                        <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="105.0" text="Select date:" />
-                        <Button fx:id="selectButton" layoutX="249.0" layoutY="35.0" mnemonicParsing="false" onAction="#handleSelectButton" text="Select" />
-                        <TextField fx:id="dateFormat" layoutX="14.0" layoutY="77.0" prefHeight="27.0" prefWidth="198.0" />
-                        <Button fx:id="backButton" layoutX="506.0" layoutY="313.0" mnemonicParsing="false" onAction="#handleBackButton" text="Back" />
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
             <Tab text="Decor List">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="decorTable" layoutX="48.0" layoutY="103.0" prefHeight="328.0" prefWidth="617.0">
+                        <TableView fx:id="decorTable" layoutX="48.0" layoutY="103.0" prefHeight="356.0" prefWidth="558.0">
                           <columns>
-                            <TableColumn fx:id="decorIdColumn" prefWidth="72.0" text="decor_id" />
-                            <TableColumn fx:id="decorNameColumn" prefWidth="117.0" text="decor_name" />
-                              <TableColumn fx:id="decorQwtColumn" prefWidth="90.0" text="decor_qwt" />
-                              <TableColumn fx:id="decorPriceColumn" prefWidth="108.0" text="decor_price" />
-                              <TableColumn fx:id="decorVatColumn" prefWidth="118.0" text="decor_price_vat" />
-                              <TableColumn fx:id="decorStatusColumn" prefWidth="113.0" text="decor_status" />
+                            <TableColumn fx:id="decorIdColumn" prefWidth="44.0" text="ID" />
+                            <TableColumn fx:id="decorNameColumn" prefWidth="177.0" text="Name" />
+                              <TableColumn fx:id="decorQwtColumn" prefWidth="81.0" text="Quantity" />
+                              <TableColumn fx:id="decorPriceColumn" prefWidth="61.0" text="Price" />
+                              <TableColumn fx:id="decorVatColumn" prefWidth="83.0" text="Price VAT" />
+                              <TableColumn fx:id="decorStatusColumn" prefWidth="110.0" text="Status" />
                           </columns>
                         </TableView>
                         <Label layoutX="83.0" layoutY="37.0" prefHeight="17.0" prefWidth="54.0" text="Search: " />
@@ -61,7 +48,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <GridPane layoutX="86.0" layoutY="44.0" prefHeight="174.0" prefWidth="379.0">
+                        <GridPane layoutX="87.0" layoutY="44.0" prefHeight="174.0" prefWidth="379.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -87,48 +74,28 @@
                      </children></AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="updateDecorPriceTab" text="Update Decor Price">
+            <Tab fx:id="updateDecorPriceTab" text="Update Decor ">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="834.0">
                      <children>
-                        <Text layoutX="131.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Decor ID:" />
-                        <TextField fx:id="updatePriceField" layoutX="267.0" layoutY="57.0" prefHeight="31.0" prefWidth="233.0" />
-                        <TableView fx:id="updatePriceTableList" layoutX="48.0" layoutY="180.0" prefHeight="289.0" prefWidth="617.0">
+                        <Text layoutX="48.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Decor ID:" />
+                        <TextField fx:id="updatePriceField" layoutX="177.0" layoutY="31.0" />
+                        <TableView fx:id="updateDecorTableList" layoutX="48.0" layoutY="180.0" prefHeight="356.0" prefWidth="558.0">
                           <columns>
-                            <TableColumn fx:id="decorId1" prefWidth="72.0" text="decor_id" />
-                            <TableColumn fx:id="decorName1" prefWidth="149.0" text="decor_name" />
-                              <TableColumn fx:id="decorQwt1" prefWidth="81.0" text="decor_qwt" />
-                              <TableColumn fx:id="decorPrice1" prefWidth="91.0" text="decor_price" />
-                              <TableColumn fx:id="decorPriceVat1" prefWidth="123.0" text="decor_price_vat" />
-                              <TableColumn fx:id="decorStatus1" prefWidth="95.0" text="decor_status" />
+                            <TableColumn fx:id="decorId1" prefWidth="44.0" text="ID" />
+                            <TableColumn fx:id="decorName1" prefWidth="177.0" text="Name" />
+                              <TableColumn fx:id="decorQwt1" prefWidth="81.0" text="Quantity" />
+                              <TableColumn fx:id="decorPrice1" prefWidth="61.0" text="Price" />
+                              <TableColumn fx:id="decorPriceVat1" prefWidth="83.0" text="Price VAT" />
+                              <TableColumn fx:id="decorStatus1" prefWidth="110.0" text="Status" />
                           </columns>
                         </TableView>
-                        <Button fx:id="updatePriceButton" layoutX="304.0" layoutY="507.0" mnemonicParsing="false" onAction="#handleUpdatePriceButton" text="Update Price" />
-                        <Text layoutX="131.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Price:" />
-                        <TextField fx:id="newPriceField" layoutX="267.0" layoutY="112.0" prefHeight="31.0" prefWidth="233.0" />
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
-            <Tab fx:id="updateDecorQwtTab" text="Update Decor Quantity">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Text layoutX="62.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Decor ID:" />
-                        <TextField fx:id="updateQuantityField" layoutX="214.0" layoutY="51.0" prefHeight="31.0" prefWidth="241.0" />
-                        <TableView fx:id="updateDecorQtwTable" layoutX="40.0" layoutY="177.0" prefHeight="291.0" prefWidth="618.0">
-                          <columns>
-                            <TableColumn fx:id="decorId2" prefWidth="70.0" text="decor_id" />
-                            <TableColumn fx:id="decorName2" prefWidth="144.0" text="decor_name" />
-                              <TableColumn fx:id="decorQwt2" prefWidth="91.0" text="decor_qwt" />
-                              <TableColumn fx:id="decorPrice2" prefWidth="92.0" text="decor_price" />
-                              <TableColumn fx:id="decorPriceVat2" prefWidth="118.0" text="decor_price_vat" />
-                              <TableColumn fx:id="decorStatus2" prefWidth="103.0" text="decor_status" />
-                          </columns>
-                        </TableView>
-                        <Button fx:id="updateQuantityButton" layoutX="284.0" layoutY="497.0" mnemonicParsing="false" onAction="#handleUpdateQuantityButton" text="Update Quantity" />
-                        <Text layoutX="62.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Quantity:" />
-                        <TextField fx:id="newQuantityField" layoutX="214.0" layoutY="109.0" prefHeight="31.0" prefWidth="241.0" />
+                        <Button fx:id="updatePriceButton" layoutX="384.0" layoutY="76.0" mnemonicParsing="false" onAction="#handleUpdatePriceButton" prefHeight="31.0" prefWidth="142.0" text="Update Price" />
+                        <Text layoutX="48.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Price:" />
+                        <TextField fx:id="newPriceField" layoutX="177.0" layoutY="76.0" />
+                        <Text layoutX="48.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Quantity:" />
+                        <TextField fx:id="newQuantityField" layoutX="177.0" layoutY="118.0" />
+                        <Button fx:id="updateQuantityButton" layoutX="384.0" layoutY="118.0" mnemonicParsing="false" onAction="#handleUpdateQuantityButton" prefHeight="31.0" prefWidth="142.0" text="Update Quantity" />
                      </children>
                   </AnchorPane>
               </content>
@@ -137,21 +104,133 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="decorListTable" layoutX="37.0" layoutY="135.0" prefHeight="319.0" prefWidth="666.0">
+                        <TableView fx:id="decorListTable" layoutX="50.0" layoutY="136.0" prefHeight="356.0" prefWidth="558.0">
                            <columns>
-                              <TableColumn fx:id="decorIdColumn1" prefWidth="70.0" text="decor_id" />
-                              <TableColumn fx:id="decorNameColumn1" prefWidth="160.0" text="decor_name" />
-                              <TableColumn fx:id="decorQwtColumn1" prefWidth="90.0" text="decor_qwt" />
-                              <TableColumn fx:id="decorPriceColumn1" prefWidth="94.0" text="decor_price" />
-                              <TableColumn fx:id="decorVatColumn1" prefWidth="125.0" text="decor_price_vat" />
-                              <TableColumn fx:id="decorStatusColumn1" prefWidth="126.0" text="decor_status" />
+                              <TableColumn fx:id="decorIdColumn1" prefWidth="44.0" text="ID" />
+                              <TableColumn fx:id="decorNameColumn1" prefWidth="177.0" text="Name" />
+                              <TableColumn fx:id="decorQwtColumn1" prefWidth="81.0" text="Quantity" />
+                              <TableColumn fx:id="decorPriceColumn1" prefWidth="61.0" text="Price" />
+                              <TableColumn fx:id="decorVatColumn1" prefWidth="83.0" text="Price VAT" />
+                              <TableColumn fx:id="decorStatusColumn1" prefWidth="110.0" text="Status" />
                            </columns>
                         </TableView>
-                        <TextField fx:id="deleteDecorIdField" layoutX="196.0" layoutY="53.0" prefHeight="31.0" prefWidth="241.0" />
+                        <TextField fx:id="deleteDecorIdField" layoutX="164.0" layoutY="53.0" prefHeight="31.0" prefWidth="241.0" />
                         <Text layoutX="86.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Decor ID:" />
-                        <Button fx:id="deleteButton" layoutX="349.0" layoutY="481.0" mnemonicParsing="false" onAction="#handleDeleteButton" text="Delete" />
+                        <Button fx:id="deleteButton" layoutX="431.0" layoutY="53.0" mnemonicParsing="false" onAction="#handleDeleteButton" text="Delete" />
                      </children></AnchorPane>
                </content>
+            </Tab>
+            <Tab fx:id="eventListTab" text="Event List">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="eventListTable" layoutX="39.0" layoutY="131.0" prefHeight="352.0" prefWidth="599.0">
+                          <columns>
+                            <TableColumn fx:id="eventIdColumn" prefWidth="40.0" text="ID" />
+                            <TableColumn fx:id="eventNameColumn" prefWidth="155.0" text="Name" />
+                              <TableColumn fx:id="eventDateColumn" prefWidth="92.0" text="Date" />
+                              <TableColumn fx:id="eventTimeColumn" prefWidth="62.0" text="Time" />
+                              <TableColumn fx:id="eventLocationColumn" prefWidth="134.0" text="Location" />
+                              <TableColumn fx:id="eventGuestQwtColumn" prefWidth="114.0" text="Guest Quantity" />
+                          </columns>
+                        </TableView>
+                        <TextField fx:id="searchEvent" layoutX="245.0" layoutY="54.0" />
+                        <Text layoutX="167.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search:" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="addEventTab" text="Add Event">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="918.0">
+                     <children>
+                        <Text layoutX="153.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <GridPane layoutX="60.0" layoutY="42.0" prefHeight="283.0" prefWidth="393.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Event Name:" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Event Date:" GridPane.rowIndex="1" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Event Time:" GridPane.rowIndex="2" />
+                              <TextField fx:id="eventName" prefHeight="31.0" prefWidth="218.0" GridPane.columnIndex="1" />
+                              <DatePicker fx:id="eventDate" prefHeight="31.0" prefWidth="263.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="eventTime" prefHeight="31.0" prefWidth="218.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Location:" GridPane.rowIndex="3" />
+                              <TextField fx:id="eventLocation" prefHeight="31.0" prefWidth="218.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="eventGuestQwt" prefHeight="31.0" prefWidth="218.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Guest number:" GridPane.rowIndex="4" />
+                           </children>
+                        </GridPane>
+                        <Button fx:id="addEventButton" layoutX="224.0" layoutY="367.0" mnemonicParsing="false" onAction="#handleAddEventButton" text="Add " />
+                        <Accordion layoutX="545.0" layoutY="321.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="updateEventTab" text="Update Event">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="711.0" prefWidth="1041.0">
+                     <children>
+                        <TextField fx:id="updateEventIdField" layoutX="194.0" layoutY="24.0" prefHeight="31.0" prefWidth="218.0" />
+                        <Text layoutX="32.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event ID:" />
+                        <TextField fx:id="updateEventName" layoutX="194.0" layoutY="69.0" prefHeight="31.0" prefWidth="218.0" />
+                        <TextField fx:id="updateEventTime" layoutX="193.0" layoutY="160.0" prefHeight="31.0" prefWidth="217.0" />
+                        <TextField fx:id="updateEventLocation" layoutX="193.0" layoutY="204.0" prefHeight="31.0" prefWidth="218.0" />
+                        <TextField fx:id="updateEventQwt" layoutX="193.0" layoutY="250.0" prefHeight="31.0" prefWidth="218.0" />
+                        <Text layoutX="31.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Name:" />
+                        <Text layoutX="32.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Date:" />
+                        <Text layoutX="32.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Time:" />
+                        <Text layoutX="31.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Location:" />
+                        <Text layoutX="31.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Guest Number:" />
+                        <DatePicker fx:id="updateEventDate" layoutX="194.0" layoutY="113.0" />
+                        <Button fx:id="updateNameButton" layoutX="434.0" layoutY="69.0" mnemonicParsing="false" onAction="#handleUpdateEventNameButton" prefHeight="31.0" prefWidth="130.0" text="Update Name" />
+                        <Button fx:id="updateDateButton" layoutX="434.0" layoutY="113.0" mnemonicParsing="false" onAction="#handleUpdateEventDateButton" prefHeight="31.0" prefWidth="130.0" text="Update Date" />
+                        <Button fx:id="updateTimeButton" layoutX="434.0" layoutY="160.0" mnemonicParsing="false" onAction="#handleUpdateEventTimeButton" prefHeight="31.0" prefWidth="130.0" text="Update Time" />
+                        <Button fx:id="updateLocationButton" layoutX="434.0" layoutY="204.0" mnemonicParsing="false" onAction="#handleUpdateLocationButton" text="Update Location" />
+                        <Button fx:id="updateGuestQwtButton" layoutX="434.0" layoutY="250.0" mnemonicParsing="false" onAction="#handleUpdateGuestQwtButton" prefHeight="31.0" prefWidth="130.0" text="Update Guests" />
+                        <TableView fx:id="eventListTable1" layoutX="31.0" layoutY="303.0" prefHeight="252.0" prefWidth="599.0">
+                           <columns>
+                              <TableColumn fx:id="eventIdColumn2" prefWidth="40.0" text="ID" />
+                              <TableColumn fx:id="eventNameColumn2" prefWidth="155.0" text="Name" />
+                              <TableColumn fx:id="eventDateColumn2" prefWidth="92.0" text="Date" />
+                              <TableColumn fx:id="eventTimeColumn2" prefWidth="62.0" text="Time" />
+                              <TableColumn fx:id="eventLocationColumn2" prefWidth="134.0" text="Location" />
+                              <TableColumn fx:id="eventGuestQwtColumn2" prefWidth="114.0" text="Guest Quantity" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="deleteEventTab" text="Delete Event">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="132.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Decor ID:" />
+                        <TextField fx:id="deleteEventIdField" layoutX="226.0" layoutY="39.0" />
+                        <TableView fx:id="deleteEventTable" layoutX="27.0" layoutY="122.0" prefHeight="352.0" prefWidth="599.0">
+                           <columns>
+                              <TableColumn fx:id="eventIdColumn1" prefWidth="40.0" text="ID" />
+                              <TableColumn fx:id="eventNameColumn1" prefWidth="155.0" text="Name" />
+                              <TableColumn fx:id="eventDateColumn1" prefWidth="92.0" text="Date" />
+                              <TableColumn fx:id="eventTimeColumn1" prefWidth="62.0" text="Time" />
+                              <TableColumn fx:id="eventLocationColumn1" prefWidth="134.0" text="Location" />
+                              <TableColumn fx:id="eventGuestQwtColumn1" prefWidth="114.0" text="Guest Quantity" />
+                           </columns>
+                        </TableView>
+                        <Button fx:id="deleteEventButton" layoutX="437.0" layoutY="39.0" mnemonicParsing="false" onAction="#handleDeleteEventButton" text="Delete" />
+                     </children>
+                  </AnchorPane>
+              </content>
             </Tab>
         </tabs>
       </TabPane>
