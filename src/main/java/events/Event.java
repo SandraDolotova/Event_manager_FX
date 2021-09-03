@@ -10,14 +10,14 @@ public class Event {
     Integer eventId;
     String eventName;
     Date dueDate;
-    Time dueTime;
+    String dueTime;
     String location;
     Integer guestNumber;
 
     public Event() {
     }
 
-    public Event(Integer eventId, String eventName, Date dueDate, Time dueTime, String location, Integer guestNumber) {
+    public Event(Integer eventId, String eventName, Date dueDate, String dueTime, String location, Integer guestNumber) {
         this.eventId = eventId;
         this.eventName = eventName;
         this.dueDate = dueDate;

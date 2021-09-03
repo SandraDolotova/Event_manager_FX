@@ -10,13 +10,13 @@ public class EventDBService {
     Connection connection = DBHandler.getConnection();
 
     // INSERT INTO EVENTS
-    public void insertNewEvent(Event event) throws SQLException {
+    public void insertNewEvent(String eventName, Date dueDate, String dueTime, String location, int guestNumber) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.insertNewEvent);
-        pr.setString(1, event.getEventName());
-        pr.setDate(2, event.getDueDate());
-        pr.setTime(3, event.getDueTime());
-        pr.setString(4, event.getLocation());
-        pr.setInt(5, event.getGuestNumber());
+        pr.setString(1, eventName);
+        pr.setDate(2, dueDate);
+        pr.setString(3, dueTime);
+        pr.setString(4, location);
+        pr.setInt(5, guestNumber);
         pr.execute();
         pr.close();
     }
@@ -25,7 +25,7 @@ public class EventDBService {
     public void deleteEvent(int eventId) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.deleteEvent);
         pr.setInt(1, eventId);
-        pr.executeUpdate();
+        pr.execute();
         pr.close();
     }
 
@@ -39,11 +39,10 @@ public class EventDBService {
                     result.getInt("event_id"),
                     result.getString("event_name"),
                     result.getDate("dueDate"),
-                    result.getTime("dueTime"),
+                    result.getString("dueTime"),
                     result.getString("location_name"),
                     result.getInt("guests_number")));
         }
-        pr.close();
         return events;
     }
 
@@ -58,10 +57,9 @@ public class EventDBService {
                     result.getInt("event_id"),
                     result.getString("event_name"),
                     result.getDate("dueDate"),
-                    result.getTime("dueTime"),
+                    result.getString("dueTime"),
                     result.getString("location_name"),
                     result.getInt("guests_number"));
-            pr.close();
         }
         return event;
     }
@@ -72,7 +70,6 @@ public class EventDBService {
         pr.setString(1, newName);
         pr.setInt(2, eventId);
         pr.executeUpdate();
-        pr.close();
     }
 
     public void updateEventDate(int eventId, Date newDate) throws SQLException {
@@ -80,15 +77,13 @@ public class EventDBService {
         pr.setDate(1, newDate);
         pr.setInt(2, eventId);
         pr.executeUpdate();
-        pr.close();
     }
 
-    public void updateEventTime(int eventId, Time newTime) throws SQLException {
+    public void updateEventTime(int eventId, String newTime) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.updateEventTime);
-        pr.setTime(1, newTime);
+        pr.setString(1, newTime);
         pr.setInt(2, eventId);
         pr.executeUpdate();
-        pr.close();
     }
 
     public void updateEventLocation(int eventId, String newLocation) throws SQLException {
@@ -96,7 +91,6 @@ public class EventDBService {
         pr.setString(1, newLocation);
         pr.setInt(2, eventId);
         pr.executeUpdate();
-        pr.close();
     }
 
     public void updateEventGuestQuantity(int eventId, int newGuestQuantity) throws SQLException {
@@ -104,6 +98,5 @@ public class EventDBService {
         pr.setInt(1, newGuestQuantity);
         pr.setInt(2, eventId);
         pr.executeUpdate();
-        pr.close();
     }
 }
