@@ -54,6 +54,6 @@ public class Decor {
 
     @Override
     public String toString() {
-        return  decorId + ") " +  decorName + " - " + decorPriceVAT + " EUR/peace";
+        return  decorId + ") " +  decorName + " - " + decorPriceVAT + " EUR/piece";
     }
 }

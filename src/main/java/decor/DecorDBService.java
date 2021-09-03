@@ -11,16 +11,15 @@ public class DecorDBService {
 
     Connection connection = DBHandler.getConnection();
 
-
     // INSERT DECORATION INTO TABLE
-    public void insertNewDecor(String decorName, int decorQwt, double decorPrice, String decorStatus) throws SQLException, SQLException {
+   public void insertNewDecor(String decorName, int decorQwt, double decorPrice, String decorStatus) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.insertNewDecor);
         pr.setString(1, decorName);
         pr.setInt(2, decorQwt);
         pr.setDouble(3, decorPrice);
         pr.setString(4, decorStatus);
         pr.execute();
-        pr.close();
+        //pr.close();
     }
 
     public void insertCustomerChosenDecor(Decor decor) throws SQLException {
@@ -33,13 +32,6 @@ public class DecorDBService {
         pr.close();
     }
 
-    //SET DECOR STATUS - value chosen by ADMIN from ComboBox = like out of stock, broken, not available
-    public void setDecorStatus (int decorId , String decorStatus) throws SQLException {
-        PreparedStatement pr = connection.prepareStatement(Queries.setDecorStatus);
-        pr.setString(1, decorStatus);
-        pr.setInt(2, decorId);
-        pr.executeUpdate();
-    }
     //DELETE DECOR
     public void deleteDecor(int decorId) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.deleteDecor);
@@ -95,9 +87,6 @@ public class DecorDBService {
         pr.executeUpdate();
         pr.close();
     }
-
-
-
 
 
 
