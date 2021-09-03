@@ -34,9 +34,9 @@ public class Queries {
 
     //EVENTS
     // INSERT INTO EVENTS
-    public static final String insertNewEvent = "INSERT INTO events (event_name, dueDate, location_name, guests_number) VALUES (?, ?, ?, ?)";
+    public static final String insertNewEvent = "INSERT INTO events (event_name, dueDate, dueTime, location_name, guests_number) VALUES (?, ?, ?, ?, ?)";
     // DELETE EVENT
-    public static final String deleteEvent = "DELETE FROM events WHERE event_name = ?";
+    public static final String deleteEvent = "DELETE FROM events WHERE event_id = ?";
     // UPDATE EVENT date
    // public static final String updateEventDate = "UPDATE events SET dueDate = ? WHERE event_name = ?";
     // SHOW EVENT LIST for ADMIN
