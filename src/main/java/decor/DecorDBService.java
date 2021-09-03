@@ -11,27 +11,40 @@ public class DecorDBService {
 
     Connection connection = DBHandler.getConnection();
 
+
     // INSERT DECORATION INTO TABLE
-   public void insertNewDecor(String decorName, int decorQwt, double decorPrice, String decorStatus) throws SQLException {
+    public void insertNewDecor(String decorName, int decorQwt, double decorPrice, String decorStatus) throws SQLException, SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.insertNewDecor);
         pr.setString(1, decorName);
         pr.setInt(2, decorQwt);
         pr.setDouble(3, decorPrice);
         pr.setString(4, decorStatus);
         pr.execute();
-        //pr.close();
+        pr.close();
     }
 
     public void insertCustomerChosenDecor(Decor decor) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.insertCustomerChosenDecor);
-        pr.setInt(1, decor.getDecorId());
-        pr.setString(2, decor.getDecorName());
-        pr.setInt(3, decor.getDecorQwt());
-        pr.setDouble(4, decor.getDecorPriceVAT());
+        pr.setString(1, decor.getDecorName());
+        pr.setInt(2, decor.getDecorQwt());
         pr.execute();
         pr.close();
     }
 
+    public void updateCustomerDecor() throws SQLException {
+        PreparedStatement pr = connection.prepareStatement(Queries.updateCustomerDecor);
+        pr.execute();
+        pr.close();
+    }
+
+
+    //SET DECOR STATUS - value chosen by ADMIN from ComboBox = like out of stock, broken, not available
+    public void setDecorStatus (int decorId , String decorStatus) throws SQLException {
+        PreparedStatement pr = connection.prepareStatement(Queries.setDecorStatus);
+        pr.setString(1, decorStatus);
+        pr.setInt(2, decorId);
+        pr.executeUpdate();
+    }
     //DELETE DECOR
     public void deleteDecor(int decorId) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.deleteDecor);
@@ -39,6 +52,14 @@ public class DecorDBService {
         pr.execute();
         pr.close();
     }
+    public void deleteCustomerDecor(String decorName) throws SQLException {
+        PreparedStatement pr = connection.prepareStatement(Queries.deleteCustomerDecor);
+        pr.setString(1, decorName);
+        pr.execute();
+        pr.close();
+    }
+
+
     // SHOW ALL DECORATIONS FOR ADMIN
     public ArrayList<Decor> showAllDecorAdmin() throws SQLException {
         ArrayList<Decor> decors = new ArrayList<>();
@@ -87,6 +108,9 @@ public class DecorDBService {
         pr.executeUpdate();
         pr.close();
     }
+
+
+
 
 
 

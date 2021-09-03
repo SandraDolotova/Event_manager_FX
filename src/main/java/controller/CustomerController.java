@@ -1,4 +1,5 @@
 package controller;
+
 import decor.Decor;
 import decor.DecorDBService;
 import events.Event;
@@ -13,11 +14,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
+import lombok.SneakyThrows;
 import users.User;
 import users.UserDBService;
+
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -53,6 +58,8 @@ public class CustomerController extends ViewController implements Initializable 
     @FXML
     private Button insertButton;
     @FXML
+    private Button customerDeleteDecorButton;
+    @FXML
     private TextField searchDecorTextField;
     @FXML
     private TextField eventNameField;
@@ -78,6 +85,7 @@ public class CustomerController extends ViewController implements Initializable 
     public CustomerController() throws SQLException {
     }
 
+    @SneakyThrows
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         fillInCustomerDecorTable();
@@ -132,49 +140,61 @@ public class CustomerController extends ViewController implements Initializable 
         });
     }
 
-    // send chosen decor by customer into customer_decor_table
     public void handleAddCustomerDecor(ActionEvent actionEvent) {
-        // System.out.println(customerDecorTable.getSelectionModel().getSelectedCells());
-        // System.out.println(customerDecorTable.getFocusModel().getFocusedCell());
         TablePosition pos = customerDecorTable.getSelectionModel().getSelectedCells().get(0);
         int row = pos.getRow();
-// Item here is the table view type:
         Decor item = customerDecorTable.getItems().get(row);
         TableColumn col = pos.getTableColumn();
-// this gives the value in the selected cell:
         String decorName = (String) col.getCellObservableValue(item).getValue();
-        System.out.println(decorName);
-
-
-        try {
-            Decor decor = new Decor(
-                    //decorID
-                    decorName, //decor name
-                    Integer.parseInt(insertedDecorQwnt.getText()) //decor qwt
-                    //decorPriceVAT
-            );
-            decorDBService.insertCustomerChosenDecor(decor);
-            showAlert("Done", "Decor unit has been added to your choice list", Alert.AlertType.CONFIRMATION);
-
-        } catch (Exception e) {
-            //  showAlert("Decor unit was not added", e.getMessage(), Alert.AlertType.ERROR);
-            e.printStackTrace();
+        if (insertedDecorQwnt.getText().isEmpty()) {
+            showAlert("Error", "Please set decor quantity", Alert.AlertType.ERROR);
+        } else {
+            try {
+                Decor decor = new Decor(
+                        decorName,
+                        Integer.parseInt(insertedDecorQwnt.getText())
+                );
+                decorDBService.insertCustomerChosenDecor(decor);
+                showAlert("Done", "Decor unit has been added to your choice list", Alert.AlertType.CONFIRMATION);
+                decorDBService.updateCustomerDecor();
+            } catch (Exception e) {
+                showAlert("Decor unit was not added", e.getMessage(), Alert.AlertType.ERROR);
+                e.printStackTrace();
+            }
+            customerDecorField.clear();
+            insertedDecorQwnt.clear();
         }
+    }
 
+    public void handleCustomerDeleteDecor(ActionEvent actionEvent) {
+        TablePosition pos = customerDecorTable.getSelectionModel().getSelectedCells().get(0);
+        int row = pos.getRow();
+        Decor item = customerDecorTable.getItems().get(row);
+        TableColumn col = pos.getTableColumn();
+        String decorName = (String) col.getCellObservableValue(item).getValue();
+        if (decorName != null) {
+            try {
+                decorDBService.deleteCustomerDecor(decorName);
+                showAlert("Done", "Chosen decor was removed from your list", Alert.AlertType.CONFIRMATION);
+            } catch (Exception e) {
+                showAlert("Decor eas not removed", e.getMessage(), Alert.AlertType.ERROR);
+                e.printStackTrace();
+            }
+        }
     }
 
     public void handleInsertButton(ActionEvent actionEvent) {
         try {
             validateUserInput();
+           // String inputDate = calendar.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
             Event event = new Event(
                     eventNameField.getText(),
-                    calendar.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"),
-                            timeField.getValue(),
-                            locationField.getText(),
-                            guestNumberField.getText()));
+                    Date.valueOf(calendar.getValue()),
+                    timeField.getText(),
+                    locationField.getText(),
+                    Integer.parseInt(guestNumberField.getText()));
             eventDBService.insertNewEvent(event);
             showAlert("Event successfully added", "Now please proceed with decor and guest list  ", Alert.AlertType.CONFIRMATION);
-
         } catch (Exception e) {
             showAlert("Event registration failed", e.getMessage(), Alert.AlertType.ERROR);
             e.printStackTrace();
@@ -184,9 +204,9 @@ public class CustomerController extends ViewController implements Initializable 
     private void validateUserInput() throws Exception {
         if (eventNameField.getText().isEmpty())
             throw new Exception("Event name cannot be blank. Please fill out this field!");
-        if (calendar.getValue().isEmpty) throw new Exception("Event date cannot be blank. Please choose a date!");
+        if (calendar.getValue() == null) throw new Exception("Event date cannot be blank. Please choose a date!");
         if (calendar.getValue().isBefore(LocalDate.now()))
-            throw new Exception("Event name cannot be blank. Please choose a date!");
+            throw new Exception("Incorrect date input. Please choose a date!");
         if (locationField.getText().isEmpty())
             throw new Exception("Location cannot be blank. Please fill out this field!");
         if (guestNumberField.getText().isEmpty())
@@ -201,8 +221,8 @@ public class CustomerController extends ViewController implements Initializable 
         }
     }
 
-
-    public void fillInGuestList() {
+    public void fillInGuestList() throws SQLException {
+        // guestList.setEditable(true);
         guestList.setItems(listOfGuests);
     }
 
@@ -211,17 +231,16 @@ public class CustomerController extends ViewController implements Initializable 
             showAlert("Error", "Please write in guest full name", Alert.AlertType.ERROR);
         } else {
             try {
-                User user = new User(
-                        guestNameField.getText());
+                User user = new User(guestNameField.getText());
                 userDBService.insertGuests(user);
                 showAlert("Successfully", guestNameField.getText() + " has been added to your guest list", Alert.AlertType.CONFIRMATION);
-
+                guestList.getItems().add(user);
+                guestNameField.clear();
             } catch (Exception e) {
                 showAlert("Error. Guest was not added", e.getMessage(), Alert.AlertType.ERROR);
                 e.printStackTrace();
             }
         }
-        fillInGuestList();
     }
 
     public void handleDeleteGuestButton(ActionEvent actionEvent) {
