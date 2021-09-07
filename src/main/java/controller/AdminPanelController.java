@@ -23,10 +23,7 @@ import java.util.ResourceBundle;
 
 public class AdminPanelController extends ViewController implements Initializable {
 
-    //calendar sadaļai:
-    public Button backButton;
-
-    //decor list sadaļai:
+    //decor list tab:
     public TableView<Decor> decorTable;
     public TableColumn<Object, Object> decorIdColumn;
     public TableColumn<Object, Object> decorNameColumn;
@@ -36,16 +33,15 @@ public class AdminPanelController extends ViewController implements Initializabl
     public TableColumn<Object, Object> decorStatusColumn;
     public TextField searchTextField;
 
-    //add decor sadaļai:
+    //add decor tab:
     public TextField decorName;
     public TextField decorQuantity;
     public TextField decorPrice;
     public TextField decorStatus;
     public Button addButton;
 
-    //update decor sadaļai:
+    //update decor tab:
     public Tab updateDecorPriceTab;
-    public TextField updatePriceField;
     public Button updatePriceButton;
     public TableColumn<Object, Object> decorId1;
     public TableColumn<Object, Object> decorName1;
@@ -57,8 +53,9 @@ public class AdminPanelController extends ViewController implements Initializabl
     public Button updateQuantityButton;
     public TextField newQuantityField;
     public TableView<Decor> updateDecorTableList;
+    public TextField updateDecorIdField;
 
-    //delete decor sadaļai:
+    //delete decor tab:
     public Tab deleteDecorTab;
     public TableView<Decor> decorListTable;
     public TableColumn<Object, Object> decorIdColumn1;
@@ -70,7 +67,7 @@ public class AdminPanelController extends ViewController implements Initializabl
     public Button deleteButton;
     public TextField deleteDecorIdField;
 
-    //Event List sadaļi:
+    //Event List tab:
     public Tab eventListTab;
     public TableColumn<Object, Object> eventIdColumn;
     public TableColumn<Object, Object> eventNameColumn;
@@ -81,7 +78,7 @@ public class AdminPanelController extends ViewController implements Initializabl
     public TextField searchEvent;
     public TableView<Event> eventListTable;
 
-    //add event sadaļai:
+    //add event tab:
     public Tab addEventTab;
     public TextField eventName;
     public DatePicker eventDate;
@@ -90,7 +87,7 @@ public class AdminPanelController extends ViewController implements Initializabl
     public TextField eventGuestQwt;
     public Button addEventButton;
 
-    //delete event sadaļai:
+    //delete event tab:
     public Tab deleteEventTab;
     public TextField deleteEventIdField;
     public TableColumn<Object, Object> eventIdColumn1;
@@ -102,7 +99,7 @@ public class AdminPanelController extends ViewController implements Initializabl
     public Button deleteEventButton;
     public TableView<Event> deleteEventTable;
     
-    //update event sadaļai:
+    //update event tab:
     public Tab updateEventTab;
     public TextField updateEventIdField;
     public TextField updateEventName;
@@ -123,6 +120,21 @@ public class AdminPanelController extends ViewController implements Initializabl
     public TableColumn<Object, Object> eventGuestQwtColumn2;
     public DatePicker updateEventDate;
 
+    //Log out button:
+    public Button goBackButton;
+    
+    //Payment tab:
+    public Tab paymentTab;
+    public TableView billTable;
+    public TableColumn billIdColumn;
+    public TableColumn customerNameColumn;
+    public TableColumn eventNameColumn3;
+    public TableColumn eventDateColumn3;
+    public TableColumn decorNameColumn3;
+    public TableColumn decorQwtColumn3;
+    public TableColumn totalPriceColumn;
+    public TableColumn paymentStatusColumn;
+
 
     DecorDBService decorDBService = new DecorDBService();
     EventDBService eventDBService = new EventDBService();
@@ -134,7 +146,6 @@ public class AdminPanelController extends ViewController implements Initializabl
     List<Event> eventList = new ArrayList<>(eventDBService.showAllEvents());
     ObservableList<Event> events = FXCollections.observableArrayList(eventList);
     FilteredList<Event> filteredEvents = new FilteredList<>(events, p -> true);
-
 
     public AdminPanelController() throws SQLException {
     }
@@ -255,20 +266,13 @@ public class AdminPanelController extends ViewController implements Initializabl
     eventListTable.setItems(sortedEvent);
 }
 
-    public void handleBackButton(ActionEvent actionEvent) {
-        try {
-            changeScene(actionEvent, "welcome");
-        } catch (IOException e) {
-            showAlert("Problem loading scene", e.getMessage(), Alert.AlertType.ERROR);
-        }
-    }
-
     //DECOR METHODS:
-    public void handleDeleteButton(ActionEvent actionEvent) throws SQLException {
+    public void handleDeleteButton(ActionEvent actionEvent) throws SQLException, IOException {
         decorDBService.deleteDecor(Integer.parseInt(deleteDecorIdField.getText()));
         showAlert("Success", "Decor deleted successfully!", Alert.AlertType.CONFIRMATION);
+        changeScene(actionEvent, "admin");
     }
-    public void handleAddButton(ActionEvent actionEvent) throws SQLException {
+    public void handleAddButton(ActionEvent actionEvent) throws SQLException, IOException {
         decorDBService.insertNewDecor(
                 decorName.getText(),
                 Integer.parseInt(decorQuantity.getText()),
@@ -276,24 +280,27 @@ public class AdminPanelController extends ViewController implements Initializabl
                 decorStatus.getText()
         );
         showAlert("Success", "Decor added successfully!", Alert.AlertType.CONFIRMATION);
+        changeScene(actionEvent, "admin");
     }
-    public void handleUpdatePriceButton(ActionEvent actionEvent) throws SQLException {
+    public void handleUpdatePriceButton(ActionEvent actionEvent) throws SQLException, IOException {
         decorDBService.updateDecorPrice(
-                Integer.parseInt(updatePriceField.getText()),
+                Integer.parseInt(updateDecorIdField.getText()),
                 Double.parseDouble(newPriceField.getText())
         );
         showAlert("Success", "Decor price updated successfully!", Alert.AlertType.CONFIRMATION);
+        changeScene(actionEvent, "admin");
     }
-    public void handleUpdateQuantityButton(ActionEvent actionEvent) throws SQLException {
+    public void handleUpdateQuantityButton(ActionEvent actionEvent) throws SQLException, IOException {
         decorDBService.updateDecorQuantity(
-                Integer.parseInt(updatePriceField.getText()),
+                Integer.parseInt(updateDecorIdField.getText()),
                 Integer.parseInt(newQuantityField.getText())
         );
         showAlert("Success", "Decor quantity updated successfully!", Alert.AlertType.CONFIRMATION);
+        changeScene(actionEvent, "admin");
     }
 
     //EVENT T+METHODS:
-    public void handleAddEventButton(ActionEvent actionEvent) throws SQLException {
+    public void handleAddEventButton(ActionEvent actionEvent) throws SQLException, IOException {
         eventDBService.insertNewEvent(
                 eventName.getText(),
                 Date.valueOf(eventDate.getValue()),
@@ -302,46 +309,62 @@ public class AdminPanelController extends ViewController implements Initializabl
                 Integer.parseInt(eventGuestQwt.getText())
         );
         showAlert("Success", "Event added successfully!", Alert.AlertType.CONFIRMATION);
+        changeScene(actionEvent, "admin");
     }
-    public void handleDeleteEventButton(ActionEvent actionEvent) throws SQLException {
+    public void handleDeleteEventButton(ActionEvent actionEvent) throws SQLException, IOException {
         eventDBService.deleteEvent(
                 Integer.parseInt(deleteEventIdField.getText())
         );
         showAlert("Success", "Event deleted successfully!", Alert.AlertType.CONFIRMATION);
+        changeScene(actionEvent, "admin");
     }
-    public void handleUpdateEventNameButton(ActionEvent actionEvent) throws SQLException {
+    public void handleUpdateEventNameButton(ActionEvent actionEvent) throws SQLException, IOException {
         eventDBService.updateEventName(
                 Integer.parseInt(updateEventIdField.getText()),
                 updateEventName.getText()
         );
         showAlert("Success", "Event Name updated successfully!", Alert.AlertType.CONFIRMATION);
+        changeScene(actionEvent, "admin");
     }
-    public void handleUpdateEventDateButton(ActionEvent actionEvent) throws SQLException {
+    public void handleUpdateEventDateButton(ActionEvent actionEvent) throws SQLException, IOException {
         eventDBService.updateEventDate(
                 Integer.parseInt(updateEventIdField.getText()),
                 Date.valueOf(updateEventDate.getValue())
         );
         showAlert("Success", "Event Date updated successfully!", Alert.AlertType.CONFIRMATION);
+        changeScene(actionEvent, "admin");
     }
-    public void handleUpdateEventTimeButton(ActionEvent actionEvent) throws SQLException {
+    public void handleUpdateEventTimeButton(ActionEvent actionEvent) throws SQLException, IOException {
         eventDBService.updateEventTime(
                 Integer.parseInt(updateEventIdField.getText()),
                 updateEventTime.getText()
         );
         showAlert("Success", "Event Time updated successfully!", Alert.AlertType.CONFIRMATION);
+        changeScene(actionEvent, "admin");
     }
-    public void handleUpdateLocationButton(ActionEvent actionEvent) throws SQLException {
+    public void handleUpdateLocationButton(ActionEvent actionEvent) throws SQLException, IOException {
         eventDBService.updateEventLocation(
                 Integer.parseInt(updateEventIdField.getText()),
                 updateEventLocation.getText()
         );
         showAlert("Success", "Event Location updated successfully!", Alert.AlertType.CONFIRMATION);
+        changeScene(actionEvent, "admin");
     }
-    public void handleUpdateGuestQwtButton(ActionEvent actionEvent) throws SQLException {
+
+    public void handleUpdateGuestQwtButton(ActionEvent actionEvent) throws SQLException, IOException {
         eventDBService.updateEventGuestQuantity(
                 Integer.parseInt(updateEventIdField.getText()),
                 Integer.parseInt(updateEventQwt.getText())
         );
         showAlert("Success", "Event Guest Quantity updated successfully!", Alert.AlertType.CONFIRMATION);
+        changeScene(actionEvent, "admin");
+    }
+
+    public void handleBackButton(ActionEvent actionEvent) {
+        try {
+            changeScene(actionEvent, "welcome");
+        } catch (IOException e) {
+            showAlert("Problem loading scene", e.getMessage(), Alert.AlertType.ERROR);
+        }
     }
 }
