@@ -7,9 +7,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
 public class DecorDBService {
 
+
     Connection connection = DBHandler.getConnection();
+
+    public DecorDBService() throws Exception {
+    }
 
 
     // INSERT DECORATION INTO TABLE
@@ -27,24 +32,27 @@ public class DecorDBService {
         PreparedStatement pr = connection.prepareStatement(Queries.insertCustomerChosenDecor);
         pr.setString(1, decor.getDecorName());
         pr.setInt(2, decor.getDecorQwt());
+        pr.setString(3, decor.getCustomerId());
+        pr.setString(4, decor.getEventName());
+        // pr.setInt(5, decor.getDecorId());
         pr.execute();
         pr.close();
     }
 
     public void updateCustomerDecor() throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.updateCustomerDecor);
-        pr.execute();
+        pr.executeUpdate();
         pr.close();
     }
 
-
     //SET DECOR STATUS - value chosen by ADMIN from ComboBox = like out of stock, broken, not available
-    public void setDecorStatus (int decorId , String decorStatus) throws SQLException {
+    public void setDecorStatus(int decorId, String decorStatus) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.setDecorStatus);
         pr.setString(1, decorStatus);
         pr.setInt(2, decorId);
         pr.executeUpdate();
     }
+
     //DELETE DECOR
     public void deleteDecor(int decorId) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.deleteDecor);
@@ -52,6 +60,7 @@ public class DecorDBService {
         pr.execute();
         pr.close();
     }
+
     public void deleteCustomerDecor(String decorName) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.deleteCustomerDecor);
         pr.setString(1, decorName);
@@ -65,7 +74,7 @@ public class DecorDBService {
         ArrayList<Decor> decors = new ArrayList<>();
         PreparedStatement pr = connection.prepareStatement(Queries.showAllDecorAdmin);
         ResultSet result = pr.executeQuery();
-        while (result.next()){
+        while (result.next()) {
             decors.add(new Decor(
                     result.getInt("decor_id"),
                     result.getString("decor_name"),
@@ -76,13 +85,14 @@ public class DecorDBService {
         }
         return decors;
     }
+
     // SHOW SINGLE DECOR ITEM BY ID
     public Decor showSingleDecor(int decorId) throws SQLException {
         Decor decor = new Decor();
         PreparedStatement pr = connection.prepareStatement(Queries.showSingleDecorByID);
         pr.setInt(1, decorId);
         ResultSet result = pr.executeQuery();
-        if(result.next()){
+        if (result.next()) {
             decor = new Decor(
                     result.getInt("decor_id"),
                     result.getString("decor_name"),
@@ -93,6 +103,7 @@ public class DecorDBService {
         }
         return decor;
     }
+
     // UPDATE DECOR IN TABLE:
     public void updateDecorPrice(int decorId, double newPrice) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.updateDecorPrice);
@@ -101,7 +112,8 @@ public class DecorDBService {
         pr.executeUpdate();
         pr.close();
     }
-    public void updateDecorQuantity(int decorId, int newQuantity) throws SQLException{
+
+    public void updateDecorQuantity(int decorId, int newQuantity) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.updateDecorQuantity);
         pr.setDouble(1, newQuantity);
         pr.setInt(2, decorId);
@@ -109,18 +121,13 @@ public class DecorDBService {
         pr.close();
     }
 
-
-
-
-
-
     // SHOW ALL DECORATIONS FOR CUSTOMER
     //if(decorStatus = available) -> showAllDecor();
     public ArrayList<Decor> showAllDecorCustomer() throws SQLException {
         ArrayList<Decor> decors = new ArrayList<>();
         PreparedStatement pr = connection.prepareStatement(Queries.showAllDecorCustomer);
         ResultSet result = pr.executeQuery();
-        while (result.next()){
+        while (result.next()) {
             decors.add(new Decor(
                     result.getInt("decor_id"),
                     result.getString("decor_name"),
@@ -129,6 +136,10 @@ public class DecorDBService {
         pr.close();
         return decors;
     }
+
+
+
+
 }
 
 

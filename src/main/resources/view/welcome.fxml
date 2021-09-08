@@ -34,13 +34,13 @@
             <Font name="Microsoft New Tai Lue Bold" size="18.0" />
          </font>
       </Label>
-      <RadioButton fx:id="standartRadioButton" layoutX="195.0" layoutY="256.0" mnemonicParsing="false" onAction="#handleStandardRadioButton" text="Standart (1200 - 2500 EUR)" textFill="#431189">
+      <RadioButton fx:id="standartRadioButton" layoutX="195.0" layoutY="256.0" mnemonicParsing="false" onAction="#handleStandardRadioButton" text="Standart - (1200 - 2500 EUR)" textFill="#431189">
          <toggleGroup>
             <ToggleGroup fx:id="pricePackage" />
          </toggleGroup></RadioButton>
-      <RadioButton fx:id="premiumRadioButton" layoutX="194.0" layoutY="288.0" mnemonicParsing="false" onAction="#handlePremiumRadioButton" text="Premium (3000 - 4000 EUR)" textFill="#431189" toggleGroup="$pricePackage" />
-      <RadioButton fx:id="premSRadioButton" layoutX="195.0" layoutY="321.0" mnemonicParsing="false" onAction="#handlePremSRadioButton" prefHeight="17.0" prefWidth="186.0" text="Premium S starting 5000 EUR" textFill="#431189" toggleGroup="$pricePackage" />
-      <RadioButton fx:id="conceptRadioButton" layoutX="195.0" layoutY="354.0" mnemonicParsing="false" onAction="#handleConceptRadioButton" text="Event degign concept (250 - 500 EUR)" textFill="#431189" toggleGroup="$pricePackage" />
+      <RadioButton fx:id="premiumRadioButton" layoutX="194.0" layoutY="288.0" mnemonicParsing="false" onAction="#handlePremiumRadioButton" text="Premium - (3000 - 4000 EUR)" textFill="#431189" toggleGroup="$pricePackage" />
+      <RadioButton fx:id="premSRadioButton" layoutX="195.0" layoutY="321.0" mnemonicParsing="false" onAction="#handlePremSRadioButton" prefHeight="17.0" prefWidth="203.0" text="Premium S starts from - 5000 EUR" textFill="#431189" toggleGroup="$pricePackage" />
+      <RadioButton fx:id="conceptRadioButton" layoutX="195.0" layoutY="354.0" mnemonicParsing="false" onAction="#handleConceptRadioButton" text="Event design concept - (250 - 500 EUR)" textFill="#431189" toggleGroup="$pricePackage" />
       <Label layoutX="33.0" layoutY="410.0" prefHeight="32.0" prefWidth="197.0" text="Our contacts:" textFill="#431189">
          <font>
             <Font size="14.0" />

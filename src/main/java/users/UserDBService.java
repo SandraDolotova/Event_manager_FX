@@ -1,22 +1,21 @@
 package users;
 
 import Types.PackagePrice;
+import customerData.AppData;
 import db.DBHandler;
 import db.Queries;
-import javafx.collections.ObservableList;
-import javafx.scene.control.SelectionMode;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class UserDBService {
+
     Connection connection = DBHandler.getConnection();
+
+    public UserDBService() throws Exception {
+    }
 
     // to get user login name and password from DB for login validation
     public Map<String, String> userCheck() throws SQLException {
@@ -38,12 +37,38 @@ public class UserDBService {
         return mapResult;
     }
 
+    public Integer showLoggedIn(String login, String pass) throws SQLException {
+        PreparedStatement pr = connection.prepareStatement(Queries.showLoggedIn);
+        pr.setString(1, login);
+        pr.setString(2, pass);
+        ResultSet result = pr.executeQuery();
+
+        Integer userId = null;
+        if (result.next()) userId = result.getInt("id");
+
+        return userId;
+    }
+
+    public User showLoggedInCustomer(int loggedInUserId) throws Exception {
+        PreparedStatement pr = connection.prepareStatement(Queries.showLoggedInCustomer);
+        pr.setInt(1, loggedInUserId);
+        ResultSet result = pr.executeQuery();
+
+        User user = null;
+        if (result.next()) {
+            user = new User(
+                    result.getInt("id"),
+                    result.getString("user_full_name"));
+        }
+        return user;
+    }
+
     //to register new user in DB
     public void addNewUser(User user) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.insertNewUser);
         pr.setString(1, user.getUserFullName());
         pr.setString(2, user.getUserEmail());
-        pr.setString(3, user.getPhoneNumber());
+        pr.setInt(3, user.getPhoneNumber());
         pr.setString(4, user.getUserLoginName());
         pr.setString(5, user.getUserPassword());
         pr.execute();
@@ -53,7 +78,7 @@ public class UserDBService {
     public void addCallBackConcept(User user) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.insertCallBackPhone);
         pr.setString(1, user.getUserFullName());
-        pr.setString(2, user.getPhoneNumber());
+        pr.setInt(2, user.getPhoneNumber());
         pr.setString(3, String.valueOf(PackagePrice.CONCEPT));
         pr.execute();
         pr.close();
@@ -88,7 +113,9 @@ public class UserDBService {
     // INSERT INTO GUEST LIST - customer inserts names
     public void insertGuests(User user) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.insertGuests);
-        pr.setString(1, user.getUserFullName());
+        pr.setString(3, user.getUserFullName());
+        pr.setString(1, user.getEventName());
+        pr.setInt(2, AppData.getInstance().getLoggedInUserId());
         pr.execute();
         pr.close();
     }
@@ -100,8 +127,13 @@ public class UserDBService {
         pr.executeUpdate();
         pr.close();
     }
-    // UPDATE GUEST LIST - customer sets participation status for his guests
-    //
+    // UPDATE GUEST LIST
+    public void updateGuestLIst() throws SQLException {
+        PreparedStatement pr = connection.prepareStatement(Queries.updateEventGuests);
+        pr.executeUpdate();
+        pr.close();
+    }
+
     public void setGuestStatus(String eventName) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.setGuestStatus);
         pr.setString(1, eventName);
@@ -110,9 +142,12 @@ public class UserDBService {
     }
 
     // SHOW ALL GUESTS FROM THE LIST
-    public ArrayList<User> showAllGuests() throws SQLException {
+    public ArrayList<User> showAllGuests() throws Exception {
+      // String sql = "SELECT * FROM event_guest_list WHERE customer_id = '" + showLoggedInCustomer(AppData.getInstance().getLoggedInUserId()) + "'" ;
+       // String sql = "SELECT * FROM event_guest_list WHERE event_name = "
         ArrayList<User> users = new ArrayList<>();
         PreparedStatement pr = connection.prepareStatement(Queries.showAllGuests);
+      //  PreparedStatement pr = connection.prepareStatement(sql);
         ResultSet result = pr.executeQuery();
         while (result.next()) {
             users.add(new User(
@@ -123,5 +158,6 @@ public class UserDBService {
         pr.close();
         return users;
     }
+
 
 }

@@ -4,17 +4,19 @@ import lombok.Getter;
 @Getter
 public class User {
 
+    String eventName;
     Integer userId;
     String userLoginName;
     String userFullName;
     String userPassword;
     String userEmail;
-    String phoneNumber;
+    Integer phoneNumber;
     String packagePrice;
     String callStatus;
     boolean participation;
 
-    public User(String userFullName, String userEmail, String phoneNumber, String userLoginName, String userPassword) {
+
+    public User(String userFullName, String userEmail, Integer phoneNumber, String userLoginName, String userPassword) {
         this.userFullName = userFullName;
         this.userEmail = userEmail;
         this.phoneNumber = phoneNumber;
@@ -22,13 +24,14 @@ public class User {
         this.userPassword = userPassword;
     }
 
-    public User(String userFullName, String phoneNumber) {
+    public User(String userFullName, Integer phoneNumber) {
         this.userFullName = userFullName;
         this.phoneNumber = phoneNumber;
     }
 
     public User(String userFullName) {
         this.userFullName = userFullName;
+
     }
 
     public User(Integer userId, String userFullName) {
@@ -39,12 +42,19 @@ public class User {
     public User(int id, String login_name, String user_name, String email, int phone) {
     }
 
-    public User(int guest_id, String guest_name, boolean participation) {
+    public User(String userFullName, String eventName) {
+        this.userFullName = userFullName;
+        this.eventName = eventName;
     }
 
+    public User(String eventName, Integer userId, String userFullName) {
+        this.eventName = eventName;
+        this.userId = userId;
+        this.userFullName = userFullName;
+    }
 
     @Override
     public String toString() {
-        return "id: " + userId + ") " + userFullName;
+        return  "Event: " + eventName+ "; Nr: " + userId + ") " + userFullName;
     }
 }

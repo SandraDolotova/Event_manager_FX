@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GuestList">
+   <children>
+      <Label layoutX="170.0" layoutY="100.0" text="Insert guest full name:" />
+      <TextField fx:id="guestNameField" layoutX="109.0" layoutY="133.0" prefHeight="25.0" prefWidth="264.0" />
+      <ListView fx:id="guestList" layoutX="53.0" layoutY="173.0" prefHeight="194.0" prefWidth="457.0" />
+      <Button fx:id="addGuestButton" layoutX="400.0" layoutY="133.0" mnemonicParsing="false" onAction="#handleGuestAddButton" text="Add" />
+      <Button fx:id="deleteGuestButton" layoutX="451.0" layoutY="133.0" mnemonicParsing="false" onAction="#handleDeleteGuestButton" text="Delete" />
+      <Button fx:id="backButton" layoutX="522.0" layoutY="354.0" mnemonicParsing="false" onAction="#handleBackButton" text="Back" />
+      <Label layoutX="45.0" layoutY="74.0" text="Select event" />
+      <ComboBox fx:id="eventNameComboBox" layoutX="118.0" layoutY="70.0" prefWidth="150.0" promptText="your events" />
+      <Label layoutX="221.0" layoutY="30.0" text="Your Guests">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
