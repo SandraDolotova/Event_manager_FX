@@ -1,4 +1,4 @@
-/*package admin;
+package admin;
 
 import decor.Decor;
 import decor.DecorDBService;
@@ -209,4 +209,3 @@ public class AdminController {
     }
 
 }
-*/

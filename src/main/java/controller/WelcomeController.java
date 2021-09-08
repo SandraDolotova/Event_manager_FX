@@ -42,6 +42,8 @@ public class WelcomeController extends ViewController {
     private Label userNameLabel;
     @FXML
     private PasswordField passwordInputField;
+    @FXML
+    private Button galleryButton;
 
 
     @FXML
@@ -121,8 +123,13 @@ public class WelcomeController extends ViewController {
 
     }
 
-
-
-
+    @FXML
+    void handleGoToGalleryButton(ActionEvent actionEvent) {
+        try {
+            changeScene(actionEvent, "gallery");
+        } catch (IOException e) {
+            showAlert("Problem loading scene", e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
 
 }
