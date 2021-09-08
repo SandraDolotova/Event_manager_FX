@@ -10,15 +10,14 @@ import java.util.ArrayList;
 
 public class EventDBService {
     UserDBService userDBService = new UserDBService();
-    User user = userDBService.showLoggedInCustomer(AppData.getInstance().getLoggedInUserId());
+
 
     Connection connection = DBHandler.getConnection();
 
     public EventDBService() throws Exception {
     }
-
     // INSERT INTO EVENTS
-    public void insertNewEvent(Event event) throws SQLException {
+    public void insertNewEventCustomer (Event event) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.insertNewEvent);
         pr.setString(1, event.getCustomerId());
         pr.setString(2, event.getEventName());
@@ -29,7 +28,6 @@ public class EventDBService {
         pr.execute();
         pr.close();
     }
-
     // DELETE EVENT
     public void deleteEvent(int eventId) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.deleteEvent);
@@ -44,7 +42,6 @@ public class EventDBService {
         pr.execute();
         pr.close();
     }
-
 
     // SHOW EVENT LIST for ADMIN
     public ArrayList<Event> showAllEvents() throws SQLException {
@@ -100,9 +97,9 @@ public class EventDBService {
         pr.close();
     }
 
-    public void updateEventTime(int eventId, Time newTime) throws SQLException {
+    public void updateEventTime(int eventId, String newTime) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.updateEventTime);
-        pr.setTime(1, newTime);
+        pr.setString(1, newTime);
         pr.setInt(2, eventId);
         pr.executeUpdate();
         pr.close();
@@ -125,7 +122,8 @@ public class EventDBService {
     }
 
     //TO SHOW INFO ABOUT ORDERED EVENT
-    public ArrayList<Event> showOrderDetails() throws SQLException {
+    public ArrayList<Event> showOrderDetails() throws Exception {
+        User user = userDBService.showLoggedInCustomer(AppData.getInstance().getLoggedInUserId());
         String sql = "SELECT event_id, event_name, dueDate, dueTime, location_name, guests_number FROM events WHERE  customer_id = '" + user.getUserId() + "'" ;
         ArrayList<Event> orders = new ArrayList<>();
         PreparedStatement pr = connection.prepareStatement(sql);
@@ -143,9 +141,8 @@ public class EventDBService {
         pr.close();
         return orders;
     }
-
-
-    public ArrayList<Event> showCustomerEvents() throws SQLException {
+    public ArrayList<Event> showCustomerEvents() throws Exception {
+        User user = userDBService.showLoggedInCustomer(AppData.getInstance().getLoggedInUserId());
         String sql = "SELECT event_name FROM events WHERE customer_id = '" + user.getUserId() + "'" ;
         ArrayList<Event> events = new ArrayList<>();
         PreparedStatement pr = connection.prepareStatement(sql);
@@ -157,7 +154,14 @@ public class EventDBService {
         pr.close();
         return events;
     }
-
-
-
+    public void insertNewEventAdmin(String eventName, Date dueDate, String dueTime, String location, int guestNumber) throws SQLException {
+        PreparedStatement pr = connection.prepareStatement(Queries.insertNewEvent);
+        pr.setString(1, eventName);
+        pr.setDate(2, dueDate);
+        pr.setString(3, dueTime);
+        pr.setString(4, location);
+        pr.setInt(5, guestNumber);
+        pr.execute();
+        pr.close();
+    }
 }

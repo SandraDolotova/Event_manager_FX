@@ -147,7 +147,7 @@ public class AdminPanelController extends ViewController implements Initializabl
     ObservableList<Event> events = FXCollections.observableArrayList(eventList);
     FilteredList<Event> filteredEvents = new FilteredList<>(events, p -> true);
 
-    public AdminPanelController() throws SQLException {
+    public AdminPanelController() throws Exception {
     }
 
     @Override
@@ -300,16 +300,19 @@ public class AdminPanelController extends ViewController implements Initializabl
     }
 
     //EVENT T+METHODS:
-    public void handleAddEventButton(ActionEvent actionEvent) throws SQLException, IOException {
-        eventDBService.insertNewEvent(
-                eventName.getText(),
-                Date.valueOf(eventDate.getValue()),
-                eventTime.getText(),
-                eventLocation.getText(),
-                Integer.parseInt(eventGuestQwt.getText())
-        );
-        showAlert("Success", "Event added successfully!", Alert.AlertType.CONFIRMATION);
-        changeScene(actionEvent, "admin");
+    public void handleAddEventButton(ActionEvent actionEvent) {
+        try {
+            eventDBService.insertNewEventAdmin(
+                    eventName.getText(),
+                    Date.valueOf(eventDate.getValue()),
+                    eventTime.getText(),
+                    eventLocation.getText(),
+                    Integer.parseInt(eventGuestQwt.getText())
+            );
+            showAlert("Success", "Event added successfully!", Alert.AlertType.CONFIRMATION);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     public void handleDeleteEventButton(ActionEvent actionEvent) throws SQLException, IOException {
         eventDBService.deleteEvent(

@@ -1,4 +1,5 @@
 package controller;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -7,6 +8,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import users.User;
 import users.UserDBService;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,13 +29,16 @@ public class RegistrationController extends ViewController {
 
     UserDBService userDBService = new UserDBService();
 
+    public RegistrationController() throws Exception {
+    }
+
     public void handleRegistration(ActionEvent actionEvent) {
         try {
             validateUserInput();
             User user = new User(
                     fullNameField.getText(),
                     emailField.getText(),
-                    phoneNumberField.getText(),
+                    Integer.parseInt(phoneNumberField.getText()),
                     loginNameField.getText(),
                     passwordField.getText());
             userDBService.addNewUser(user);
@@ -54,7 +59,7 @@ public class RegistrationController extends ViewController {
     }
 
     private void validateUserInput() throws Exception {
-        if(loginNameField.getText().equals("admin"))throw new Exception("Login name exists. Try another!");
+        if (loginNameField.getText().equals("admin")) throw new Exception("Login name exists. Try another!");
         if (!passwordField.getText().equals(confirmPasswordField.getText()))
             throw new Exception("Password does not match with confirm password. Try again!");
         if (passwordField.getText().length() < 4) throw new Exception("Password should be min 4 char");

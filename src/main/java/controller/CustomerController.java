@@ -240,7 +240,7 @@ public class CustomerController extends ViewController implements Initializable 
                     timeField.getText(),
                     locationField.getText(),
                     Integer.parseInt(guestNumberField.getText()));
-            eventDBService.insertNewEvent(event);
+            eventDBService.insertNewEventCustomer(event);
             showAlert("Event successfully added", "Now please proceed with decor and guest list  ", Alert.AlertType.CONFIRMATION);
             changeScene(actionEvent, "customer");
         } catch (Exception e) {

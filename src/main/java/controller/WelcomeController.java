@@ -1,17 +1,19 @@
 package controller;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import customerData.AppData;
 import users.UserDBService;
+
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class WelcomeController extends ViewController {
-
     UserDBService userDBService = new UserDBService();
+
     @FXML
     private ResourceBundle resources;
     @FXML
@@ -45,6 +47,8 @@ public class WelcomeController extends ViewController {
     @FXML
     private Button galleryButton;
 
+    public WelcomeController() throws Exception {
+    }
 
     @FXML
     void handleLoginButton(ActionEvent actionEvent) throws Exception {
@@ -52,22 +56,23 @@ public class WelcomeController extends ViewController {
             if (userNameInputTextField.getText().equals("admin") && passwordInputField.getText().equals("admin")) {
                 try {
                     changeScene(actionEvent, "admin");
-                }catch (Exception e){
+                } catch (Exception e) {
                     showAlert("Problem loading scene", e.getMessage(), Alert.AlertType.ERROR);
                     e.printStackTrace();
                 }
             } else if (userDBService.userCheck().containsKey(userNameInputTextField.getText()) && userDBService.userCheck().containsValue(passwordInputField.getText())) {
-               try {
-                   changeScene(actionEvent, "customer");
-               }catch (Exception e){
-                   showAlert("Problem loading scene", e.getMessage(), Alert.AlertType.ERROR);
-                   e.printStackTrace();
-               }
+                try {
+                    int userId = userDBService.showLoggedIn(userNameInputTextField.getText(), passwordInputField.getText());
+                    AppData.getInstance().setLoggedInUserId(userId);
+                    changeScene(actionEvent, "customer");
+                } catch (Exception e) {
+                    showAlert("Problem loading scene", e.getMessage(), Alert.AlertType.ERROR);
+                    e.printStackTrace();
+                }
             } else {
-                System.out.println("Wrong input");
                 showAlert("Warning message", "Incorrect input, try again", Alert.AlertType.ERROR);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             showAlert("Error", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
@@ -84,10 +89,8 @@ public class WelcomeController extends ViewController {
 
     @FXML
     void handleStandardRadioButton(ActionEvent actionEvent) {
-
-
         try {
-           changeScene(actionEvent, "standardPackage");
+            changeScene(actionEvent, "standardPackage");
         } catch (IOException e) {
             showAlert("Problem loading scene", e.getMessage(), Alert.AlertType.ERROR);
         }
@@ -116,7 +119,7 @@ public class WelcomeController extends ViewController {
     @FXML
     void handleConceptRadioButton(ActionEvent actionEvent) {
         try {
-            changeScene(actionEvent, "conceptPackage");
+            changeScene(actionEvent, "concept");
         } catch (IOException e) {
             showAlert("Problem loading scene", e.getMessage(), Alert.AlertType.ERROR);
         }

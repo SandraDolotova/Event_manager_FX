@@ -1,5 +1,4 @@
 package Types;
-
 public enum PackagePrice {
 
     STANDARD,
