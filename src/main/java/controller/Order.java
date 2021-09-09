@@ -87,9 +87,6 @@ public class Order extends ViewController implements Initializable {
     }
 
     public ActionEvent fillInOrderTable(){
-        if(eventNameComboBox.getValue() == null){
-            showAlert("Error", "Please select your event from the list", Alert.AlertType.ERROR);
-        }else{
         try {
             orders.removeAll(orders);
             String sql = "SELECT customer_decor_id, customer_decor_name, customer_decor_qwnt, customer_decor_price_vat, total_decor_price, transportation_costs, total_bill " +
@@ -111,7 +108,6 @@ public class Order extends ViewController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        }
         idColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         decorNameColumn.setCellValueFactory(new PropertyValueFactory<>("decorName"));
         qwtColumn.setCellValueFactory(new PropertyValueFactory<>("decorQwt"));
@@ -126,7 +122,11 @@ public class Order extends ViewController implements Initializable {
     }
 
     public void handleComboBox(ActionEvent actionEvent) throws IOException {
-        fillInOrderTable();
+        if (eventNameComboBox.getValue() == null) {
+            showAlert("Error", "Please select your event from the list", Alert.AlertType.INFORMATION);
+        } else {
+            fillInOrderTable();
+        }
     }
 }
 
