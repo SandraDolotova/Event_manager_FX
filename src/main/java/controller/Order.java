@@ -62,7 +62,6 @@ public class Order extends ViewController implements Initializable {
 
     public Order() throws Exception {
     }
-
     @SneakyThrows
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -70,18 +69,15 @@ public class Order extends ViewController implements Initializable {
         fillInComboBox();
         handleComboBox(fillInOrderTable());
     }
-
     private void fillInComboBox() {
         eventNameComboBox.setItems(customerEvents);
     }
-
     private void showLoggedInCustomerDetails() {
         customerID.setEditable(false);
         customerFullNameField.setEditable(false);
         customerID.setText(String.valueOf(user.getUserId()));
         customerFullNameField.setText(user.getUserFullName());
     }
-
     public void handleBackButton(ActionEvent actionEvent) {
         try {
             changeScene(actionEvent, "customer");
@@ -89,12 +85,14 @@ public class Order extends ViewController implements Initializable {
             showAlert("Problem loading scene", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
-
     public ActionEvent fillInOrderTable() {
         try {
             orders.removeAll(orders);
-            String sql = "SELECT customer_decor_id, customer_decor_name, customer_decor_qwnt, customer_decor_price_vat, total_decor_price, transportation_costs, total_bill " +
-                    "FROM customer_decor where customer_id ='" + user.getUserId() + "' " +
+            String sql = "SELECT customer_decor_id, customer_decor_name, customer_decor_qwnt,  ROUND (customer_decor_price_vat) as customer_decor_price_vat,\n" +
+                    "            ROUND (total_decor_price) as total_decor_price,\n" +
+                    "            ROUND (transportation_costs) as transportation_costs,\n" +
+                    "            ROUND (total_bill) as total_bill\n" +
+                    "            FROM customer_decor where customer_id ='" + user.getUserId() + "' " +
                     "&& event_name = '" + eventNameComboBox.getSelectionModel().getSelectedItem() + "'";
             PreparedStatement pr = connection.prepareStatement(sql);
 
@@ -125,7 +123,6 @@ public class Order extends ViewController implements Initializable {
         orderTable.setEditable(false);
         return null;
     }
-
     public void handleComboBox(ActionEvent actionEvent) {
         if (eventNameComboBox.getValue() == null) {
             showAlert("Error", "Please select your event from the list", Alert.AlertType.INFORMATION);
@@ -148,14 +145,23 @@ public class Order extends ViewController implements Initializable {
                     String totalPay = decimalFormat.format(result.getDouble("total_bill"));
                     totalSum.setText(totalPay);
                 }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            } catch (SQLException e) {
+                showAlert("Error", "Total sum not found ", Alert.AlertType.INFORMATION);
+                e.printStackTrace();
             }
         }
         totalSum.setEditable(false);
     }
-
-    public void handlePay(ActionEvent actionEvent) {
-
+    public void handleLogOut(ActionEvent actionEvent) {
+        try {
+            changeScene(actionEvent, "welcome");
+        } catch (IOException e) {
+            showAlert("Problem loading scene", e.getMessage(), Alert.AlertType.ERROR);
+        }
     }
+    public void handlePay(ActionEvent actionEvent) {
+        showAlert("DONE", "YOU ORDER IS COMPLETE AND PAID", Alert.AlertType.INFORMATION);
+    }
+
+
 }

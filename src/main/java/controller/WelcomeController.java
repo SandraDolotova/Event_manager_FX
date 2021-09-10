@@ -90,7 +90,7 @@ public class WelcomeController extends ViewController {
     @FXML
     void handleStandardRadioButton(ActionEvent actionEvent) {
         try {
-            changeScene(actionEvent, "standardPackage");
+            changeScene(actionEvent, "callBack");
         } catch (IOException e) {
             showAlert("Problem loading scene", e.getMessage(), Alert.AlertType.ERROR);
         }
@@ -124,15 +124,6 @@ public class WelcomeController extends ViewController {
             showAlert("Problem loading scene", e.getMessage(), Alert.AlertType.ERROR);
         }
 
-    }
-
-    @FXML
-    void handleGoToGalleryButton(ActionEvent actionEvent) {
-        try {
-            changeScene(actionEvent, "gallery");
-        } catch (IOException e) {
-            showAlert("Problem loading scene", e.getMessage(), Alert.AlertType.ERROR);
-        }
     }
 
 }

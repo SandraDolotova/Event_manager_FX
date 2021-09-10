@@ -1,20 +1,31 @@
 package controller;
 
 import packageTypes.PackagePrice;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import users.UserDBService;
 
-import java.io.IOException;
-import java.sql.SQLException;
+import java.io.*;
 
-public class ConceptPackage extends ViewController {
+public class PremiumPackage extends ViewController {
+
+    @FXML
+    private ListView<String> textList;
+    @FXML
+    private TextField fullNameCallBackField;
+    @FXML
+    private TextField callBackPhone;
+
     UserDBService userDBService = new UserDBService();
-    public TextField fullNameCallBackField;
-    public TextField callBackPhone;
+    ObservableList<String> rowList = FXCollections.observableArrayList();
+    File fileObject;
 
-    public ConceptPackage() throws Exception {
+    public PremiumPackage() throws Exception {
     }
 
     public void handleCallBackPhone(ActionEvent actionEvent) throws Exception {
@@ -23,10 +34,10 @@ public class ConceptPackage extends ViewController {
             userDBService.addCallBackConcept(
                     fullNameCallBackField.getText(),
                     Integer.parseInt(callBackPhone.getText()),
-                    String.valueOf(PackagePrice.CONCEPT)
+                    String.valueOf(PackagePrice.PREMIUM)
             );
             showAlert("Registration successful", "We will call you back as soon as possible", Alert.AlertType.CONFIRMATION);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             showAlert("Registration failed", e.getMessage(), Alert.AlertType.ERROR);
             e.printStackTrace();
         }
@@ -37,8 +48,10 @@ public class ConceptPackage extends ViewController {
             changeScene(actionEvent, "welcome");
         } catch (IOException e) {
             showAlert("Problem loading scene", e.getMessage(), Alert.AlertType.ERROR);
+            e.printStackTrace();
         }
     }
+
     private void validateUserInput() throws Exception {
         if (fullNameCallBackField.getText().isEmpty())
             throw new Exception("Please fill in your full name");

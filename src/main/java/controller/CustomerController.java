@@ -39,8 +39,6 @@ public class CustomerController extends ViewController implements Initializable 
     @FXML
     private TableView<Decor> customerDecorTable;
     @FXML
-    private TableView<Event> eventTable;
-    @FXML
     private TableColumn<Decor, Integer> decorIdColumn;
     @FXML
     private TextField insertedDecorQwnt;
@@ -92,6 +90,8 @@ public class CustomerController extends ViewController implements Initializable 
     private ComboBox<Event> eventNameComboBox;
     @FXML
     private ComboBox<String> timeBox;
+    @FXML
+    private TableView<Event> eventTable;
 
     EventDBService eventDBService = new EventDBService();
     UserDBService userDBService = new UserDBService();
@@ -119,14 +119,16 @@ public class CustomerController extends ViewController implements Initializable 
         fillInCustomerDecorTable();
         filterCustomerTable();
         getSelectedDecor();
-        fillInCustomerOrderDetailsTable();
+        fillInCustomerEventList();
         showLoggedInCustomerDetails();
         fillInComboBox();
     }
+
     void fillInComboBox() throws SQLException {
         eventNameComboBox.setItems(customerEvents);
     }
-    public void fillInCustomerOrderDetailsTable() {
+
+    public void fillInCustomerEventList() {
         eventIdColumn.setCellValueFactory(new PropertyValueFactory<>("eventId"));
         eventNameColumn.setCellValueFactory(new PropertyValueFactory<>("eventName"));
         eventDateColumn.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
@@ -136,12 +138,14 @@ public class CustomerController extends ViewController implements Initializable 
         eventTable.setItems(orders);
         eventTable.setEditable(false);
     }
+
     public void fillInCustomerDecorTable() {
         decorIdColumn.setCellValueFactory(new PropertyValueFactory<>("decorId"));
         decorNameColumn.setCellValueFactory(new PropertyValueFactory<>("decorName"));
         decorVatColumn.setCellValueFactory(new PropertyValueFactory<>("decorPriceVAT"));
         customerDecorTable.setItems(decors);
     }
+
     public void filterCustomerTable() {
         searchDecorTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredDecors.setPredicate(decor -> {
@@ -163,6 +167,7 @@ public class CustomerController extends ViewController implements Initializable 
         sortedDecor.comparatorProperty().bind(customerDecorTable.comparatorProperty());
         customerDecorTable.setItems(sortedDecor);
     }
+
     public void getSelectedDecor() {
         customerDecorTable.setRowFactory(tv -> {
             TableRow<Decor> row = new TableRow<>();
@@ -179,6 +184,7 @@ public class CustomerController extends ViewController implements Initializable 
             return row;
         });
     }
+
     public void handleAddCustomerDecor(ActionEvent actionEvent) throws SQLException {
         TablePosition pos = customerDecorTable.getSelectionModel().getSelectedCells().get(0);
         int row = pos.getRow();
@@ -197,10 +203,10 @@ public class CustomerController extends ViewController implements Initializable 
         } else {
             try {
                 Decor decor = new Decor(
-                        decorName, //decor name
-                        Integer.parseInt(insertedDecorQwnt.getText()), // decor qwnt
-                        customerIdToDB, //customer id
-                        eventName // event name from combo box
+                        decorName,
+                        Integer.parseInt(insertedDecorQwnt.getText()),
+                        customerIdToDB,
+                        eventName
                 );
                 decorDBService.insertCustomerChosenDecor(decor);
                 decorDBService.updateCustomerDecor();
@@ -213,6 +219,7 @@ public class CustomerController extends ViewController implements Initializable 
         searchDecorTextField.clear();
         insertedDecorQwnt.clear();
     }
+
     public void handleCustomerDeleteDecor(ActionEvent actionEvent) {
         TablePosition pos = customerDecorTable.getSelectionModel().getSelectedCells().get(0);
         int row = pos.getRow();
@@ -229,6 +236,7 @@ public class CustomerController extends ViewController implements Initializable 
             }
         }
     }
+
     public void handleInsertButton(ActionEvent actionEvent) throws Exception {
         String customerIdToDB = customerID.getText();
         try {
@@ -249,6 +257,7 @@ public class CustomerController extends ViewController implements Initializable 
         }
 
     }
+
     private void validateUserInput() throws Exception {
         if (eventNameField.getText().isEmpty())
             throw new Exception("Event name cannot be blank. Please fill out this field!");
@@ -260,12 +269,14 @@ public class CustomerController extends ViewController implements Initializable 
         if (guestNumberField.getText().isEmpty())
             throw new Exception("Guest number cannot be blank. Please fill out this field!");
     }
+
     public void showLoggedInCustomerDetails() throws Exception {
         customerID.setEditable(false);
         customerFullNameField.setEditable(false);
         customerID.setText(String.valueOf(user.getUserId()));
         customerFullNameField.setText(user.getUserFullName());
     }
+
     public void handleLogOutButton(ActionEvent actionEvent) {
         try {
             changeScene(actionEvent, "welcome");
@@ -273,11 +284,13 @@ public class CustomerController extends ViewController implements Initializable 
             showAlert("Problem loading scene", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
+
     public void handleGuestListButton(ActionEvent actionEvent) {
         try {
             changeScene(actionEvent, "guestList");
         } catch (IOException e) {
             showAlert("Problem loading scene", e.getMessage(), Alert.AlertType.ERROR);
+            e.printStackTrace();
         }
     }
     public void handleOrderDetailsButton(ActionEvent actionEvent) {
@@ -287,17 +300,19 @@ public class CustomerController extends ViewController implements Initializable 
             showAlert("Problem loading scene", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
+
     public void handleRemoveEventCustomer(ActionEvent actionEvent) {
         TablePosition pos = eventTable.getSelectionModel().getSelectedCells().get(0);
         int row = pos.getRow();
         Event item = eventTable.getItems().get(row);
         TableColumn col = pos.getTableColumn();
         String eventName = (String) col.getCellObservableValue(item).getValue();
+
         if (eventName != null) {
             try {
                 eventDBService.deleteCustomerEvent(eventName);
-                showAlert("Done","Chosen event was removed from your list", Alert.AlertType.CONFIRMATION);
-
+                showAlert("Done", "Chosen event was removed from your list", Alert.AlertType.CONFIRMATION);
+                changeScene(actionEvent, "customer");
             } catch (Exception e) {
                 showAlert("Event was not removed", e.getMessage(), Alert.AlertType.ERROR);
                 e.printStackTrace();

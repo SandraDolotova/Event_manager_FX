@@ -1,6 +1,6 @@
 package users;
 
-import Types.PackagePrice;
+import packageTypes.PackagePrice;
 import customerData.AppData;
 import db.DBHandler;
 import db.Queries;
@@ -75,11 +75,12 @@ public class UserDBService {
         pr.close();
     }
 
-    public void addCallBackConcept(User user) throws SQLException {
+    public void addCallBackConcept(String userFullName, int phone, String packagePrice) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.insertCallBackPhone);
-        pr.setString(1, user.getUserFullName());
-        pr.setInt(2, user.getPhoneNumber());
-        pr.setString(3, String.valueOf(PackagePrice.CONCEPT));
+        pr.setString(1, userFullName);
+        pr.setInt(2, phone);
+        pr.setString(3, packagePrice);
+       // pr.setString(3, String.valueOf(PackagePrice.CONCEPT));
         pr.execute();
         pr.close();
     }

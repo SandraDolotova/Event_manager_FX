@@ -26,7 +26,6 @@ public class GuestList extends ViewController implements Initializable {
     UserDBService userDBService = new UserDBService();
     EventDBService eventDBService = new EventDBService();
     Connection connection = DBHandler.getConnection();
-    Integer customerIdToDB = AppData.getInstance().getLoggedInUserId();
 
     @FXML
     private Button addGuestButton;
@@ -57,7 +56,7 @@ public class GuestList extends ViewController implements Initializable {
     }
 
     public void handleGuestAddButton(ActionEvent actionEvent) throws Exception {
-     //   Integer customerIdToDB = AppData.getInstance().getLoggedInUserId();
+        Integer customerIdToDB = AppData.getInstance().getLoggedInUserId();
         String eventName = String.valueOf(eventNameComboBox.getSelectionModel().getSelectedItem());
         if (eventNameComboBox.getValue() == null) {
             showAlert("Error", "Please select your event from the list", Alert.AlertType.ERROR);
@@ -115,7 +114,9 @@ public class GuestList extends ViewController implements Initializable {
         guestList.setItems(listOfGuests);
     }
     public ArrayList<User> showAllGuests() throws Exception {
-        String sql = "SELECT event_name, guest_id, guest_name FROM event_guest_list WHERE customer_id = '" + customerIdToDB + "'";
+        Integer customerIdToDB = AppData.getInstance().getLoggedInUserId();
+        String sql = "SELECT event_name, guest_id, guest_name FROM event_guest_list " +
+                "WHERE customer_id = '" + customerIdToDB + "'";
         ArrayList<User> users = new ArrayList<>();
         PreparedStatement pr = connection.prepareStatement(sql);
         ResultSet result = pr.executeQuery();
@@ -131,4 +132,7 @@ public class GuestList extends ViewController implements Initializable {
     }
 
 
+    public void handleComboBox(ActionEvent actionEvent) {
+
+    }
 }

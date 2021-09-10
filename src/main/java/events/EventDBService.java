@@ -18,7 +18,7 @@ public class EventDBService {
     }
     // INSERT INTO EVENTS
     public void insertNewEventCustomer (Event event) throws SQLException {
-        PreparedStatement pr = connection.prepareStatement(Queries.insertNewEvent);
+        PreparedStatement pr = connection.prepareStatement(Queries.insertNewEventCustomer);
         pr.setString(1, event.getCustomerId());
         pr.setString(2, event.getEventName());
         pr.setDate(3, event.getDueDate());
@@ -37,7 +37,7 @@ public class EventDBService {
     }
 
     public void deleteCustomerEvent(String eventName) throws SQLException {
-        PreparedStatement pr =connection.prepareStatement(Queries.deleteEvent);
+        PreparedStatement pr =connection.prepareStatement(Queries.deleteEventCustomer);
         pr.setString(1,eventName);
         pr.execute();
         pr.close();
@@ -114,7 +114,7 @@ public class EventDBService {
     }
 
     public void updateEventGuestQuantity(int eventId, int newGuestQuantity) throws SQLException {
-        PreparedStatement pr = connection.prepareStatement(Queries.updateEventGuests);
+        PreparedStatement pr = connection.prepareStatement(Queries.updateEventGuestQwt);
         pr.setInt(1, newGuestQuantity);
         pr.setInt(2, eventId);
         pr.executeUpdate();
@@ -155,7 +155,7 @@ public class EventDBService {
         return events;
     }
     public void insertNewEventAdmin(String eventName, Date dueDate, String dueTime, String location, int guestNumber) throws SQLException {
-        PreparedStatement pr = connection.prepareStatement(Queries.insertNewEvent);
+        PreparedStatement pr = connection.prepareStatement(Queries.insertNewEventAdmin);
         pr.setString(1, eventName);
         pr.setDate(2, dueDate);
         pr.setString(3, dueTime);

@@ -45,14 +45,6 @@ public class DecorDBService {
         pr.close();
     }
 
-    //SET DECOR STATUS - value chosen by ADMIN from ComboBox = like out of stock, broken, not available
-    public void setDecorStatus(int decorId, String decorStatus) throws SQLException {
-        PreparedStatement pr = connection.prepareStatement(Queries.setDecorStatus);
-        pr.setString(1, decorStatus);
-        pr.setInt(2, decorId);
-        pr.executeUpdate();
-    }
-
     //DELETE DECOR
     public void deleteDecor(int decorId) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.deleteDecor);
