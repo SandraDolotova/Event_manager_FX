@@ -94,18 +94,18 @@ public class UserDBService {
 
     // to show all existing users to Admin
     public ArrayList<User> showUsers() throws SQLException {
-        ArrayList<User> users = new ArrayList<>();
-        PreparedStatement pr = connection.prepareStatement(Queries.showUserList);
-        ResultSet result = pr.executeQuery();
-        while (result.next()) {
-            users.add(new User(
-                    result.getInt("id"),
-                    result.getString("user_full_name"),
-                    result.getString("email"),
-                    (int) result.getLong("phone")));
-        }
-        pr.close();
-        return users;
+            ArrayList<User> users = new ArrayList<>();
+            PreparedStatement pr = connection.prepareStatement(Queries.showUserList);
+            ResultSet result = pr.executeQuery();
+            while (result.next()) {
+                users.add(new User(
+                        result.getInt("id"),
+                        result.getString("user_full_name"),
+                        result.getString("email"),
+                        result.getInt("phone")));
+            }
+            pr.close();
+            return users;
     }
 
     // INSERT INTO GUEST LIST - customer inserts names
