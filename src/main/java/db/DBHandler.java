@@ -1,4 +1,7 @@
 package db;
+import decor.Decor;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import java.sql.*;
