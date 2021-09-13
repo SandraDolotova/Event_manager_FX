@@ -16,44 +16,74 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="600.0" style="-fx-background-color: #B0C4DE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.WelcomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" style="-fx-background-color: white " xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.WelcomeController">
    <children>
-      <ImageView fx:id="logo" fitHeight="150.0" fitWidth="233.0" layoutX="47.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" style="-fx-blend-mode: #B0C4DE;">
+      <ImageView fitHeight="749.0" fitWidth="1074.0" layoutX="-146.0" layoutY="-40.0" opacity="0.21">
+         <image>
+            <Image url="@../images/party.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="logo" fitHeight="121.0" fitWidth="162.0" layoutX="30.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" style="-fx-blend-mode: #B0C4DE;">
          <image>
             <Image url="@../images/logo.PNG" />
          </image>
       </ImageView>
-      <Label fx:id="userNameLabel" layoutX="257.0" layoutY="21.0" prefHeight="32.0" prefWidth="62.0" text="Username:" textFill="#431189" />
-      <TextField fx:id="userNameInputTextField" layoutX="367.0" layoutY="24.0" prefHeight="25.0" prefWidth="197.0" />
-      <PasswordField fx:id="passwordInputField" layoutX="367.0" layoutY="62.0" prefHeight="25.0" prefWidth="197.0" />
-      <Label fx:id="passwordLabel" layoutX="262.0" layoutY="66.0" text="Password:" textFill="#431189" />
-      <Button fx:id="loginButton" layoutX="400.0" layoutY="103.0" mnemonicParsing="false" onAction="#handleLoginButton" text="Login" textFill="#431189" />
-      <Button fx:id="registerButton" layoutX="466.0" layoutY="103.0" mnemonicParsing="false" onAction="#handleRegisterButton" text="Registration" textFill="#431189" />
-      <Label fx:id="infoLabel" layoutX="195.0" layoutY="211.0" prefHeight="32.0" prefWidth="186.0" text="Event package Prices" textFill="#431189">
+      <Label fx:id="userNameLabel" layoutX="219.0" layoutY="219.0" prefHeight="32.0" prefWidth="80.0" text="Username:">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <TextField fx:id="userNameInputTextField" layoutX="308.0" layoutY="220.0" prefHeight="25.0" prefWidth="197.0" />
+      <PasswordField fx:id="passwordInputField" layoutX="308.0" layoutY="292.0" prefHeight="25.0" prefWidth="197.0" />
+      <Label fx:id="passwordLabel" layoutX="219.0" layoutY="297.0" text="Password:">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Button fx:id="loginButton" layoutX="378.0" layoutY="361.0" mnemonicParsing="false" onAction="#handleLoginButton" text="Login" />
+      <Button fx:id="registerButton" layoutX="357.0" layoutY="416.0" mnemonicParsing="false" onAction="#handleRegisterButton" text="Registration" />
+      <Label fx:id="infoLabel" layoutX="42.0" layoutY="515.0" prefHeight="32.0" prefWidth="186.0" text="Event package Prices:">
          <font>
             <Font name="Microsoft New Tai Lue Bold" size="18.0" />
          </font>
       </Label>
-      <RadioButton fx:id="standartRadioButton" layoutX="195.0" layoutY="256.0" mnemonicParsing="false" onAction="#handleStandardRadioButton" text="Standart - (1200 - 2500 EUR)" textFill="#431189">
-         <toggleGroup>
-            <ToggleGroup fx:id="pricePackage" />
-         </toggleGroup></RadioButton>
-      <RadioButton fx:id="premiumRadioButton" layoutX="194.0" layoutY="288.0" mnemonicParsing="false" onAction="#handlePremiumRadioButton" text="Premium - (3000 - 4000 EUR)" textFill="#431189" toggleGroup="$pricePackage" />
-      <RadioButton fx:id="premSRadioButton" layoutX="195.0" layoutY="321.0" mnemonicParsing="false" onAction="#handlePremSRadioButton" prefHeight="17.0" prefWidth="203.0" text="Premium S starts from - 5000 EUR" textFill="#431189" toggleGroup="$pricePackage" />
-      <RadioButton fx:id="conceptRadioButton" layoutX="195.0" layoutY="354.0" mnemonicParsing="false" onAction="#handleConceptRadioButton" text="Event design concept - (250 - 500 EUR)" textFill="#431189" toggleGroup="$pricePackage" />
-      <Label layoutX="33.0" layoutY="410.0" prefHeight="32.0" prefWidth="197.0" text="Our contacts:" textFill="#431189">
+      <Label layoutX="519.0" layoutY="27.0" prefHeight="32.0" prefWidth="118.0" text="Our contacts:">
          <font>
-            <Font size="14.0" />
+            <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="33.0" layoutY="449.0" text="+371 26088902" textFill="#431189">
+      <Label layoutX="518.0" layoutY="64.0" text="+371 26088902">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="33.0" layoutY="476.0" prefHeight="32.0" prefWidth="144.0" text="artevent@inbox.lv" textFill="#431189">
+      <Label layoutX="518.0" layoutY="96.0" prefHeight="32.0" prefWidth="144.0" text="artevent@inbox.lv">
          <font>
             <Font size="18.0" />
+         </font>
+      </Label>
+      <GridPane layoutX="42.0" layoutY="559.0" prefHeight="105.0" prefWidth="300.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <RadioButton fx:id="standartRadioButton" mnemonicParsing="false" onAction="#handleStandardRadioButton" text="Standard - (1200 - 2500 EUR)">
+               <toggleGroup>
+                  <ToggleGroup fx:id="pricePackage" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="premiumRadioButton" mnemonicParsing="false" onAction="#handlePremiumRadioButton" text="Premium - (3000 - 4000 EUR)" toggleGroup="$pricePackage" GridPane.rowIndex="1" />
+            <RadioButton fx:id="conceptRadioButton" mnemonicParsing="false" onAction="#handleConceptRadioButton" text="Event design concept - (250 - 500 EUR)" toggleGroup="$pricePackage" GridPane.rowIndex="2" />
+         </children>
+      </GridPane>
+      <Hyperlink fx:id="igLink" layoutX="395.0" layoutY="590.0" onAction="#handleIGLink" text="https://www.instagram.com/artevent_riga/" />
+      <Hyperlink fx:id="fcLink" layoutX="394.0" layoutY="628.0" onAction="#handleFBLink" text="https://www.facebook.com/arteventlatvija/" />
+      <Label layoutX="400.0" layoutY="559.0" text="Our social media:">
+         <font>
+            <Font name="System Bold" size="15.0" />
          </font>
       </Label>
    </children>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventController.DeleteEventController">
+   <children>
+      <ImageView fitHeight="749.0" fitWidth="1074.0" layoutX="-146.0" layoutY="-40.0" opacity="0.21">
+         <image>
+            <Image url="@../images/party.jpg" />
+         </image>
+      </ImageView>
+      <TableView fx:id="deleteEventTable" layoutX="41.0" layoutY="196.0" prefHeight="352.0" prefWidth="620.0">
+         <columns>
+            <TableColumn fx:id="eventIdColumn1" prefWidth="40.0" text="ID" />
+            <TableColumn fx:id="eventNameColumn1" prefWidth="166.0" text="Name" />
+            <TableColumn fx:id="eventDateColumn1" prefWidth="117.0" text="Date" />
+            <TableColumn fx:id="eventTimeColumn1" prefWidth="64.0" text="Time" />
+            <TableColumn fx:id="eventLocationColumn1" prefWidth="117.0" text="Location" />
+            <TableColumn fx:id="eventGuestQwtColumn1" prefWidth="115.0" text="Guest Quantity" />
+         </columns>
+      </TableView>
+      <Text layoutX="194.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event ID:" />
+      <TextField fx:id="deleteEventIdField" layoutX="275.0" layoutY="126.0" />
+      <Button fx:id="deleteEventButton" layoutX="497.0" layoutY="126.0" mnemonicParsing="false" onAction="#handleDeleteEventButton" text="Delete" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="285.0" layoutY="58.0" prefHeight="32.0" prefWidth="131.0" text="Delete Event" textAlignment="CENTER">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Button fx:id="backButton" layoutX="326.0" layoutY="577.0" mnemonicParsing="false" onAction="#handleBackButton" text="Back" />
+   </children>
+</AnchorPane>

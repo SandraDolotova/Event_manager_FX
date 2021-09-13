@@ -19,7 +19,7 @@ public class ViewController {
         //  stage.close();
 
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(scenePath)));
-        stage.setScene(new Scene(root, 800, 800));
+        stage.setScene(new Scene(root, 700, 700));
         stage.show();
     }
 

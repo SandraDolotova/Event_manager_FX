@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="decorController.AddDecorController">
+   <children>
+      <ImageView fitHeight="749.0" fitWidth="1074.0" layoutX="-146.0" layoutY="-40.0" opacity="0.21">
+         <image>
+            <Image url="@../images/party.jpg" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="289.0" layoutY="63.0" prefHeight="45.0" prefWidth="123.0" text="Add Decor" textAlignment="CENTER">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <GridPane layoutX="161.0" layoutY="164.0" prefHeight="259.0" prefWidth="379.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Decor Name:" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity:" GridPane.rowIndex="1" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Price:" GridPane.rowIndex="2" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Status:" GridPane.rowIndex="3" />
+            <TextField fx:id="decorName" GridPane.columnIndex="1" />
+            <TextField fx:id="decorQuantity" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="decorPrice" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="decorStatus" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <Button fx:id="addButton" layoutX="258.0" layoutY="465.0" mnemonicParsing="false" onAction="#handleAddButton" text="Add" />
+      <Button fx:id="backButton" layoutX="387.0" layoutY="465.0" mnemonicParsing="false" onAction="#handleBackButton" text="Back" />
+   </children>
+</AnchorPane>

@@ -11,13 +11,25 @@ import java.util.ArrayList;
 public class EventDBService {
     UserDBService userDBService = new UserDBService();
 
-
     Connection connection = DBHandler.getConnection();
 
-    public EventDBService() throws Exception {
+    public EventDBService() throws Exception{
     }
+
     // INSERT INTO EVENTS
-    public void insertNewEventCustomer (Event event) throws SQLException {
+
+    public void insertNewEventAdmin(String eventName, Date dueDate, String dueTime, String location, int guestNumber) throws SQLException {
+        PreparedStatement pr = connection.prepareStatement(Queries.insertNewEventAdmin);
+        pr.setString(1, eventName);
+        pr.setDate(2, dueDate);
+        pr.setString(3, dueTime);
+        pr.setString(4, location);
+        pr.setInt(5, guestNumber);
+        pr.execute();
+        pr.close();
+    }
+
+    public void insertNewEventCustomer(Event event) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.insertNewEventCustomer);
         pr.setString(1, event.getCustomerId());
         pr.setString(2, event.getEventName());
@@ -28,11 +40,12 @@ public class EventDBService {
         pr.execute();
         pr.close();
     }
+
     // DELETE EVENT
     public void deleteEvent(int eventId) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.deleteEvent);
         pr.setInt(1, eventId);
-        pr.executeUpdate();
+        pr.execute();
         pr.close();
     }
 
@@ -42,6 +55,7 @@ public class EventDBService {
         pr.execute();
         pr.close();
     }
+
 
     // SHOW EVENT LIST for ADMIN
     public ArrayList<Event> showAllEvents() throws SQLException {
@@ -59,25 +73,6 @@ public class EventDBService {
         }
         pr.close();
         return events;
-    }
-
-    // SHOW ONE EVENT
-    public Event showSingleEvent(int eventId) throws SQLException {
-        Event event = new Event();
-        PreparedStatement pr = connection.prepareStatement(Queries.showSingleEvent);
-        pr.setInt(1, eventId);
-        ResultSet result = pr.executeQuery();
-        if (result.next()) {
-            event = new Event(
-                    result.getInt("event_id"),
-                    result.getString("event_name"),
-                    result.getDate("dueDate"),
-                    result.getString("dueTime"),
-                    result.getString("location_name"),
-                    result.getInt("guests_number"));
-            pr.close();
-        }
-        return event;
     }
 
     // UPDATE EVENT date
@@ -154,14 +149,6 @@ public class EventDBService {
         pr.close();
         return events;
     }
-    public void insertNewEventAdmin(String eventName, Date dueDate, String dueTime, String location, int guestNumber) throws SQLException {
-        PreparedStatement pr = connection.prepareStatement(Queries.insertNewEventAdmin);
-        pr.setString(1, eventName);
-        pr.setDate(2, dueDate);
-        pr.setString(3, dueTime);
-        pr.setString(4, location);
-        pr.setInt(5, guestNumber);
-        pr.execute();
-        pr.close();
-    }
+
+
 }

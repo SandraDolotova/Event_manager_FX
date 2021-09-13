@@ -80,7 +80,7 @@ public class UserDBService {
         pr.setString(1, userFullName);
         pr.setInt(2, phone);
         pr.setString(3, packagePrice);
-       // pr.setString(3, String.valueOf(PackagePrice.CONCEPT));
+        // pr.setString(3, String.valueOf(PackagePrice.CONCEPT));
         pr.execute();
         pr.close();
     }
@@ -94,21 +94,18 @@ public class UserDBService {
 
     // to show all existing users to Admin
     public ArrayList<User> showUsers() throws SQLException {
-        {
-            ArrayList<User> users = new ArrayList<>();
-            PreparedStatement pr = connection.prepareStatement(Queries.showUserList);
-            ResultSet result = pr.executeQuery();
-            while (result.next()) {
-                users.add(new User(
-                        result.getInt("id"),
-                        result.getString("login_name"),
-                        result.getString("user_name"),
-                        result.getString("email"),
-                        result.getInt("phone")));
-            }
-            DBHandler.close(pr, connection);
-            return users;
+        ArrayList<User> users = new ArrayList<>();
+        PreparedStatement pr = connection.prepareStatement(Queries.showUserList);
+        ResultSet result = pr.executeQuery();
+        while (result.next()) {
+            users.add(new User(
+                    result.getInt("id"),
+                    result.getString("user_full_name"),
+                    result.getString("email"),
+                    (int) result.getLong("phone")));
         }
+        pr.close();
+        return users;
     }
 
     // INSERT INTO GUEST LIST - customer inserts names
@@ -129,7 +126,7 @@ public class UserDBService {
         pr.close();
     }
     // UPDATE GUEST LIST
-    public void updateGuestLIst() throws SQLException {
+    public void updateGuestList() throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.updateEventGuests);
         pr.executeUpdate();
         pr.close();
@@ -144,11 +141,11 @@ public class UserDBService {
 
     // SHOW ALL GUESTS FROM THE LIST
     public ArrayList<User> showAllGuests() throws Exception {
-      // String sql = "SELECT * FROM event_guest_list WHERE customer_id = '" + showLoggedInCustomer(AppData.getInstance().getLoggedInUserId()) + "'" ;
-       // String sql = "SELECT * FROM event_guest_list WHERE event_name = "
+        // String sql = "SELECT * FROM event_guest_list WHERE customer_id = '" + showLoggedInCustomer(AppData.getInstance().getLoggedInUserId()) + "'" ;
+        // String sql = "SELECT * FROM event_guest_list WHERE event_name = "
         ArrayList<User> users = new ArrayList<>();
         PreparedStatement pr = connection.prepareStatement(Queries.showAllGuests);
-      //  PreparedStatement pr = connection.prepareStatement(sql);
+        //  PreparedStatement pr = connection.prepareStatement(sql);
         ResultSet result = pr.executeQuery();
         while (result.next()) {
             users.add(new User(
@@ -159,6 +156,5 @@ public class UserDBService {
         pr.close();
         return users;
     }
-
-
 }
+

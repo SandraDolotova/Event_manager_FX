@@ -1,7 +1,5 @@
 package controller;
-
 import db.DBHandler;
-import events.Event;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,7 +9,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import packageTypes.PackagePrice;
 import users.User;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -41,11 +38,10 @@ public class CallBack extends ViewController implements Initializable {
     @FXML
     void handleBack(ActionEvent actionEvent) {
         try {
-            changeScene(actionEvent, "welcome");
+            changeScene(actionEvent, "admin");
         } catch (IOException e) {
             showAlert("Problem loading scene", e.getMessage(), Alert.AlertType.ERROR);
         }
-
     }
 
     Connection connection = DBHandler.getConnection();
@@ -61,6 +57,7 @@ public class CallBack extends ViewController implements Initializable {
         callStatusComboBox.getItems().add("DONE");
         callStatusComboBox.getItems().add("NOT");
         callStatusComboBox.getItems().add("CALL AGAIN");
+        callStatusComboBox.getItems().add("SMS");
     }
 
     public void fillInCallBackTable() {

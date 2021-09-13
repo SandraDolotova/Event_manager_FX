@@ -1,6 +1,4 @@
 package users;
-
-import javafx.scene.control.ComboBox;
 import lombok.Getter;
 
 @Getter
@@ -16,6 +14,9 @@ public class User {
     String packagePrice;
     String callStatus;
     boolean participation;
+    String paymentStatus;
+
+    public User(){}
 
     public User(String userFullName, String userEmail, Integer phoneNumber, String userLoginName, String userPassword) {
         this.userFullName = userFullName;
@@ -30,7 +31,11 @@ public class User {
         this.userFullName = userFullName;
     }
 
-    public User(int id, String login_name, String user_name, String email, int phone) {
+    public User(int userId, String userFullName, String userEmail, int phoneNumber) {
+        this.userId = userId;
+        this.userFullName = userFullName;
+        this.userEmail = userEmail;
+        this.phoneNumber = phoneNumber;
     }
 
     public User(String eventName, Integer userId, String userFullName) {
@@ -47,8 +52,10 @@ public class User {
         this.callStatus = callStatus;
     }
 
+
     @Override
     public String toString() {
-        return "Event: " + eventName + "; Nr: " + userId + ") " + userFullName;
+        return
+                "Nr: " + userId + ") " + userFullName;
     }
 }

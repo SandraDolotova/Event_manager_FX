@@ -210,7 +210,7 @@ public class CustomerController extends ViewController implements Initializable 
                 );
                 decorDBService.insertCustomerChosenDecor(decor);
                 decorDBService.updateCustomerDecor();
-                showAlert("Done", "Decor unit has been added to your choice list", Alert.AlertType.CONFIRMATION);
+                showAlert("Success", "Decor unit has been added to your choice list", Alert.AlertType.CONFIRMATION);
             } catch (Exception e) {
                 showAlert("Decor unit was not added", e.getMessage(), Alert.AlertType.ERROR);
                 e.printStackTrace();
@@ -231,7 +231,7 @@ public class CustomerController extends ViewController implements Initializable 
                 decorDBService.deleteCustomerDecor(decorName);
                 showAlert("Done", "Chosen decor was removed from your list", Alert.AlertType.CONFIRMATION);
             } catch (Exception e) {
-                showAlert("Decor eas not removed", e.getMessage(), Alert.AlertType.ERROR);
+                showAlert("Decor wasn't removed", e.getMessage(), Alert.AlertType.ERROR);
                 e.printStackTrace();
             }
         }

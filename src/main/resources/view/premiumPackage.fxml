@@ -8,43 +8,51 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="490.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PremiumPackage">
-   <children>
-      <Label layoutX="114.0" layoutY="27.0" text="Premium Package from 5000 EUR">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PremiumPackage">
+    <children>
+      <ImageView fitHeight="749.0" fitWidth="1074.0" layoutX="-146.0" layoutY="-40.0" opacity="0.21">
+         <image>
+            <Image url="@../images/party.jpg" />
+         </image>
+      </ImageView>
+        <Label layoutX="173.0" layoutY="38.0" text="Premium Package from 5000 EUR">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
+        <Label layoutX="22.0" layoutY="466.0" text="You are welcome to order a call back for more information:">
+            <font>
+                <Font name="System Bold" size="17.0" />
+            </font>
+        </Label>
+        <TextField fx:id="fullNameCallBackField" layoutX="173.0" layoutY="511.0" />
+        <TextField fx:id="callBackPhone" layoutX="173.0" layoutY="562.0" />
+        <Button fx:id="enterCallBackPhone" layoutX="267.0" layoutY="624.0" mnemonicParsing="false" onAction="#handleCallBackPhone" prefHeight="31.0" prefWidth="69.0" text="Enter" />
+        <Button layoutX="376.0" layoutY="624.0" mnemonicParsing="false" onAction="#handleBackButton" prefHeight="25.0" prefWidth="52.0" text="Back" />
+        <Text layoutX="22.0" layoutY="168.0" lineSpacing="8.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Bridal bouquet, duplicate bouquet;&#10;- Car handle decoration with flowers;&#10;- Luxurious composition of fresh flowers on the tables;&#10;- Candlestick with candles on the table of the newlyweds;&#10;- Flower arrangements on guest tables;&#10;- Tablecloth rental;&#10;- Luxurious decoration of an exit ceremony;&#10;- Chiavari chair rental and decoration;" textAlignment="JUSTIFY" wrappingWidth="380.0" />
+        <ImageView fitHeight="200.0" fitWidth="260.0" layoutX="407.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/image1.PNG" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="194.0" fitWidth="139.0" layoutX="525.0" layoutY="264.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/image2.PNG" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="194.0" fitWidth="134.0" layoutX="407.0" layoutY="264.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/image3.PNG" />
+            </image>
+        </ImageView>
+        <Label layoutX="22.0" layoutY="516.0" text="Insert your Name:">
          <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label layoutX="31.0" layoutY="409.0" text="You are welcome to order a call back for more information">
+            <Font size="16.0" />
+         </font></Label>
+      <Text layoutX="22.0" layoutY="583.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone number:">
          <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <TextField fx:id="fullNameCallBackField" alignment="CENTER" layoutX="26.0" layoutY="464.0" promptText="Enter your Full name" />
-      <TextField fx:id="callBackPhone" alignment="CENTER" layoutX="186.0" layoutY="464.0" promptText="Your phone " />
-      <Button fx:id="enterCallBackPhone" layoutX="350.0" layoutY="464.0" mnemonicParsing="false" onAction="#handleCallBackPhone" prefHeight="25.0" prefWidth="52.0" text="Enter" />
-      <Button layoutX="525.0" layoutY="464.0" mnemonicParsing="false" onAction="#handleBackButton" prefHeight="25.0" prefWidth="52.0" text="Back" />
-      <Text fontSmoothingType="LCD" layoutX="22.0" layoutY="88.0" lineSpacing="8.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Bridal bouquet, duplicate bouquet;&#10;- Car handle decoration with flowers;&#10;- Luxurious composition of fresh flowers on the tables;&#10;- Candlestick with candles on the table of the newlyweds;&#10;- Flower arrangements on guest tables;&#10;- Tablecloth rental;&#10;- Luxurious decoration of an exit ceremony;&#10;- Chiavari chair rental and decoration;" textAlignment="JUSTIFY" wrappingWidth="380.0">
-         <font>
-            <Font size="14.0" />
+            <Font size="16.0" />
          </font>
       </Text>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="383.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/image1.PNG" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="159.0" layoutX="469.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/image2.PNG" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fitHeight="150.0" fitWidth="134.0" layoutX="383.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/image3.PNG" />
-         </image>
-      </ImageView>
-      <Label layoutX="31.0" layoutY="440.0" text="Insert your Name and Phone number:" />
-   </children>
+    </children>
 </AnchorPane>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="decorController.DeleteDecorController">
+   <children>
+      <ImageView fitHeight="749.0" fitWidth="1074.0" layoutX="-146.0" layoutY="-40.0" opacity="0.21">
+         <image>
+            <Image url="@../images/party.jpg" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="281.0" layoutY="50.0" prefHeight="32.0" prefWidth="138.0" text="Delete Decor" textAlignment="CENTER">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <TableView fx:id="decorListTable" layoutX="55.0" layoutY="197.0" prefHeight="356.0" prefWidth="591.0">
+         <columns>
+            <TableColumn fx:id="decorIdColumn1" prefWidth="44.0" text="ID" />
+            <TableColumn fx:id="decorNameColumn1" prefWidth="178.0" text="Name" />
+            <TableColumn fx:id="decorQwtColumn1" prefWidth="81.0" text="Quantity" />
+            <TableColumn fx:id="decorPriceColumn1" prefWidth="70.0" text="Price" />
+            <TableColumn fx:id="decorVatColumn1" prefWidth="118.0" text="Price with VAT" />
+            <TableColumn fx:id="decorStatusColumn1" prefWidth="99.0" text="Status" />
+         </columns>
+      </TableView>
+      <Text layoutX="142.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Decor ID:" />
+      <TextField fx:id="deleteDecorIdField" layoutX="230.0" layoutY="117.0" prefHeight="31.0" prefWidth="241.0" />
+      <Button fx:id="deleteButton" layoutX="505.0" layoutY="117.0" mnemonicParsing="false" onAction="#handleDeleteButton" text="Delete" />
+      <Button fx:id="backButton" layoutX="325.0" layoutY="585.0" mnemonicParsing="false" onAction="#handleBackButton" text="Back" />
+   </children>
+</AnchorPane>

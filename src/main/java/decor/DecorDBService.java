@@ -18,7 +18,7 @@ public class DecorDBService {
 
 
     // INSERT DECORATION INTO TABLE
-    public void insertNewDecor(String decorName, int decorQwt, double decorPrice, String decorStatus) throws SQLException, SQLException {
+    public void insertNewDecor(String decorName, int decorQwt, double decorPrice, String decorStatus) throws SQLException {
         PreparedStatement pr = connection.prepareStatement(Queries.insertNewDecor);
         pr.setString(1, decorName);
         pr.setInt(2, decorQwt);
@@ -78,23 +78,6 @@ public class DecorDBService {
         return decors;
     }
 
-    // SHOW SINGLE DECOR ITEM BY ID
-    public Decor showSingleDecor(int decorId) throws SQLException {
-        Decor decor = new Decor();
-        PreparedStatement pr = connection.prepareStatement(Queries.showSingleDecorByID);
-        pr.setInt(1, decorId);
-        ResultSet result = pr.executeQuery();
-        if (result.next()) {
-            decor = new Decor(
-                    result.getInt("decor_id"),
-                    result.getString("decor_name"),
-                    result.getInt("decor_qwt"),
-                    result.getInt("decor_price"),
-                    result.getDouble("decor_price_vat"),
-                    result.getString("decor_status"));
-        }
-        return decor;
-    }
 
     // UPDATE DECOR IN TABLE:
     public void updateDecorPrice(int decorId, double newPrice) throws SQLException {

@@ -3,15 +3,23 @@ package controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import customerData.AppData;
+import javafx.scene.layout.AnchorPane;
 import users.UserDBService;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class WelcomeController extends ViewController {
+    public Hyperlink igLink;
+    public Hyperlink fcLink;
     UserDBService userDBService = new UserDBService();
 
     @FXML
@@ -44,8 +52,6 @@ public class WelcomeController extends ViewController {
     private Label userNameLabel;
     @FXML
     private PasswordField passwordInputField;
-    @FXML
-    private Button galleryButton;
 
     public WelcomeController() throws Exception {
     }
@@ -86,11 +92,10 @@ public class WelcomeController extends ViewController {
         }
     }
 
-
     @FXML
     void handleStandardRadioButton(ActionEvent actionEvent) {
         try {
-            changeScene(actionEvent, "callBack");
+            changeScene(actionEvent, "standardPackage");
         } catch (IOException e) {
             showAlert("Problem loading scene", e.getMessage(), Alert.AlertType.ERROR);
         }
@@ -108,15 +113,6 @@ public class WelcomeController extends ViewController {
 
 
     @FXML
-    void handlePremSRadioButton(ActionEvent actionEvent) {
-        try {
-            changeScene(actionEvent, "premiumSPackage");
-        } catch (IOException e) {
-            showAlert("Problem loading scene", e.getMessage(), Alert.AlertType.ERROR);
-        }
-    }
-
-    @FXML
     void handleConceptRadioButton(ActionEvent actionEvent) {
         try {
             changeScene(actionEvent, "concept");
@@ -126,4 +122,19 @@ public class WelcomeController extends ViewController {
 
     }
 
+    public void handleIGLink(ActionEvent actionEvent) {
+        try {
+            Desktop.getDesktop().browse(new URL("https://www.instagram.com/artevent_riga/").toURI());
+        }catch (IOException | URISyntaxException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void handleFBLink(ActionEvent actionEvent) {
+        try {
+            Desktop.getDesktop().browse(new URL("https://www.facebook.com/arteventlatvija/").toURI());
+        }catch (IOException | URISyntaxException e){
+            e.printStackTrace();
+        }
+    }
 }

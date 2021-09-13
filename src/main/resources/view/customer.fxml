@@ -17,99 +17,103 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.DatePicker?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="494.0" prefWidth="605.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerController">
-   <children>
-      <Label layoutX="229.0" layoutY="14.0" text="CUSTOMER WINDOW">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <TabPane layoutX="3.0" layoutY="101.0" prefHeight="351.0" prefWidth="594.0" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab text="Event Details">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                         <DatePicker fx:id="calendar" editable="false" layoutX="14.0" layoutY="35.0" promptText="Date of event" />
-                        <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="105.0" text="Select date:" />
-                        <Button fx:id="insertButton" layoutX="436.0" layoutY="278.0" mnemonicParsing="false" onAction="#handleInsertButton" text="Insert" />
-                        <Label layoutX="14.0" layoutY="171.0" text="Enter event name:" />
-                        <TextField fx:id="eventNameField" layoutX="174.0" layoutY="167.0" />
-                        <Label layoutX="14.0" layoutY="221.0" text="Enter location:" />
-                        <TextField fx:id="locationField" layoutX="174.0" layoutY="217.0" />
-                        <Label layoutX="14.0" layoutY="269.0" text="Insert guest number:" />
-                        <TextField fx:id="guestNumberField" layoutX="174.0" layoutY="265.0" />
-                         <Label layoutX="14.0" layoutY="71.0" prefHeight="17.0" prefWidth="105.0" text="Enter time:" />
-                         <TextField fx:id="timeField" layoutX="14.0" layoutY="96.0" prefHeight="25.0" prefWidth="57.0" promptText="hh:mm" />
-                        <GridPane fx:id="decorRentPrice1" layoutX="249.0" layoutY="24.0" prefHeight="73.0" prefWidth="323.0">
-                           <children>
-                              <Label text="Your ID" />
-                              <TextField fx:id="customerID" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0" GridPane.columnIndex="1" />
-                              <Label text="Your Full Name" GridPane.rowIndex="1" />
-                              <TextField fx:id="customerFullNameField" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                           </children>
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="256.0" minWidth="10.0" prefWidth="102.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="424.0" minWidth="10.0" prefWidth="221.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                        </GridPane>
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-            <Tab text="Event List">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="408.0" prefWidth="594.0">
-                     <children>
-                        <TableView fx:id="eventTable" layoutX="5.0" layoutY="36.0" prefHeight="157.0" prefWidth="585.0">
-                          <columns>
-                              <TableColumn fx:id="eventIdColumn" prefWidth="36.0" text="id" />
-                            <TableColumn fx:id="eventNameColumn" prefWidth="248.0" text="Event Name" />
-                            <TableColumn fx:id="eventDateColumn" prefWidth="66.0" text="Date" />
-                              <TableColumn fx:id="eventTimeColumn" prefWidth="63.0" text="Time" />
-                              <TableColumn fx:id="eventLocationColumn" prefWidth="96.0" text="Location" />
-                              <TableColumn fx:id="eventGuestsColumn" prefWidth="74.0" text="Guests" />
-                          </columns>
-                        </TableView>
-                        <Label layoutX="14.0" layoutY="264.0" />
-                        <Button layoutX="20.0" layoutY="206.0" mnemonicParsing="false" onAction="#handleGuestListButton" text="Fill in your guest list" />
-                        <Button layoutX="488.0" layoutY="206.0" mnemonicParsing="false" onAction="#handleRemoveEventCustomer" text="Remove Event" />
-                        <Label layoutX="14.0" layoutY="14.0" text="Your event list:" />
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
-            <Tab text="Choose Decor ">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="348.0" prefWidth="594.0">
-                     <children>
-                        <TableView fx:id="customerDecorTable" layoutX="8.0" layoutY="86.0" prefHeight="129.0" prefWidth="577.0">
-                          <columns>
-                            <TableColumn fx:id="decorIdColumn" prefWidth="59.0" text="id" />
-                            <TableColumn fx:id="decorNameColumn" prefWidth="313.0" text="title" />
-                              <TableColumn fx:id="decorVatColumn" prefWidth="145.0" text="price (incl VAT)" />
-                          </columns>
-                        </TableView>
-                        <Label layoutX="118.0" layoutY="49.0" prefHeight="27.0" prefWidth="81.0" text="Search Decor: " />
-                        <TextField fx:id="searchDecorTextField" layoutX="209.0" layoutY="50.0" prefHeight="0.0" prefWidth="178.0" />
-                        <TextField fx:id="customerDecorField" layoutX="158.0" layoutY="224.0" prefHeight="27.0" prefWidth="281.0" />
-                        <Label layoutX="127.0" layoutY="262.0" prefHeight="17.0" prefWidth="82.0" text="Insert Quantity:" />
-                        <TextField fx:id="insertedDecorQwnt" layoutX="224.0" layoutY="258.0" />
-                        <Button fx:id="customerDeleteDecorButton" layoutX="450.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleCustomerDeleteDecor" prefHeight="25.0" prefWidth="51.0" text="Delete" />
-                        <Button fx:id="addCustomerDecor" layoutX="401.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleAddCustomerDecor" text="Add" />
-                        <Label layoutX="66.0" layoutY="8.0" prefHeight="35.0" prefWidth="80.0" text="Select event" />
-                        <ComboBox fx:id="eventNameComboBox" layoutX="153.0" layoutY="13.0" prefHeight="25.0" prefWidth="275.0" promptText="your events" />
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
-        </tabs>
-      </TabPane>
-      <Button fx:id="backButton" layoutX="491.0" layoutY="65.0" mnemonicParsing="false" onAction="#handleLogOutButton" prefHeight="25.0" prefWidth="80.0" text="LogOUT" />
-      <Button layoutX="488.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleOrderDetailsButton" text="Order Details" />
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerController">
+    <children>
+      <ImageView fitHeight="749.0" fitWidth="1074.0" layoutX="-146.0" layoutY="-40.0" opacity="0.21">
+         <image>
+            <Image url="@../images/party.jpg" />
+         </image>
+      </ImageView>
+        <TabPane layoutX="3.0" layoutY="53.0" prefHeight="652.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="Event Details">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <DatePicker fx:id="calendar" editable="false" layoutX="50.0" layoutY="78.0" prefHeight="31.0" prefWidth="217.0" promptText="Date of event" />
+                                <Label layoutX="53.0" layoutY="45.0" prefHeight="17.0" prefWidth="105.0" text="Select date:" />
+                                <Button fx:id="insertButton" layoutX="325.0" layoutY="438.0" mnemonicParsing="false" onAction="#handleInsertButton" text="Insert" />
+                                <Label layoutX="53.0" layoutY="253.0" text="Enter event name:" />
+                                <TextField fx:id="eventNameField" layoutX="212.0" layoutY="248.0" />
+                                <Label layoutX="53.0" layoutY="307.0" text="Enter location:" />
+                                <TextField fx:id="locationField" layoutX="212.0" layoutY="302.0" />
+                                <Label layoutX="53.0" layoutY="363.0" text="Insert guest number:" />
+                                <TextField fx:id="guestNumberField" layoutX="212.0" layoutY="358.0" />
+                                <Label layoutX="53.0" layoutY="129.0" prefHeight="17.0" prefWidth="105.0" text="Enter time:" />
+                                <TextField fx:id="timeField" layoutX="53.0" layoutY="165.0" prefHeight="31.0" prefWidth="71.0" promptText="hh:mm" />
+                                <GridPane fx:id="decorRentPrice1" layoutX="317.0" layoutY="45.0" prefHeight="97.0" prefWidth="350.0">
+                                    <children>
+                                        <Label text="Your ID" />
+                                        <TextField fx:id="customerID" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="121.0" GridPane.columnIndex="1" />
+                                        <Label text="Your Full Name" GridPane.rowIndex="1" />
+                                        <TextField fx:id="customerFullNameField" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    </children>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="256.0" minWidth="10.0" prefWidth="102.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="424.0" minWidth="10.0" prefWidth="221.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                </GridPane>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Event List">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="408.0" prefWidth="594.0">
+                            <children>
+                                <TableView fx:id="eventTable" layoutX="45.0" layoutY="95.0" prefHeight="242.0" prefWidth="615.0">
+                                    <columns>
+                                        <TableColumn fx:id="eventIdColumn" prefWidth="36.0" text="ID" />
+                                        <TableColumn fx:id="eventNameColumn" prefWidth="196.0" text="Event Name" />
+                                        <TableColumn fx:id="eventDateColumn" prefWidth="106.0" text="Date" />
+                                        <TableColumn fx:id="eventTimeColumn" prefWidth="58.0" text="Time" />
+                                        <TableColumn fx:id="eventLocationColumn" prefWidth="139.0" text="Location" />
+                                        <TableColumn fx:id="eventGuestsColumn" prefWidth="79.0" text="Guests" />
+                                    </columns>
+                                </TableView>
+                                <Label layoutX="14.0" layoutY="264.0" />
+                                <Button layoutX="178.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleGuestListButton" text="Fill in your guest list" />
+                                <Button layoutX="380.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleRemoveEventCustomer" text="Remove Event" />
+                                <Label layoutX="279.0" layoutY="33.0" text="Your event list:">
+                           <font>
+                              <Font size="22.0" />
+                           </font></Label>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Choose Decor ">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="348.0" prefWidth="594.0">
+                            <children>
+                                <TableView fx:id="customerDecorTable" layoutX="64.0" layoutY="119.0" prefHeight="257.0" prefWidth="577.0">
+                                    <columns>
+                                        <TableColumn fx:id="decorIdColumn" prefWidth="77.0" text="Decor ID" />
+                                        <TableColumn fx:id="decorNameColumn" prefWidth="310.0" text="Decor Name" />
+                                        <TableColumn fx:id="decorVatColumn" prefWidth="189.0" text="Price with VAT" />
+                                    </columns>
+                                </TableView>
+                                <Label layoutX="143.0" layoutY="65.0" prefHeight="27.0" prefWidth="108.0" text="Search Decor: " />
+                                <TextField fx:id="searchDecorTextField" layoutX="257.0" layoutY="63.0" prefHeight="0.0" prefWidth="178.0" />
+                                <TextField fx:id="customerDecorField" layoutX="197.0" layoutY="400.0" prefHeight="27.0" prefWidth="281.0" />
+                                <Label layoutX="71.0" layoutY="450.0" prefHeight="21.0" prefWidth="108.0" text="Insert quantity:" />
+                                <TextField fx:id="insertedDecorQwnt" layoutX="197.0" layoutY="445.0" />
+                                <Button fx:id="customerDeleteDecorButton" layoutX="469.0" layoutY="445.0" mnemonicParsing="false" onAction="#handleCustomerDeleteDecor" prefHeight="31.0" prefWidth="65.0" text="Delete" />
+                                <Button fx:id="addCustomerDecor" layoutX="398.0" layoutY="445.0" mnemonicParsing="false" onAction="#handleAddCustomerDecor" text="Add" />
+                                <Label layoutX="143.0" layoutY="24.0" prefHeight="27.0" prefWidth="94.0" text="Select event:" />
+                                <ComboBox fx:id="eventNameComboBox" layoutX="257.0" layoutY="22.0" prefHeight="31.0" prefWidth="176.0" promptText="All your events" />
+                        <Text layoutX="71.0" layoutY="421.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chosen decor:" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+        <Button fx:id="backButton" layoutX="14.0" layoutY="12.0" mnemonicParsing="false" onAction="#handleLogOutButton" prefHeight="25.0" prefWidth="80.0" text="Log out" />
+        <Button layoutX="112.0" layoutY="12.0" mnemonicParsing="false" onAction="#handleOrderDetailsButton" text="Order Details" />
+    </children>
 </AnchorPane>

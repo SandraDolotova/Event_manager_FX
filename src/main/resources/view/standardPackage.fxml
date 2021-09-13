@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StandardPackage">
+   <children>
+      <Label layoutX="197.0" layoutY="26.0" text="Standard Package  from 1200 EUR">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="16.0" layoutY="309.0" text="You are welcome to order a call back for more information">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="16.0" layoutY="336.0" text="Insert your Name and Phone number:" />
+      <TextField fx:id="fullNameCallBackField" alignment="CENTER" layoutX="16.0" layoutY="353.0" promptText="Enter your Full name" />
+      <TextField fx:id="callBackPhone" alignment="CENTER" layoutX="175.0" layoutY="353.0" promptText="Your phone " />
+      <Button layoutX="333.0" layoutY="353.0" mnemonicParsing="false" onAction="#handleCallBackPhone" prefHeight="25.0" prefWidth="52.0" text="Enter" />
+      <Button layoutX="514.0" layoutY="353.0" mnemonicParsing="false" onAction="#handleBackButton" prefHeight="25.0" prefWidth="52.0" text="Back" />
+      <Pagination fx:id="pagination" layoutX="40.0" layoutY="69.0" maxPageIndicatorCount="5" pageCount="5" prefHeight="240.0" prefWidth="521.0" />
+   </children>
+</AnchorPane>

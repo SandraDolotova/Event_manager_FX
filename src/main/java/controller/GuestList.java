@@ -2,7 +2,6 @@ package controller;
 
 import customerData.AppData;
 import db.DBHandler;
-import db.Queries;
 import events.Event;
 import events.EventDBService;
 import javafx.collections.FXCollections;
@@ -11,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import lombok.SneakyThrows;
 import users.User;
 import users.UserDBService;
 import java.io.IOException;
@@ -18,6 +18,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -28,30 +29,23 @@ public class GuestList extends ViewController implements Initializable {
     Connection connection = DBHandler.getConnection();
 
     @FXML
-    private Button addGuestButton;
-    @FXML
-    private Button deleteGuestButton;
-    @FXML
     private TextField guestNameField;
-    @FXML
-    private Button backButton;
     @FXML
     private ComboBox<Event> eventNameComboBox;
     @FXML
     private ListView<User> guestList;
 
-    List<User> fullGuestList = new ArrayList<>(showAllGuests());
-    ObservableList<User> listOfGuests = FXCollections.observableArrayList(fullGuestList);
-
+    ObservableList<User> guests = FXCollections.observableArrayList();
     List<Event> customerEventList = new ArrayList<>(eventDBService.showCustomerEvents());
     ObservableList<Event> customerEvents = FXCollections.observableArrayList(customerEventList);
 
     public GuestList() throws Exception {
     }
 
+    @SneakyThrows
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        fillInGuestList();
+        handleComboBox(fillInGuestList());
         fillInComboBox();
     }
 
@@ -71,10 +65,10 @@ public class GuestList extends ViewController implements Initializable {
                             guestNameField.getText()
                     );
                     userDBService.insertGuests(user);
-                    userDBService.updateGuestLIst();
+                    userDBService.updateGuestList();
                     showAlert("Successfully", guestNameField.getText() + " has been added to your guest list for event - " + eventName, Alert.AlertType.CONFIRMATION);
-                    // guestList.getItems().add(user);
-                    changeScene(actionEvent, "guestList");
+                    handleComboBox(fillInGuestList());
+                    guestNameField.clear();
                 } catch (Exception e) {
                     showAlert("Error. Guest was not added", e.getMessage(), Alert.AlertType.ERROR);
                     e.printStackTrace();
@@ -85,12 +79,13 @@ public class GuestList extends ViewController implements Initializable {
 
     public void handleDeleteGuestButton(ActionEvent actionEvent) {
         User selectedGuest = guestList.getSelectionModel().getSelectedItem();
-        listOfGuests.remove(selectedGuest);
+        guests.remove(selectedGuest);
         if (selectedGuest != null) {
             try {
                 userDBService.deleteGuest(selectedGuest);
                 showAlert("Successfully", selectedGuest + " has been removed from your guest list", Alert.AlertType.CONFIRMATION);
-                changeScene(actionEvent, "guestList");
+                handleComboBox(fillInGuestList());
+                guestNameField.clear();
             } catch (Exception e) {
                 showAlert("Error. Guest was not deleted", e.getMessage(), Alert.AlertType.ERROR);
                 e.printStackTrace();
@@ -110,29 +105,36 @@ public class GuestList extends ViewController implements Initializable {
         eventNameComboBox.setItems(customerEvents);
     }
 
-    private void fillInGuestList() {
-        guestList.setItems(listOfGuests);
-    }
-    public ArrayList<User> showAllGuests() throws Exception {
-        Integer customerIdToDB = AppData.getInstance().getLoggedInUserId();
-        String sql = "SELECT event_name, guest_id, guest_name FROM event_guest_list " +
-                "WHERE customer_id = '" + customerIdToDB + "'";
-        ArrayList<User> users = new ArrayList<>();
-        PreparedStatement pr = connection.prepareStatement(sql);
-        ResultSet result = pr.executeQuery();
-        while (result.next()) {
-            users.add(new User(
-                    result.getString("event_name"),
-                    result.getInt("guest_id"),
-                    result.getString("guest_name")));
-            //  result.getBoolean("participation")));
+    public ActionEvent fillInGuestList() throws SQLException {
+        try {
+            guests.removeAll(guests);
+            Integer customerIdToDB = AppData.getInstance().getLoggedInUserId();
+            String sql = "SELECT event_name, guest_id, guest_name FROM event_guest_list " +
+                    "WHERE customer_id = '" + customerIdToDB + "' && event_name = '" + eventNameComboBox.getSelectionModel().getSelectedItem() + "' ";
+
+            PreparedStatement pr = connection.prepareStatement(sql);
+            ResultSet result = pr.executeQuery();
+            while (result.next()) {
+                guests.add(new User(
+                        result.getString("event_name"),
+                        result.getInt("guest_id"),
+                        result.getString("guest_name")));
+                //  result.getBoolean("participation")));
+            }
+            pr.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        pr.close();
-        return users;
+        guestList.setItems(guests);
+        guestList.setEditable(false);
+        return null;
     }
 
 
-    public void handleComboBox(ActionEvent actionEvent) {
-
+    public void handleComboBox(ActionEvent actionEvent) throws SQLException {
+        fillInGuestList();
     }
 }
+
+
+

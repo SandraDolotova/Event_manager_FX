@@ -1,4 +1,5 @@
 package controller;
+import db.DBHandler;
 import decor.Decor;
 import decor.DecorDBService;
 import events.Event;
@@ -11,20 +12,25 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import payment.Bill;
+import users.User;
+import users.UserDBService;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class AdminPanelController extends ViewController implements Initializable {
 
-    //Log out button:
     public Button logOutButton;
+    public Button callButton;
 
     //Decor list tab:
     public Tab decorListTab;
@@ -56,18 +62,27 @@ public class AdminPanelController extends ViewController implements Initializabl
 
     //Payment tab:
     public Tab paymentTab;
-    public TableView billTable;
-    public TableColumn billIdColumn;
-    public TableColumn customerNameColumn;
-    public TableColumn eventNameColumn3;
-    public TableColumn eventDateColumn3;
-    public TableColumn decorNameColumn3;
-    public TableColumn decorQwtColumn3;
-    public TableColumn totalPriceColumn;
-    public TableColumn paymentStatusColumn;
+    public TableView<Bill> billTable;
+    public TableColumn<Object, Object> billIdColumn;
+    public TableColumn<Object, Object> customerIdColumn;
+    public TableColumn<Object, Object> eventNameColumn3;
+    public TableColumn<Object, Object> totalPriceColumn;
+    public TableColumn<Object, Object> paymentStatus;
+    public ComboBox<Event> allEventsComboBox;
+    public TextField totalSum;
+
+    //Customer List tab:
+    public TableView<User> customerListTable;
+    public TableColumn<Object, Object> customerId;
+    public TableColumn<Object, Object> customerNameColumn;
+    public TableColumn<Object, Object> customerEmailColumn;
+    public TableColumn<Object, Object> customerPhoneColumn;
+
 
     DecorDBService decorDBService = new DecorDBService();
     EventDBService eventDBService = new EventDBService();
+    UserDBService userDBService = new UserDBService();
+
 
     List<Decor> decorList = new ArrayList<>(decorDBService.showAllDecorAdmin());
     ObservableList<Decor> decors = FXCollections.observableArrayList(decorList);
@@ -77,15 +92,23 @@ public class AdminPanelController extends ViewController implements Initializabl
     ObservableList<Event> events = FXCollections.observableArrayList(eventList);
     FilteredList<Event> filteredEvents = new FilteredList<>(events, p -> true);
 
+    List<User> userList = new ArrayList<>(userDBService.showUsers());
+    ObservableList<User> users = FXCollections.observableArrayList(userList);
+
+    ObservableList<Bill> bills = FXCollections.observableArrayList();
+
     public AdminPanelController() throws Exception {
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         fillInDecorTable();
-        fillInEventListTable();
         filterDecorTable();
+        fillInEventListTable();
         filterEventListTable();
+        fillInComboBox();
+        fillInPaymentTable();
+        fillInCustomerListTable();
     }
     //DECOR LIST TAB
     public void fillInDecorTable() {
@@ -96,6 +119,7 @@ public class AdminPanelController extends ViewController implements Initializabl
         decorVatColumn.setCellValueFactory(new PropertyValueFactory<>("decorPriceVAT"));
         decorStatusColumn.setCellValueFactory(new PropertyValueFactory<>("decorStatus"));
         decorTable.setItems(decors);
+        decorTable.setEditable(false);
     }
     //decor search method
     public void filterDecorTable() {
@@ -122,9 +146,62 @@ public class AdminPanelController extends ViewController implements Initializabl
         decorTable.setItems(sortedDecor);
     }
 
-    public void fillInPaymentTable(){
-
+    //PAYMENT TAB:
+    public ActionEvent fillInPaymentTable(){
+        try {
+            bills.removeAll(bills);
+            Connection connection = DBHandler.getConnection();
+            String query = "SELECT id, customer_id, event_name, ROUND (total_bill) as total_bill, payment_status FROM customer_decor " +
+                    "where event_name = '" + allEventsComboBox.getSelectionModel().getSelectedItem() +"'";
+            //PreparedStatement pr = connection.prepareStatement(Queries.showBillAdmin);
+            PreparedStatement pr = connection.prepareStatement(query);
+            ResultSet result = pr.executeQuery();
+            while (result.next()) {
+                bills.add(new Bill(
+                        result.getInt("id"),
+                        result.getInt("customer_id"),
+                        result.getString("event_name"),
+                        result.getDouble("total_bill"),
+                        result.getBoolean("payment_status")
+                ));
+            }
+            pr.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        billIdColumn.setCellValueFactory(new PropertyValueFactory<>("billId"));
+        customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        eventNameColumn3.setCellValueFactory(new PropertyValueFactory<>("eventName"));
+        totalPriceColumn.setCellValueFactory(new PropertyValueFactory<>("totalBill"));
+        paymentStatus.setCellValueFactory(new PropertyValueFactory<>("paymentStatus"));
+        billTable.setItems(bills);
+        billTable.setEditable(false);
+        return null;
     }
+    public void showTotalSum() {
+        Connection connection = DBHandler.getConnection();
+        if (allEventsComboBox.getValue() == null) {
+            showAlert("Success", "Please select your event from the list", Alert.AlertType.INFORMATION);
+        } else {
+            try {
+                String sql = "SELECT ROUND (SUM(total_bill)) as total_bill FROM customer_decor WHERE event_name = '" + allEventsComboBox.getSelectionModel().getSelectedItem() + "'";
+                PreparedStatement pr = connection.prepareStatement(sql);
+                ResultSet result = pr.executeQuery();
+              //  DecimalFormat decimalFormat = new DecimalFormat("0.00");
+                if (result.next()) {
+                   // String totalPay = decimalFormat.format(result.getDouble("total_bill"));
+                    Double totalPay = result.getDouble("total_bill");
+                    totalSum.setText(String.valueOf(totalPay));
+                }
+            } catch (SQLException e) {
+                showAlert("Error", "Total sum not found ", Alert.AlertType.INFORMATION);
+                e.printStackTrace();
+            }
+        }
+        totalSum.setEditable(false);
+    }
+
+
 
     //EVENT LIST TAB:
     public void fillInEventListTable(){
@@ -135,6 +212,7 @@ public class AdminPanelController extends ViewController implements Initializabl
         eventLocationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
         eventGuestQwtColumn.setCellValueFactory(new PropertyValueFactory<>("guestNumber"));
         eventListTable.setItems(events);
+        eventListTable.setEditable(false);
     }
     //event search method
     public void filterEventListTable(){
@@ -161,6 +239,16 @@ public class AdminPanelController extends ViewController implements Initializabl
         eventListTable.setItems(sortedEvent);
     }
 
+    //CUSTOMER LIST TAB:
+    public void fillInCustomerListTable(){
+        customerId.setCellValueFactory(new PropertyValueFactory<>("userId"));
+        customerNameColumn.setCellValueFactory(new PropertyValueFactory<>("userFullName"));
+        customerEmailColumn.setCellValueFactory(new PropertyValueFactory<>("userEmail"));
+        customerPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        customerListTable.setItems(users);
+        customerListTable.setEditable(false);
+    }
+
     public void handleLogOutButton(ActionEvent actionEvent) {
         try {
             changeScene(actionEvent, "welcome");
@@ -168,8 +256,16 @@ public class AdminPanelController extends ViewController implements Initializabl
             showAlert("Problem loading scene", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
+    public void handleCallButton(ActionEvent actionEvent) {
+        try {
+            changeScene(actionEvent, "callBack");
+        } catch (IOException e) {
+            showAlert("Problem loading scene", e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
 
-    //DECOR LIST TAB sadaļas pogas - add, update, delete
+
+    //DECOR LIST TAB buttons - add, update, delete
     public void handleAddDecorButton(ActionEvent actionEvent) {
         try {
             changeScene(actionEvent, "addDecor");
@@ -192,7 +288,7 @@ public class AdminPanelController extends ViewController implements Initializabl
         }
     }
 
-    //EVENT LIST TAB sadaļas pogas - add, update, delete
+    //EVENT LIST TAB buttons - add, update, delete
     public void handleAddEventButton(ActionEvent actionEvent) {
         try {
             changeScene(actionEvent, "addEvent");
@@ -214,4 +310,17 @@ public class AdminPanelController extends ViewController implements Initializabl
             showAlert("Problem loading scene", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
+
+    public void handleAllEventsComboBox(ActionEvent actionEvent) {
+        if (allEventsComboBox.getValue() == null) {
+            showAlert("Success", "Please select your event from the list", Alert.AlertType.INFORMATION);
+        } else {
+            fillInPaymentTable();
+            showTotalSum();
+        }
+    }
+    private void fillInComboBox() {
+        allEventsComboBox.setItems(events);
+    }
+
 }

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventController.UpdateEventController">
+   <children>
+      <ImageView fitHeight="749.0" fitWidth="1074.0" layoutX="-146.0" layoutY="-40.0" opacity="0.21">
+         <image>
+            <Image url="@../images/party.jpg" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="278.0" layoutY="26.0" prefHeight="32.0" prefWidth="146.0" text="Update Event" textAlignment="CENTER">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <GridPane layoutX="108.0" layoutY="75.0" prefHeight="273.0" prefWidth="333.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Event ID:" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Event Name:" GridPane.rowIndex="1" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Event Date:" GridPane.rowIndex="2" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Event Time:" GridPane.rowIndex="3" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Event Location:" GridPane.rowIndex="4" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Event Guest Number:" GridPane.rowIndex="5" />
+            <TextField fx:id="updateEventId" prefHeight="31.0" prefWidth="218.0" GridPane.columnIndex="1" />
+            <TextField fx:id="updateEventName" prefHeight="31.0" prefWidth="218.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="updateEventTime" prefHeight="31.0" prefWidth="218.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="updateEventLocation" prefHeight="31.0" prefWidth="218.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="updateEventGuestQwt" prefHeight="31.0" prefWidth="218.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <DatePicker fx:id="updateEventDate" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         </children>
+      </GridPane>
+      <Button fx:id="updateNameButton" layoutX="462.0" layoutY="129.0" mnemonicParsing="false" onAction="#handleUpdateEventNameButton" prefHeight="31.0" prefWidth="130.0" text="Update Name" />
+      <Button fx:id="updateDateButton" layoutX="462.0" layoutY="174.0" mnemonicParsing="false" onAction="#handleUpdateEventDateButton" prefHeight="31.0" prefWidth="130.0" text="Update Date" />
+      <Button fx:id="updateTimeButton" layoutX="462.0" layoutY="218.0" mnemonicParsing="false" onAction="#handleUpdateEventTimeButton" prefHeight="31.0" prefWidth="130.0" text="Update Time" />
+      <Button fx:id="updateLocationButton" layoutX="462.0" layoutY="265.0" mnemonicParsing="false" onAction="#handleUpdateLocationButton" prefHeight="31.0" prefWidth="130.0" text="Update Location" />
+      <Button fx:id="updateGuestQwtButton" layoutX="462.0" layoutY="310.0" mnemonicParsing="false" onAction="#handleUpdateGuestQwtButton" prefHeight="31.0" prefWidth="130.0" text="Update Guests" />
+      <TableView fx:id="eventListTable1" layoutX="40.0" layoutY="365.0" prefHeight="253.0" prefWidth="620.0">
+         <columns>
+            <TableColumn fx:id="eventIdColumn2" prefWidth="40.0" text="ID" />
+            <TableColumn fx:id="eventNameColumn2" prefWidth="166.0" text="Name" />
+            <TableColumn fx:id="eventDateColumn2" prefWidth="117.0" text="Date" />
+            <TableColumn fx:id="eventTimeColumn2" prefWidth="64.0" text="Time" />
+            <TableColumn fx:id="eventLocationColumn2" prefWidth="117.0" text="Location" />
+            <TableColumn fx:id="eventGuestQwtColumn2" prefWidth="115.0" text="Guest Quantity" />
+         </columns>
+      </TableView>
+      <Button fx:id="backButton" layoutX="325.0" layoutY="637.0" mnemonicParsing="false" onAction="#handleBackButton" text="Back" />
+   </children>
+</AnchorPane>

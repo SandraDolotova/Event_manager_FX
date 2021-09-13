@@ -125,7 +125,7 @@ public class Order extends ViewController implements Initializable {
     }
     public void handleComboBox(ActionEvent actionEvent) {
         if (eventNameComboBox.getValue() == null) {
-            showAlert("Error", "Please select your event from the list", Alert.AlertType.INFORMATION);
+            showAlert(" ", "Please select your event from the list", Alert.AlertType.INFORMATION);
         } else {
             fillInOrderTable();
             showTotalSum();
@@ -133,17 +133,18 @@ public class Order extends ViewController implements Initializable {
     }
     public void showTotalSum() {
         if (eventNameComboBox.getValue() == null) {
-            showAlert("Error", "Please select your event from the list", Alert.AlertType.INFORMATION);
+            showAlert(" ", "Please select your event from the list", Alert.AlertType.INFORMATION);
         } else {
             try {
-                String sql = "SELECT SUM(total_bill) as total_bill FROM customer_decor WHERE customer_id ='" + user.getUserId() + "' " +
+                String sql = "SELECT ROUND (SUM(total_bill)) as total_bill FROM customer_decor WHERE customer_id ='" + user.getUserId() + "' " +
                         "&& event_name = '" + eventNameComboBox.getSelectionModel().getSelectedItem() + "'";
                 PreparedStatement pr = connection.prepareStatement(sql);
                 ResultSet result = pr.executeQuery();
-                DecimalFormat decimalFormat = new DecimalFormat("0.00");
+               // DecimalFormat decimalFormat = new DecimalFormat("0.00");
                 if (result.next()) {
-                    String totalPay = decimalFormat.format(result.getDouble("total_bill"));
-                    totalSum.setText(totalPay);
+                  //  String totalPay = decimalFormat.format(result.getDouble("total_bill"));
+                   Double totalPay = result.getDouble("total_bill");
+                   totalSum.setText(String.valueOf(totalPay));
                 }
             } catch (SQLException e) {
                 showAlert("Error", "Total sum not found ", Alert.AlertType.INFORMATION);
@@ -159,8 +160,17 @@ public class Order extends ViewController implements Initializable {
             showAlert("Problem loading scene", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
+
     public void handlePay(ActionEvent actionEvent) {
-        showAlert("DONE", "YOU ORDER IS COMPLETE AND PAID", Alert.AlertType.INFORMATION);
+
+        try {
+            String sql = "UPDATE customer_decor SET payment_status = true WHERE event_name = '" + eventNameComboBox.getSelectionModel().getSelectedItem() + "'";
+            PreparedStatement pr = connection.prepareStatement(sql);
+            pr.executeUpdate();
+            showAlert("DONE", "YOU ORDER IS COMPLETE AND PAID: " + totalSum.getText(), Alert.AlertType.INFORMATION);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
 
