@@ -11,7 +11,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import lombok.SneakyThrows;
 import users.User;
 import users.UserDBService;
 import java.io.IOException;
@@ -27,6 +26,8 @@ import java.util.ResourceBundle;
 
 public class Order extends ViewController implements Initializable {
 
+    public Button payButton;
+    public Button logoutButton;
     @FXML
     private TableColumn<Decor, String> decorNameColumn;
     @FXML
@@ -62,22 +63,25 @@ public class Order extends ViewController implements Initializable {
 
     public Order() throws Exception {
     }
-    @SneakyThrows
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         showLoggedInCustomerDetails();
         fillInComboBox();
         handleComboBox(fillInOrderTable());
     }
+
     private void fillInComboBox() {
         eventNameComboBox.setItems(customerEvents);
     }
+
     private void showLoggedInCustomerDetails() {
         customerID.setEditable(false);
         customerFullNameField.setEditable(false);
         customerID.setText(String.valueOf(user.getUserId()));
         customerFullNameField.setText(user.getUserFullName());
     }
+
     public void handleBackButton(ActionEvent actionEvent) {
         try {
             changeScene(actionEvent, "customer");
@@ -85,6 +89,7 @@ public class Order extends ViewController implements Initializable {
             showAlert("Problem loading scene", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
+
     public ActionEvent fillInOrderTable() {
         try {
             orders.removeAll(orders);
@@ -99,41 +104,44 @@ public class Order extends ViewController implements Initializable {
             ResultSet result = pr.executeQuery();
             while (result.next()) {
                 orders.add(new Decor(
-                        result.getString("customer_decor_id"),
+                        result.getInt("customer_decor_id"),
                         result.getString("customer_decor_name"),
                         result.getInt("customer_decor_qwnt"),
-                        result.getDouble("customer_decor_price_vat"),
                         result.getDouble("total_decor_price"),
+                        result.getDouble("customer_decor_price_vat"),
                         result.getDouble("transportation_costs"),
-                        result.getDouble("total_bill")));
+                        result.getDouble("total_bill")
+                ));
             }
             pr.close();
             // result.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("decorId"));
         decorNameColumn.setCellValueFactory(new PropertyValueFactory<>("decorName"));
         qwtColumn.setCellValueFactory(new PropertyValueFactory<>("decorQwt"));
-        decorPriceColumn.setCellValueFactory(new PropertyValueFactory<>("decorPriceVAT"));
-        totalPriceColumn.setCellValueFactory(new PropertyValueFactory<>("totalDecorPrice"));
+        decorPriceColumn.setCellValueFactory(new PropertyValueFactory<>("totalDecorPrice"));
+        totalPriceColumn.setCellValueFactory(new PropertyValueFactory<>("decorPriceVAT"));
         transportColumn.setCellValueFactory(new PropertyValueFactory<>("transportCosts"));
         totalColumn.setCellValueFactory(new PropertyValueFactory<>("totalBill"));
         orderTable.setItems(orders);
         orderTable.setEditable(false);
         return null;
     }
+
     public void handleComboBox(ActionEvent actionEvent) {
         if (eventNameComboBox.getValue() == null) {
-            showAlert(" ", "Please select your event from the list", Alert.AlertType.INFORMATION);
+            showAlert("Success", "Please select your event from the list", Alert.AlertType.INFORMATION);
         } else {
             fillInOrderTable();
             showTotalSum();
         }
     }
+
     public void showTotalSum() {
         if (eventNameComboBox.getValue() == null) {
-            showAlert(" ", "Please select your event from the list", Alert.AlertType.INFORMATION);
+            showAlert("Success", "Please select your event from the list", Alert.AlertType.INFORMATION);
         } else {
             try {
                 String sql = "SELECT ROUND (SUM(total_bill)) as total_bill FROM customer_decor WHERE customer_id ='" + user.getUserId() + "' " +
@@ -142,9 +150,9 @@ public class Order extends ViewController implements Initializable {
                 ResultSet result = pr.executeQuery();
                // DecimalFormat decimalFormat = new DecimalFormat("0.00");
                 if (result.next()) {
-                  //  String totalPay = decimalFormat.format(result.getDouble("total_bill"));
-                   Double totalPay = result.getDouble("total_bill");
-                   totalSum.setText(String.valueOf(totalPay));
+                    //String totalPay = decimalFormat.format(result.getDouble("total_bill"));
+                    Double totalPay = result.getDouble("total_bill");
+                    totalSum.setText(String.valueOf(totalPay));
                 }
             } catch (SQLException e) {
                 showAlert("Error", "Total sum not found ", Alert.AlertType.INFORMATION);
@@ -153,6 +161,7 @@ public class Order extends ViewController implements Initializable {
         }
         totalSum.setEditable(false);
     }
+
     public void handleLogOut(ActionEvent actionEvent) {
         try {
             changeScene(actionEvent, "welcome");
@@ -161,17 +170,14 @@ public class Order extends ViewController implements Initializable {
         }
     }
 
-    public void handlePay(ActionEvent actionEvent) {
-
+    public void handlePay(ActionEvent actionEvent) throws Exception {
         try {
             String sql = "UPDATE customer_decor SET payment_status = true WHERE event_name = '" + eventNameComboBox.getSelectionModel().getSelectedItem() + "'";
             PreparedStatement pr = connection.prepareStatement(sql);
             pr.executeUpdate();
             showAlert("DONE", "YOU ORDER IS COMPLETE AND PAID: " + totalSum.getText(), Alert.AlertType.INFORMATION);
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
-
 }
