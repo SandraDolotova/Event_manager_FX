@@ -1,4 +1,5 @@
 package decor;
+
 import events.Event;
 import lombok.Getter;
 
@@ -12,9 +13,9 @@ public class Decor {
     double decorPrice;
     double decorPriceVAT;
     double totalDecorPrice;
+    String decorStatus;
     double transportCosts;
     double totalBill;
-    String decorStatus;
 
     public Decor(){}
 
@@ -52,8 +53,8 @@ public class Decor {
    public Decor(String decorName, int parseInt, String eventIdToDB, String eventName, Integer decorId) {
    }
 
-    public Decor(String customerId, String decorName, int decorQwt, double decorPriceVAT, double totalDecorPrice, double transportCosts, double totalBill) {
-        this.customerId = customerId;
+    public Decor(int decorId, String decorName, int decorQwt, double decorPriceVAT, double totalDecorPrice, double transportCosts, double totalBill) {
+        this.decorId = decorId;
         this.decorName = decorName;
         this.decorQwt = decorQwt;
         this.decorPriceVAT = decorPriceVAT;
