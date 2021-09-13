@@ -47,13 +47,9 @@ public class Event {
         this.guestNumber = guestNumber;
     }
 
-
-
     @Override
     public String toString() {
         return eventName;
 
     }
-
-
 }
