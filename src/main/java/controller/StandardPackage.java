@@ -1,26 +1,14 @@
 package controller;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Pagination;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
-import javafx.util.Callback;
 import packageTypes.PackagePrice;
 import users.UserDBService;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImageFilter;
 import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class StandardPackage extends ViewController implements Initializable {
@@ -29,8 +17,6 @@ public class StandardPackage extends ViewController implements Initializable {
     private TextField fullNameCallBackField;
     @FXML
     private TextField callBackPhone;
-    @FXML
-    private Pagination pagination;
 
     UserDBService userDBService = new UserDBService();
 

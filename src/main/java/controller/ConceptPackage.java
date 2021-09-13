@@ -22,7 +22,7 @@ public class ConceptPackage extends ViewController {
             validateUserInput();
             userDBService.addCallBackConcept(
                     fullNameCallBackField.getText(),
-                    (int)Long.parseLong(callBackPhone.getText()),
+                    (int) Long.parseLong(callBackPhone.getText()),
                     String.valueOf(PackagePrice.CONCEPT)
             );
             showAlert("Registration successful", "We will call you back as soon as possible", Alert.AlertType.CONFIRMATION);
