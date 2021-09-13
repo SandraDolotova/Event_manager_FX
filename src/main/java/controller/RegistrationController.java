@@ -1,12 +1,17 @@
 package controller;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import users.User;
 import users.UserDBService;
+
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class RegistrationController extends ViewController {
     @FXML
@@ -26,6 +31,7 @@ public class RegistrationController extends ViewController {
 
     public RegistrationController() throws Exception {
     }
+
     public void handleRegistration(ActionEvent actionEvent) {
         try {
             validateUserInput();
@@ -63,4 +69,5 @@ public class RegistrationController extends ViewController {
 
 
 }
+
 
