@@ -70,7 +70,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <RadioButton fx:id="standartRadioButton" mnemonicParsing="false" onAction="#handleStandardRadioButton" text="Standard - (1200 - 2500 EUR)">
+            <RadioButton fx:id="standartRadioButton" mnemonicParsing="false" onAction="#handleStandardRadioButton" text="Standart - (1200 - 2500 EUR)">
                <toggleGroup>
                   <ToggleGroup fx:id="pricePackage" />
                </toggleGroup>
