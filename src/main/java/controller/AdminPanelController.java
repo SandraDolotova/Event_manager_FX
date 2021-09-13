@@ -151,21 +151,20 @@ public class AdminPanelController extends ViewController implements Initializabl
         try {
             bills.removeAll(bills);
             Connection connection = DBHandler.getConnection();
-            String query = "SELECT id, customer_id, event_name, ROUND (total_bill) as total_bill, payment_status FROM customer_decor " +
-                    "where event_name = '" + allEventsComboBox.getSelectionModel().getSelectedItem() +"'";
-            //PreparedStatement pr = connection.prepareStatement(Queries.showBillAdmin);
-            PreparedStatement pr = connection.prepareStatement(query);
-            ResultSet result = pr.executeQuery();
-            while (result.next()) {
-                bills.add(new Bill(
-                        result.getInt("id"),
-                        result.getInt("customer_id"),
-                        result.getString("event_name"),
-                        result.getDouble("total_bill"),
-                        result.getBoolean("payment_status")
-                ));
-            }
-            pr.close();
+                String query = "SELECT id, customer_id, event_name, ROUND (total_bill) as total_bill, payment_status FROM customer_decor where event_name = '" + allEventsComboBox.getSelectionModel().getSelectedItem() + "'";
+                //PreparedStatement pr = connection.prepareStatement(Queries.showBillAdmin);
+                PreparedStatement pr = connection.prepareStatement(query);
+                ResultSet result = pr.executeQuery();
+                while (result.next()) {
+                    bills.add(new Bill(
+                            result.getInt("id"),
+                            result.getInt("customer_id"),
+                            result.getString("event_name"),
+                            result.getDouble("total_bill"),
+                            result.getBoolean("payment_status")
+                    ));
+                }
+                pr.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -184,10 +183,10 @@ public class AdminPanelController extends ViewController implements Initializabl
             showAlert("Success", "Please select your event from the list", Alert.AlertType.INFORMATION);
         } else {
             try {
-                String sql = "SELECT ROUND (SUM(total_bill)) as total_bill FROM customer_decor WHERE event_name = '" + allEventsComboBox.getSelectionModel().getSelectedItem() + "'";
+                String sql = "SELECT ROUND(SUM(total_bill)) as total_bill FROM customer_decor WHERE event_name = '" + allEventsComboBox.getSelectionModel().getSelectedItem() + "'";
                 PreparedStatement pr = connection.prepareStatement(sql);
                 ResultSet result = pr.executeQuery();
-              //  DecimalFormat decimalFormat = new DecimalFormat("0.00");
+                //DecimalFormat decimalFormat = new DecimalFormat("0.00");
                 if (result.next()) {
                    // String totalPay = decimalFormat.format(result.getDouble("total_bill"));
                     Double totalPay = result.getDouble("total_bill");
@@ -200,7 +199,6 @@ public class AdminPanelController extends ViewController implements Initializabl
         }
         totalSum.setEditable(false);
     }
-
 
 
     //EVENT LIST TAB:
@@ -216,28 +214,28 @@ public class AdminPanelController extends ViewController implements Initializabl
     }
     //event search method
     public void filterEventListTable(){
-        searchEvent.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredEvents.setPredicate(event -> {
-                if (newValue == null || newValue.isEmpty()) {
+     searchEvent.textProperty().addListener((observable, oldValue, newValue) -> {
+        filteredEvents.setPredicate(event -> {
+            if (newValue == null || newValue.isEmpty()) {
+                return true;
+            }
+            String lowerCaseFilter = newValue.toLowerCase();
+            if (String.valueOf(event.getEventName()).toLowerCase().contains(lowerCaseFilter)) {
+                return true;
+            } else if (String.valueOf(event.getDueDate()).toLowerCase().contains(lowerCaseFilter)) {
+                return true;
+            } else if (String.valueOf(event.getDueTime()).toLowerCase().contains(lowerCaseFilter)) {
                     return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase();
-                if (String.valueOf(event.getEventName()).toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else if (String.valueOf(event.getDueDate()).toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else if (String.valueOf(event.getDueTime()).toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else if (String.valueOf(event.getLocation()).toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                }
-                return false;
-            });
+            } else if (String.valueOf(event.getLocation()).toLowerCase().contains(lowerCaseFilter)) {
+                return true;
+            }
+            return false;
         });
-        SortedList<Event> sortedEvent = new SortedList<>(filteredEvents);
+    });
+    SortedList<Event> sortedEvent = new SortedList<>(filteredEvents);
         sortedEvent.comparatorProperty().bind(eventListTable.comparatorProperty());
-        eventListTable.setItems(sortedEvent);
-    }
+    eventListTable.setItems(sortedEvent);
+}
 
     //CUSTOMER LIST TAB:
     public void fillInCustomerListTable(){
